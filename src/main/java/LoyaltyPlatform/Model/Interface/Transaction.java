@@ -2,7 +2,7 @@ package LoyaltyPlatform.Model.Interface;
 
 public interface Transaction {
     /**
-     * Return the Id of the transaction
+     * Returns the Id of the transaction
      * @return Id
      */
     int getId();
@@ -18,7 +18,7 @@ public interface Transaction {
     void setAmount(float amount);
 
     /**
-     * Return the wallet to update
+     * Returns the wallet to update
      * @return wallet
      */
     Wallet getWallet();
@@ -28,7 +28,7 @@ public interface Transaction {
      */
     void setWallet(Wallet wallet);
     /**
-     * Return the shop where the transaction was made
+     * Returns the shop where the transaction was made
      * @return shop
      */
     Shop getShop();
