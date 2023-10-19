@@ -2,6 +2,10 @@ package LoyaltyPlatform.Model;
 
 import java.util.List;
 
+/**
+ * A LevelsProgram represents a GenericFidelityProgram
+ * where a list of levels is provided
+ */
 public class LevelsProgram extends GenericFidelityProgram {
 
     private List<Level> levels;
