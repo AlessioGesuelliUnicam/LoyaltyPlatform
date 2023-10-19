@@ -4,6 +4,7 @@ import LoyaltyPlatform.Model.Interface.Coalition;
 import LoyaltyPlatform.Model.Interface.FidelityProgram;
 import LoyaltyPlatform.Model.Interface.Shop;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,18 +13,20 @@ import java.util.List;
 public class GenericCoalition implements Coalition {
     private final int id;
     private String name;
-    private List<Shop> shopsList;
+    private List<Shop> members;
     private FidelityProgram fidelityProgram;
+    private List<Shop> participationRequests;
 
-    public GenericCoalition(int id, String name, List<Shop> shopsList, FidelityProgram fidelityProgram) {
+    public GenericCoalition(int id, String name) {
         this.id = id;
         this.name = name;
-        this.shopsList = shopsList;
-        this.fidelityProgram = fidelityProgram;
+        this.members = new ArrayList<Shop>();
+        this.fidelityProgram = null;
+        this.participationRequests = new ArrayList<Shop>();
     }
 
     /**
-     * Return the Id of the coalition
+     * Return the id of the coalition
      *
      * @return Id
      */
@@ -54,18 +57,21 @@ public class GenericCoalition implements Coalition {
      *
      * @return shopsList
      */
-    public List<Shop> getShopsList() {
-        return shopsList;
+    public List<Shop> getMembers() {
+        return members;
     }
 
     /**
-     * Set the list of shops in the coalition
-     *
-     * @param shopsList
+     * Adds a new member to the coalition
+     * @param shop the shop who joins
      */
-    public void setShopsList(List<Shop> shopsList) {
-        this.shopsList = shopsList;
-    }
+    public void addMember(Shop shop){}
+
+    /**
+     * Removes a member from the coalition
+     * @param shop the shop who lefts
+     */
+    public void removeMember(Shop shop){}
 
     /**
      * Return the fidelity program of the coalition
@@ -84,4 +90,29 @@ public class GenericCoalition implements Coalition {
     public void setFidelityProgram(FidelityProgram fidelityProgram) {
         this.fidelityProgram = fidelityProgram;
     }
+
+    /**
+     * Accepts an incoming request to participate
+     * @param shop the shop who wants to join the coalition
+     */
+    public void acceptMember(Shop shop){}
+
+    /**
+     * Refuses an incoming request to participate
+     * @param shop the shop who wants to join the coalition
+     */
+    public void refuseMember(Shop shop){}
+
+    /**
+     * Adds a shop to the participation requests list
+     * @param shop the shop waiting for approval
+     */
+    public void addShopToParticipationRequests(Shop shop){}
+
+    /**
+     * Removes a shop from the participation requests list
+     * @param shop the shop waiting for approval
+     */
+    public void deleteShopFromParticipationRequests(Shop shop){}
+
 }

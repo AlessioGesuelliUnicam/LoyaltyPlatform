@@ -4,10 +4,11 @@ import LoyaltyPlatform.Model.Interface.Coalition;
 import LoyaltyPlatform.Model.Interface.Wallet;
 
 /**
- * This class is the abstract class for the different types of wallets
+ * A generic wallet keeps track of the points
+ * earned by a client into a coalition
  */
 public abstract class GenericWallet implements Wallet {
-    private int id;
+    private final int id;
     private Coalition coalition;
     private Client client;
     private int points;
@@ -20,9 +21,8 @@ public abstract class GenericWallet implements Wallet {
     }
 
     /**
-     * Return the Id of the wallet
-     *
-     * @return Id
+     * Returns the id of the wallet
+     * @return id
      */
     public int getId() {
         return id;
@@ -32,7 +32,6 @@ public abstract class GenericWallet implements Wallet {
 
     /**
      * Return the coalition of the wallet
-     *
      * @return coalition
      */
     public Coalition getCoalition() {
@@ -43,7 +42,6 @@ public abstract class GenericWallet implements Wallet {
 
     /**
      * Set the coalition of the wallet
-     *
      * @param coalition
      */
     public void setCoalition(Coalition coalition) {
@@ -54,7 +52,6 @@ public abstract class GenericWallet implements Wallet {
 
     /**
      * Return the owner of the wallet
-     *
      * @return client
      */
     public Client getClient() {
@@ -65,7 +62,6 @@ public abstract class GenericWallet implements Wallet {
 
     /**
      * Set the owner of the wallet
-     *
      * @param client
      */
     public void setClient(Client client) {
@@ -76,7 +72,6 @@ public abstract class GenericWallet implements Wallet {
 
     /**
      * Return the points of the wallet
-     *
      * @return points
      */
     public int getPoints() {
@@ -87,7 +82,6 @@ public abstract class GenericWallet implements Wallet {
 
     /**
      * Set the points of the wallet
-     *
      * @param points
      */
     public void setPoints(int points) {

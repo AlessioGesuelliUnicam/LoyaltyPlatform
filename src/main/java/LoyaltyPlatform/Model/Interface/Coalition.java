@@ -18,16 +18,25 @@ public interface Coalition {
      * @param name
      */
     void setName(String name);
+
     /**
      * Return the list of shops in the coalition
      * @return shopsList
      */
-    List<Shop> getShopsList();
+    List<Shop> getMembers();
+
     /**
-     * Set the list of shops in the coalition
-     * @param shopsList
+     * Adds a new member to the coalition
+     * @param shop the shop who joins
      */
-    void setShopsList(List<Shop> shopsList);
+    void addMember(Shop shop);
+
+    /**
+     * Removes a member from the coalition
+     * @param shop the shop who lefts
+     */
+    void removeMember(Shop shop);
+
     /**
      * Return the fidelity program of the coalition
      * @return fidelityProgram
