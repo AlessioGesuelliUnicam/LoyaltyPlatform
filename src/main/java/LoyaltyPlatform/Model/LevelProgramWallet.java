@@ -7,79 +7,30 @@ import LoyaltyPlatform.Model.Interface.Coalition;
  * This class represents the wallet of a client in a level program
  */
 public class LevelProgramWallet extends GenericWallet {
-    private final int id;
-    private Coalition coalition;
-    private Client client;
-    private int points;
 
-    public LevelProgramWallet(int id, GenericCoalition coalition, Client client, int points) {
-        this.id = id;
-        this.coalition = coalition;
-        this.client = client;
-        this.points = points;
-    }
+    private Level level;
 
-    /**
-     * Return the Id of the wallet
-     *
-     * @return Id
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * Return the coalition of the wallet
-     *
-     * @return coalition
-     */
-    public Coalition getCoalition() {
-        return coalition;
-    }
-
-    /**
-     * Set the coalition of the wallet
-     *
-     * @param coalition
-     */
-    public void setCoalition(Coalition coalition) {
-        this.coalition = coalition;
+    public LevelProgramWallet(int id, GenericCoalition coalition, Client client, int points, Level level) {
+        super(id, coalition, client, points);
+        this.level = level;
     }
 
 
     /**
-     * Return the owner of the wallet
+     * Return the level of the wallet
      *
-     * @return client
+     * @return level
      */
-    public Client getClient() {
-        return client;
+    public Level getLevel() {
+        return level;
     }
 
     /**
-     * Set the owner of the wallet
+     * Set the level of the wallet
      *
-     * @param client
+     * @param level
      */
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    /**
-     * Return the points of the wallet
-     *
-     * @return points
-     */
-    public int getPoints() {
-        return points;
-    }
-
-    /**
-     * Set the points of the wallet
-     *
-     * @param points
-     */
-    public void setPoints(int points) {
-        this.points = points;
+    public void setLevel(Level level) {
+        this.level = level;
     }
 }

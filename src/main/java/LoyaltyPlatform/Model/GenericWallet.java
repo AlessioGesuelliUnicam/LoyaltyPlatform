@@ -12,52 +12,87 @@ public abstract class GenericWallet implements Wallet {
     private Client client;
     private int points;
 
+    public GenericWallet(int id, Coalition coalition, Client client, int points) {
+        this.id = id;
+        this.coalition = coalition;
+        this.client = client;
+        this.points = points;
+    }
+
     /**
      * Return the Id of the wallet
      *
      * @return Id
      */
-    public abstract int getId();
+    public int getId() {
+        return id;
+    }
+
+    ;
 
     /**
      * Return the coalition of the wallet
      *
      * @return coalition
      */
-    public abstract Coalition getCoalition();
+    public Coalition getCoalition() {
+        return coalition;
+    }
+
+    ;
 
     /**
      * Set the coalition of the wallet
      *
      * @param coalition
      */
-    public abstract void setCoalition(Coalition coalition);
+    public void setCoalition(Coalition coalition) {
+        this.coalition = coalition;
+    }
+
+    ;
 
     /**
      * Return the owner of the wallet
      *
      * @return client
      */
-    public abstract Client getClient();
+    public Client getClient() {
+        return client;
+    }
+
+    ;
 
     /**
      * Set the owner of the wallet
      *
      * @param client
      */
-    public abstract void setClient(Client client);
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    ;
 
     /**
      * Return the points of the wallet
      *
      * @return points
      */
-    public abstract int getPoints();
+    public int getPoints() {
+        return points;
+    }
+
+    ;
 
     /**
      * Set the points of the wallet
      *
      * @param points
      */
-    public abstract void setPoints(int points);
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    ;
 }
