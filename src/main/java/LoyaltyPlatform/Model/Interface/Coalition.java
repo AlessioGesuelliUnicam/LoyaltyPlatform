@@ -5,9 +5,9 @@ import java.util.List;
 public interface Coalition {
     /**
      * Return the ID of the coalition
-     * @return ID
+     * @return Id
      */
-    int getID();
+    int getId();
     /**
      * Return the name of the coalition
      * @return name

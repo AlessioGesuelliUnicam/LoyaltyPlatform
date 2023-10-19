@@ -2,10 +2,10 @@ package LoyaltyPlatform.Model.Interface;
 
 public interface Transaction {
     /**
-     * Return the ID of the transaction
-     * @return ID
+     * Return the Id of the transaction
+     * @return Id
      */
-    int getID();
+    int getId();
     /**
      * Return the amount of the transaction
      * @return amount
