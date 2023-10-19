@@ -17,7 +17,7 @@ public class LevelProgramWallet extends GenericWallet {
 
 
     /**
-     * Return the level of the wallet
+     * Returns the level of the wallet
      *
      * @return level
      */

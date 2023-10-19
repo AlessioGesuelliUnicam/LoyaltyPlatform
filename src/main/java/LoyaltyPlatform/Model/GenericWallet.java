@@ -7,7 +7,7 @@ import LoyaltyPlatform.Model.Interface.Wallet;
  * This class is the abstract class for the different types of wallets
  */
 public abstract class GenericWallet implements Wallet {
-    private int id;
+    private final int id;
     private Coalition coalition;
     private Client client;
     private int points;

@@ -4,12 +4,12 @@ import java.util.List;
 
 public interface Coalition {
     /**
-     * Return the ID of the coalition
+     * Returns the ID of the coalition
      * @return Id
      */
     int getId();
     /**
-     * Return the name of the coalition
+     * Returns the name of the coalition
      * @return name
      */
     String getName();
@@ -19,17 +19,13 @@ public interface Coalition {
      */
     void setName(String name);
     /**
-     * Return the list of shops in the coalition
+     * Returns the list of shops in the coalition
      * @return shopsList
      */
     List<Shop> getShopsList();
+
     /**
-     * Set the list of shops in the coalition
-     * @param shopsList
-     */
-    void setShopsList(List<Shop> shopsList);
-    /**
-     * Return the fidelity program of the coalition
+     * Returns the fidelity program of the coalition
      * @return fidelityProgram
      */
     FidelityProgram getFidelityProgram();

@@ -23,7 +23,7 @@ public class GenericCoalition implements Coalition {
     }
 
     /**
-     * Return the Id of the coalition
+     * Returns the Id of the coalition
      *
      * @return Id
      */
@@ -32,7 +32,7 @@ public class GenericCoalition implements Coalition {
     }
 
     /**
-     * Return the name of the coalition
+     * Returns the name of the coalition
      *
      * @return name
      */
@@ -50,7 +50,7 @@ public class GenericCoalition implements Coalition {
     }
 
     /**
-     * Return the list of shops in the coalition
+     * Returns the list of shops in the coalition
      *
      * @return shopsList
      */
@@ -58,17 +58,9 @@ public class GenericCoalition implements Coalition {
         return shopsList;
     }
 
-    /**
-     * Set the list of shops in the coalition
-     *
-     * @param shopsList
-     */
-    public void setShopsList(List<Shop> shopsList) {
-        this.shopsList = shopsList;
-    }
 
     /**
-     * Return the fidelity program of the coalition
+     * Returns the fidelity program of the coalition
      *
      * @return fidelityProgram
      */
