@@ -1,17 +1,13 @@
 package LoyaltyPlatform.Model.Interface;
 
+import LoyaltyPlatform.Model.Owner;
+
 public interface Shop {
     /**
      * Return the Partita Iva of the Shop
      * @return the Partita Iva
      */
     String getPartitaIva();
-
-    /**
-     * Sets the Partita Iva for the Shop
-     * @param partitaIva the PartitaIva to set
-     */
-    void setPartitaIva(String partitaIva);
 
     /**
      * Return the Name of the Shop

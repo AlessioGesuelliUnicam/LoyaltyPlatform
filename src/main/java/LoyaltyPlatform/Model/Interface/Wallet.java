@@ -1,5 +1,7 @@
 package LoyaltyPlatform.Model.Interface;
 
+import LoyaltyPlatform.Model.Client;
+
 public interface Wallet {
     /**
      * Return the ID of the wallet

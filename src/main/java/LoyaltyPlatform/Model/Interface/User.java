@@ -5,7 +5,7 @@ public interface User {
      * Return the ID of the User
      * @return the ID
      */
-    int getID();
+    int getId();
 
     /**
      * Return the Name of the User
