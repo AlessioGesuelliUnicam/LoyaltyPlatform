@@ -1,7 +1,7 @@
-package LoyaltyPlatform.Model;
+package LoyaltyPlatform.Shop;
 
-import LoyaltyPlatform.Model.Interface.Coalition;
-import LoyaltyPlatform.Model.Interface.Shop;
+import LoyaltyPlatform.Coalition.Coalition;
+import LoyaltyPlatform.User.Owner;
 
 /**
  * A Generic Shop represent the individual shop of the Loyalty Platform

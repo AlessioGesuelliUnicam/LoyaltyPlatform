@@ -1,8 +1,7 @@
-package LoyaltyPlatform.Model;
+package LoyaltyPlatform.Coalition;
 
-import LoyaltyPlatform.Model.Interface.Coalition;
-import LoyaltyPlatform.Model.Interface.FidelityProgram;
-import LoyaltyPlatform.Model.Interface.Shop;
+import LoyaltyPlatform.FidelityProgram.FidelityProgram;
+import LoyaltyPlatform.Shop.Shop;
 
 import java.util.ArrayList;
 import java.util.List;

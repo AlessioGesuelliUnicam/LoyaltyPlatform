@@ -1,4 +1,8 @@
-package LoyaltyPlatform.Model;
+package LoyaltyPlatform.Wallet;
+
+import LoyaltyPlatform.Coalition.GenericCoalition;
+import LoyaltyPlatform.Reward.Gift;
+import LoyaltyPlatform.User.Client;
 
 /**
  * This class represents the wallet of a client in a gift program

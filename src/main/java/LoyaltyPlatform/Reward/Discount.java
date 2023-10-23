@@ -1,6 +1,4 @@
-package LoyaltyPlatform.Model;
-
-import LoyaltyPlatform.Model.Interface.Reward;
+package LoyaltyPlatform.Reward;
 
 /**
  * A discount represents a percentage deduction on a product for sale

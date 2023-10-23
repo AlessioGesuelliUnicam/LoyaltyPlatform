@@ -1,6 +1,6 @@
-package LoyaltyPlatform.Model;
+package LoyaltyPlatform.User;
 
-import LoyaltyPlatform.Model.Interface.User;
+import LoyaltyPlatform.User.User;
 
 /**
  * A Generic User represent the abstract class for the different type of User

@@ -1,7 +1,7 @@
-package LoyaltyPlatform.Model;
+package LoyaltyPlatform.Wallet;
 
-import LoyaltyPlatform.Model.Interface.Coalition;
-import LoyaltyPlatform.Model.Interface.Wallet;
+import LoyaltyPlatform.Coalition.Coalition;
+import LoyaltyPlatform.User.Client;
 
 /**
  * A generic wallet keeps track of the points

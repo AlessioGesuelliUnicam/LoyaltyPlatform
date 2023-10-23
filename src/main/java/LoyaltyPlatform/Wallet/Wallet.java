@@ -1,6 +1,7 @@
-package LoyaltyPlatform.Model.Interface;
+package LoyaltyPlatform.Wallet;
 
-import LoyaltyPlatform.Model.Client;
+import LoyaltyPlatform.Coalition.Coalition;
+import LoyaltyPlatform.User.Client;
 
 /**
  * Interface for the wallet

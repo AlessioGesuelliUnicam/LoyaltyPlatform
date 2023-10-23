@@ -1,6 +1,6 @@
-package LoyaltyPlatform.Model;
+package LoyaltyPlatform.User;
 
-import LoyaltyPlatform.Model.Interface.Shop;
+import LoyaltyPlatform.Shop.Shop;
 
 /**
  * An Employee represent the worker of one of the shops.

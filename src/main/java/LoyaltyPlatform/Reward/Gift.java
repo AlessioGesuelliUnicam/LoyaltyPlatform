@@ -1,6 +1,4 @@
-package LoyaltyPlatform.Model;
-
-import LoyaltyPlatform.Model.Interface.Reward;
+package LoyaltyPlatform.Reward;
 
 public class Gift implements Reward {
 

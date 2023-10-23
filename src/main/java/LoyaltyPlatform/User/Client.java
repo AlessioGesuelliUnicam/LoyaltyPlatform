@@ -1,7 +1,7 @@
-package LoyaltyPlatform.Model;
+package LoyaltyPlatform.User;
 
 
-import LoyaltyPlatform.Model.Interface.Wallet;
+import LoyaltyPlatform.Wallet.Wallet;
 
 import java.util.List;
 

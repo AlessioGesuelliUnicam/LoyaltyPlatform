@@ -1,4 +1,4 @@
-package LoyaltyPlatform.Model.Interface;
+package LoyaltyPlatform.Reward;
 
 public interface Reward {
 

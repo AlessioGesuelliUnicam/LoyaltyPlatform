@@ -1,4 +1,4 @@
-package LoyaltyPlatform.Model.Interface;
+package LoyaltyPlatform.FidelityProgram;
 
 public interface FidelityProgram {
 

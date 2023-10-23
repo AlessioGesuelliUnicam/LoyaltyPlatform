@@ -1,6 +1,7 @@
-package LoyaltyPlatform.Model;
+package LoyaltyPlatform.FidelityProgram;
 
-import LoyaltyPlatform.Model.Interface.Shop;
+import LoyaltyPlatform.Reward.Gift;
+import LoyaltyPlatform.Shop.Shop;
 
 import java.util.HashMap;
 import java.util.List;

@@ -1,7 +1,6 @@
-package LoyaltyPlatform.Model;
+package LoyaltyPlatform.User;
 
-import LoyaltyPlatform.Model.Interface.Shop;
-import LoyaltyPlatform.Model.Interface.User;
+import LoyaltyPlatform.Shop.Shop;
 
 /**
  * An Owner represent the head of a single shop.

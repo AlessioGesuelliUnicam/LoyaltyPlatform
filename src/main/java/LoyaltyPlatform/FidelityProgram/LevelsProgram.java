@@ -1,4 +1,6 @@
-package LoyaltyPlatform.Model;
+package LoyaltyPlatform.FidelityProgram;
+
+import LoyaltyPlatform.Level.Level;
 
 import java.util.List;
 

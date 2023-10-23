@@ -1,6 +1,4 @@
-package LoyaltyPlatform.Model;
-
-import LoyaltyPlatform.Model.Interface.FidelityProgram;
+package LoyaltyPlatform.FidelityProgram;
 
 public abstract class GenericFidelityProgram implements FidelityProgram {
 

@@ -1,5 +1,9 @@
-package LoyaltyPlatform.Model;
+package LoyaltyPlatform.Wallet;
 
+
+import LoyaltyPlatform.Coalition.GenericCoalition;
+import LoyaltyPlatform.Level.Level;
+import LoyaltyPlatform.User.Client;
 
 /**
  * This class represents the wallet of a client in a level program

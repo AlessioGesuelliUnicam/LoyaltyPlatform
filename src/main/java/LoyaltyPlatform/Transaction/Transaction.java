@@ -1,4 +1,7 @@
-package LoyaltyPlatform.Model.Interface;
+package LoyaltyPlatform.Transaction;
+
+import LoyaltyPlatform.Shop.Shop;
+import LoyaltyPlatform.Wallet.Wallet;
 
 public interface Transaction {
     /**

@@ -1,6 +1,7 @@
-package LoyaltyPlatform.Model.Interface;
+package LoyaltyPlatform.Shop;
 
-import LoyaltyPlatform.Model.Owner;
+import LoyaltyPlatform.Coalition.Coalition;
+import LoyaltyPlatform.User.Owner;
 
 public interface Shop {
     /**
