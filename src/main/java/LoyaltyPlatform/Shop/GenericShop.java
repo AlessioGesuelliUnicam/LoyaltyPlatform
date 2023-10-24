@@ -7,16 +7,27 @@ import LoyaltyPlatform.User.Owner;
  * A Generic Shop represent the individual shop of the Loyalty Platform
  */
 public class GenericShop implements Shop {
-    private final String partitaIva;
+    private final int id;
+    private String partitaIva;
     private String name;
     private Owner owner;
     private Coalition coalition;
 
-    public GenericShop(String partitaIva, String name, Owner owner, Coalition coalition) {
+    public GenericShop(int id, String partitaIva, String name, Owner owner, Coalition coalition) {
+        this.id = id;
         this.partitaIva = partitaIva;
         this.name = name;
         this.owner = owner;
         this.coalition = coalition;
+    }
+
+
+    /**
+     * Return the ID of the Generic User
+     * @return the ID
+     */
+    public int getId() {
+        return id;
     }
 
     /**

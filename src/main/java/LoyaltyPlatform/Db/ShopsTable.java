@@ -34,4 +34,16 @@ public class ShopsTable implements Table<Shop>{
     public void remove(Shop record) {
         shops.remove(record);
     }
+
+    /**
+     * Finds a Shop by id
+     * @param id the Shop of the record
+     * @return the Shop if found
+     */
+    public Shop findById(int id) {
+        for(Shop shop : shops){
+            if(shop.getId() == id) return shop;
+        }
+        return null;
+    }
 }

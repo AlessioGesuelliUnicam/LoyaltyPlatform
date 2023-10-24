@@ -1,5 +1,6 @@
 package LoyaltyPlatform.Db;
 
+import LoyaltyPlatform.Shop.Shop;
 import LoyaltyPlatform.User.Client;
 import java.util.HashSet;
 
@@ -33,5 +34,17 @@ public class ClientsTable implements Table<Client> {
      */
     public void remove(Client record) {
         clients.remove(record);
+    }
+
+    /**
+     * Finds a Client by id
+     * @param id the Client of the record
+     * @return the Client if found
+     */
+    public Client findById(int id) {
+        for(Client client : clients){
+            if(client.getId() == id) return client;
+        }
+        return null;
     }
 }

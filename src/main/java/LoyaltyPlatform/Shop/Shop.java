@@ -5,6 +5,12 @@ import LoyaltyPlatform.User.Owner;
 
 public interface Shop {
     /**
+     *  Return the ID of the User
+     *  @return the ID
+     */
+    int getId();
+
+    /**
      * Return the Partita Iva of the Shop
      * @return the Partita Iva
      */
@@ -45,4 +51,5 @@ public interface Shop {
      * @param Coalition the Coalition to set
      */
     void setCoalition(Coalition Coalition);
+
 }
