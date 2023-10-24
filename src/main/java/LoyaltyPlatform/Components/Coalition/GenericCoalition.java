@@ -70,10 +70,14 @@ public class GenericCoalition implements Coalition {
 
     /**
      * Removes a member from the coalition
-     *
      * @param shop the shop who lefts
+     * @return true if the member has been removed, false otherwise
      */
-    public void removeMember(Shop shop) {
+    public boolean removeMember(Shop shop) {
+        if(shop == null) return false;
+        if(!members.contains(shop)) return false;
+        members.remove(shop);
+        return true;
     }
 
     /**

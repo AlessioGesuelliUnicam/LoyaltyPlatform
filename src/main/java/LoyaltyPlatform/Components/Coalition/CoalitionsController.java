@@ -47,4 +47,10 @@ public class CoalitionsController {
         if (requestingShop.getCoalition().getMembers().size() != 1) return false;
         return hostCoalition.refuseMember(requestingShop);
     }
+
+    public boolean leftCoalition(Shop leavingShop, GenericCoalition coalition){
+        if (leavingShop == null || coalition == null) return false;
+        if (coalition.getMembers().size() == 1) return false;
+        return coalition.removeMember(leavingShop);
+    }
 }
