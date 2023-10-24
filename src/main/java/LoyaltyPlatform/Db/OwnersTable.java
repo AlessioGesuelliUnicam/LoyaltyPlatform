@@ -1,5 +1,6 @@
 package LoyaltyPlatform.Db;
 
+import LoyaltyPlatform.Shop.Shop;
 import LoyaltyPlatform.User.Owner;
 import java.util.HashSet;
 
@@ -33,5 +34,17 @@ public class OwnersTable implements Table<Owner>{
      */
     public void remove(Owner record) {
         owners.remove(record);
+    }
+
+    /**
+     * Finds an Owner by id
+     * @param id the Owner of the record
+     * @return the Owner if found
+     */
+    public Owner findById(int id) {
+        for(Owner owner : owners){
+            if(owner.getId() == id) return owner;
+        }
+        return null;
     }
 }

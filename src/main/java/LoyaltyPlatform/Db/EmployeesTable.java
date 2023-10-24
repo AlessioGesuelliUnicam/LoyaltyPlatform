@@ -1,5 +1,6 @@
 package LoyaltyPlatform.Db;
 
+import LoyaltyPlatform.Shop.Shop;
 import LoyaltyPlatform.User.Employee;
 import java.util.HashSet;
 
@@ -33,5 +34,17 @@ public class EmployeesTable implements Table<Employee> {
      */
     public void remove(Employee record) {
         employees.remove(record);
+    }
+
+    /**
+     * Finds an Employee by id
+     * @param id the Employee of the record
+     * @return the Employee if found
+     */
+    public Employee findById(int id) {
+        for(Employee employee : employees){
+            if(employee.getId() == id) return employee;
+        }
+        return null;
     }
 }
