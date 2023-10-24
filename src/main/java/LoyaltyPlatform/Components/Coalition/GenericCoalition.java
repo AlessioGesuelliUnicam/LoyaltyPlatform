@@ -26,6 +26,7 @@ public class GenericCoalition implements Coalition {
 
     /**
      * Returns the Id of the coalition
+     *
      * @return Id
      */
     public int getId() {
@@ -61,15 +62,19 @@ public class GenericCoalition implements Coalition {
 
     /**
      * Adds a new member to the coalition
+     *
      * @param shop the shop who joins
      */
-    public void addMember(Shop shop){}
+    public void addMember(Shop shop) {
+    }
 
     /**
      * Removes a member from the coalition
+     *
      * @param shop the shop who lefts
      */
-    public void removeMember(Shop shop){}
+    public void removeMember(Shop shop) {
+    }
 
     /**
      * Returns the fidelity program of the coalition
@@ -91,26 +96,40 @@ public class GenericCoalition implements Coalition {
 
     /**
      * Accepts an incoming request to participate
+     *
      * @param shop the shop who wants to join the coalition
      */
-    public void acceptMember(Shop shop){}
+    public void acceptMember(Shop shop) {
+    }
 
     /**
      * Refuses an incoming request to participate
+     *
      * @param shop the shop who wants to join the coalition
      */
-    public void refuseMember(Shop shop){}
+    public void refuseMember(Shop shop) {
+    }
 
     /**
      * Adds a shop to the participation requests list
+     *
      * @param shop the shop waiting for approval
+     * @return true if the shop is added, false otherwise
      */
-    public void addShopToParticipationRequests(Shop shop){}
+    public boolean addShopToParticipationRequests(Shop shop) {
+        if (shop == null) return false;
+        if (participationRequests.contains(shop)) return false;
+        if (members.contains(shop)) return false;
+        return participationRequests.add(shop);
+
+    }
 
     /**
      * Removes a shop from the participation requests list
+     *
      * @param shop the shop waiting for approval
      */
-    public void deleteShopFromParticipationRequests(Shop shop){}
+    public void deleteShopFromParticipationRequests(Shop shop) {
+    }
 
 }
