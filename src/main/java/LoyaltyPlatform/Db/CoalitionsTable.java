@@ -38,4 +38,19 @@ public class CoalitionsTable implements Table<Coalition> {
     public void remove(Coalition record) {
         coalitions.remove(record);
     }
+
+    /**
+     * Finds a record by id
+     *
+     * @param id the id of the record
+     * @return the record
+     */
+    public Coalition findById(int id) {
+        for (Coalition coalition : coalitions) {
+            if (coalition.getId() == id) {
+                return coalition;
+            }
+        }
+        return null;
+    }
 }

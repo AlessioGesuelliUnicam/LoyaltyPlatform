@@ -26,4 +26,11 @@ public interface Table <T> {
      */
     void remove(T record);
 
+    /**
+     * Finds a record by id
+     * @param id the id of the record
+     * @return the record
+     */
+    T findById(int id);
+
 }

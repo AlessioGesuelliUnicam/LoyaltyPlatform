@@ -39,4 +39,19 @@ public class GiftsProgramWalletsTable implements Table<GiftsProgramWallet> {
     public void remove(GiftsProgramWallet record) {
         giftsProgramWallets.remove(record);
     }
+
+    /**
+     * Finds a record by id
+     *
+     * @param id the id of the record
+     * @return the record
+     */
+    public GiftsProgramWallet findById(int id) {
+        for (GiftsProgramWallet giftsProgramWallet : giftsProgramWallets) {
+            if (giftsProgramWallet.getId() == id) {
+                return giftsProgramWallet;
+            }
+        }
+        return null;
+    }
 }
