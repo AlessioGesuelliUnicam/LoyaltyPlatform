@@ -1,6 +1,6 @@
 package LoyaltyPlatform.Db;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * A Table represents a collection of records
@@ -12,6 +12,18 @@ public interface Table <T> {
      * Returns the collection of records
      * @return the collection
      */
-    List<T> getRecords();
+    Set<T> getRecords();
+
+    /**
+     * Adds a record to the collection
+     * @param record the record to add
+     */
+    void add(T record);
+
+    /**
+     * Removes a record from the collection
+     * @param record the record to remove
+     */
+    void remove(T record);
 
 }
