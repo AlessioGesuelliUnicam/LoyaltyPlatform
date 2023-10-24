@@ -44,7 +44,7 @@ public class LevelsProgramWalletsTable implements Table<LevelsProgramWallet> {
      * Finds a record by id
      *
      * @param id the id of the record
-     * @return the record
+     * @return the record if found
      */
     public LevelsProgramWallet findById(int id) {
         for (LevelsProgramWallet levelsProgramWallet : levelsProgramWallets) {

@@ -43,7 +43,7 @@ public class CoalitionsTable implements Table<Coalition> {
      * Finds a record by id
      *
      * @param id the id of the record
-     * @return the record
+     * @return the record if found
      */
     public Coalition findById(int id) {
         for (Coalition coalition : coalitions) {

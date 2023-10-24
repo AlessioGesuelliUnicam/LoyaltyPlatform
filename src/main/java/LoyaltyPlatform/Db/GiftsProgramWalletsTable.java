@@ -44,7 +44,7 @@ public class GiftsProgramWalletsTable implements Table<GiftsProgramWallet> {
      * Finds a record by id
      *
      * @param id the id of the record
-     * @return the record
+     * @return the record if found
      */
     public GiftsProgramWallet findById(int id) {
         for (GiftsProgramWallet giftsProgramWallet : giftsProgramWallets) {
