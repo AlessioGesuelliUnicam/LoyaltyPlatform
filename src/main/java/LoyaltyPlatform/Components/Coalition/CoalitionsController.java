@@ -48,6 +48,12 @@ public class CoalitionsController {
         return hostCoalition.refuseMember(requestingShop);
     }
 
+    /**
+     * Makes a shop leave the coalition
+     * @param leavingShop the leaving Shop
+     * @param coalition the coalition to leave
+     * @return true if the shop left the coalition, false otherwise
+     */
     public boolean leftCoalition(Shop leavingShop, GenericCoalition coalition){
         if (leavingShop == null || coalition == null) return false;
         if (coalition.getMembers().size() == 1) return false;

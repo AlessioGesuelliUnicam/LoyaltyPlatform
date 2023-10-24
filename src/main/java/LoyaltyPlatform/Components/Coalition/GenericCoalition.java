@@ -25,7 +25,7 @@ public class GenericCoalition implements Coalition {
     }
 
     /**
-     * Returns the Id of the coalition
+     * Returns the id of the coalition
      *
      * @return Id
      */
@@ -62,10 +62,14 @@ public class GenericCoalition implements Coalition {
 
     /**
      * Adds a new member to the coalition
-     *
      * @param shop the shop who joins
+     * @return true if the member has been added, false otherwise
      */
-    public void addMember(Shop shop) {
+    public boolean addMember(Shop shop) {
+        if(shop == null) return false;
+        if(!members.contains(shop)) return false;
+        members.add(shop);
+        return true;
     }
 
     /**
@@ -105,11 +109,9 @@ public class GenericCoalition implements Coalition {
      */
     public boolean acceptMember(Shop shop) {
         if(shop == null) return false;
-        if(members.contains(shop)) return false;
         if(!participationRequests.contains(shop)) return false;
-        members.add(shop);
         participationRequests.remove(shop);
-        return true;
+        return addMember(shop);
     }
 
     /**

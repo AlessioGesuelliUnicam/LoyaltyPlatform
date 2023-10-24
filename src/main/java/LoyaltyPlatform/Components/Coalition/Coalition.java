@@ -32,7 +32,14 @@ public interface Coalition {
      * Adds a new member to the coalition
      * @param shop the shop who joins
      */
-    void addMember(Shop shop);
+    boolean addMember(Shop shop);
+
+    /**
+     * Removes a member from the coalition
+     * @param shop the shop to remove
+     * @return true if the shop has been removed, false otherwise
+     */
+    boolean removeMember(Shop shop);
 
     /**
      * Returns the fidelity program of the coalition
