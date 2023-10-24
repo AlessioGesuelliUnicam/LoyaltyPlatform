@@ -1,5 +1,6 @@
 package LoyaltyPlatform.Db;
 
+import LoyaltyPlatform.FidelityProgram.GiftsProgram;
 import LoyaltyPlatform.Reward.Gift;
 
 import java.util.HashSet;
@@ -35,4 +36,17 @@ public class GiftsTable implements Table<Gift> {
     public void remove(Gift record) {
         gifts.remove(record);
     }
+
+    /**
+     * Finds a Gift by id
+     * @param id the id of the Gift
+     * @return the Gift if found
+     */
+    public Gift findById(int id) {
+        for(Gift gifts: gifts){
+            if (gifts.getId() == id) return gifts;
+        }
+        return null;
+    }
+
 }

@@ -12,11 +12,21 @@ import java.util.List;
  */
 public class Level {
 
+    private final int id;
     private final int pointsThreshold;
     private HashMap<Shop, List<Discount>> discountMap;
 
-    public Level(int pointsThreshold){
+    public Level(int id, int pointsThreshold){
+        this.id = id;
         this.pointsThreshold = pointsThreshold;
+    }
+
+    /**
+     * Returns the id of the level
+     * @return the id of the level
+     */
+    public int getId() {
+        return id;
     }
 
     /**

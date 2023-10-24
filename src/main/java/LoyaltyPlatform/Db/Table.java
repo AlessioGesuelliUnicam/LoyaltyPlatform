@@ -29,7 +29,7 @@ public interface Table <T> {
     /**
      * Finds a record by id
      * @param id the id of the record
-     * @return the record
+     * @return the record if found
      */
     T findById(int id);
 

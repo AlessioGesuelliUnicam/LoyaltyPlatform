@@ -36,4 +36,17 @@ public class DiscountsTable implements Table<Discount> {
     public void remove(Discount record) {
         discounts.remove(record);
     }
+
+    /**
+     * Finds a Discount by id
+     * @param id the id of the Discount
+     * @return the Discount if found
+     */
+    public Discount findById(int id) {
+        for(Discount discount: discounts){
+            if (discount.getId() == id) return discount;
+        }
+        return null;
+    }
+
 }

@@ -6,10 +6,10 @@ import java.util.HashSet;
 
 public class GiftsProgramsTable implements Table<GiftsProgram> {
 
-    private HashSet<GiftsProgram> giftPrograms;
+    private HashSet<GiftsProgram> giftsPrograms;
 
     public GiftsProgramsTable(){
-        giftPrograms = new HashSet<>();
+        giftsPrograms = new HashSet<>();
     }
 
     /**
@@ -17,7 +17,7 @@ public class GiftsProgramsTable implements Table<GiftsProgram> {
      * @return the collection
      */
     public HashSet<GiftsProgram> getRecords() {
-        return giftPrograms;
+        return giftsPrograms;
     }
 
     /**
@@ -25,7 +25,7 @@ public class GiftsProgramsTable implements Table<GiftsProgram> {
      * @param record the GiftProgram to add
      */
     public void add(GiftsProgram record) {
-        giftPrograms.add(record);
+        giftsPrograms.add(record);
     }
 
     /**
@@ -33,6 +33,18 @@ public class GiftsProgramsTable implements Table<GiftsProgram> {
      * @param record the GiftProgram to remove
      */
     public void remove(GiftsProgram record) {
-        giftPrograms.remove(record);
+        giftsPrograms.remove(record);
+    }
+
+    /**
+     * Finds a GiftsProgram by id
+     * @param id the id of the GiftsProgram
+     * @return the GiftsProgram if found
+     */
+    public GiftsProgram findById(int id) {
+        for(GiftsProgram giftsProgram: giftsPrograms){
+            if (giftsProgram.getId() == id) return giftsProgram;
+        }
+        return null;
     }
 }

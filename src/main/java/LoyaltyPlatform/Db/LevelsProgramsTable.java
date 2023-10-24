@@ -1,6 +1,7 @@
 package LoyaltyPlatform.Db;
 
 import LoyaltyPlatform.FidelityProgram.LevelsProgram;
+import LoyaltyPlatform.Reward.Gift;
 
 import java.util.HashSet;
 
@@ -35,4 +36,17 @@ public class LevelsProgramsTable implements Table<LevelsProgram>{
     public void remove(LevelsProgram record) {
         levelsPrograms.remove(record);
     }
+
+    /**
+     * Finds a LevelsProgram by id
+     * @param id the id of the LevelsProgram
+     * @return the LevelsProgram if found
+     */
+    public LevelsProgram findById(int id) {
+        for(LevelsProgram levelsProgram: levelsPrograms){
+            if (levelsProgram.getId() == id) return levelsProgram;
+        }
+        return null;
+    }
+
 }
