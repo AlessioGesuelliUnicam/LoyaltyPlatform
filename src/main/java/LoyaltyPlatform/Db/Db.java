@@ -1,8 +1,6 @@
 package LoyaltyPlatform.Db;
 
-import LoyaltyPlatform.Transaction.Transaction;
-import LoyaltyPlatform.Wallet.GiftsProgramWallet;
-import LoyaltyPlatform.Wallet.LevelsProgramWallet;
+import LoyaltyPlatform.Db.Tables.*;
 
 public class Db {
     private ClientsTable clientsTable;
