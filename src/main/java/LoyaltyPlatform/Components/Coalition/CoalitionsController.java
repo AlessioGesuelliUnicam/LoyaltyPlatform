@@ -12,9 +12,39 @@ public class CoalitionsController {
         coalitions = db.getCoalitionsTable().getRecords();
     }
 
-    public boolean sendPartecipationRequest(Shop requestingShop, GenericCoalition hostCoalition) {
+    /**
+     * Sends a participation request from a requesting shop to a hosting coalition
+     * @param requestingShop the requesting shop
+     * @param hostCoalition the hosting coalition
+     * @return true if the request has been sent, false otherwise
+     */
+    public boolean sendParticipationRequest(Shop requestingShop, GenericCoalition hostCoalition) {
         if (requestingShop == null || hostCoalition == null) return false;
         if (requestingShop.getCoalition().getMembers().size() != 1) return false;
         return hostCoalition.addShopToParticipationRequests(requestingShop);
+    }
+
+    /**
+     * Accepts a participation request from a requesting shop in a hosting coalition
+     * @param requestingShop the requesting shop
+     * @param hostCoalition the hosting coalition
+     * @return true if the request has been accepted, false otherwise
+     */
+    public boolean acceptParticipationRequest(Shop requestingShop, GenericCoalition hostCoalition){
+        if (requestingShop == null || hostCoalition == null) return false;
+        if (requestingShop.getCoalition().getMembers().size() != 1) return false;
+        return hostCoalition.acceptMember(requestingShop);
+    }
+
+    /**
+     * Refuses a participation request from a requesting shop in a hosting coalition
+     * @param requestingShop the requesting shop
+     * @param hostCoalition the hosting coalition
+     * @return true if the request has been refused, false otherwise
+     */
+    public boolean refuseParticipationRequest(Shop requestingShop, GenericCoalition hostCoalition){
+        if (requestingShop == null || hostCoalition == null) return false;
+        if (requestingShop.getCoalition().getMembers().size() != 1) return false;
+        return hostCoalition.refuseMember(requestingShop);
     }
 }

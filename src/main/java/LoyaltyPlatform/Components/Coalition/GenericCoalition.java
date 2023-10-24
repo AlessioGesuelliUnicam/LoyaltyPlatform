@@ -96,18 +96,29 @@ public class GenericCoalition implements Coalition {
 
     /**
      * Accepts an incoming request to participate
-     *
      * @param shop the shop who wants to join the coalition
+     * @return true if the member is added, false otherwise
      */
-    public void acceptMember(Shop shop) {
+    public boolean acceptMember(Shop shop) {
+        if(shop == null) return false;
+        if(members.contains(shop)) return false;
+        if(!participationRequests.contains(shop)) return false;
+        members.add(shop);
+        participationRequests.remove(shop);
+        return true;
     }
 
     /**
      * Refuses an incoming request to participate
-     *
      * @param shop the shop who wants to join the coalition
+     * @return true if the member is refused, false otherwise
      */
-    public void refuseMember(Shop shop) {
+    public boolean refuseMember(Shop shop) {
+        if(shop == null) return false;
+        if(members.contains(shop)) return false;
+        if(!participationRequests.contains(shop)) return false;
+        participationRequests.remove(shop);
+        return true;
     }
 
     /**
