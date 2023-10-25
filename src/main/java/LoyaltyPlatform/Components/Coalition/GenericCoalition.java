@@ -141,12 +141,5 @@ public class GenericCoalition implements Coalition {
 
     }
 
-    /**
-     * Removes a shop from the participation requests list
-     *
-     * @param shop the shop waiting for approval
-     */
-    public void deleteShopFromParticipationRequests(Shop shop) {
-    }
 
 }

@@ -30,6 +30,7 @@ public class CoalitionsController {
     public boolean sendParticipationRequest(Shop requestingShop, GenericCoalition hostCoalition) {
         if (requestingShop == null || hostCoalition == null) return false;
         if (requestingShop.getCoalition().getMembers().size() != 1) return false;
+        if(hostCoalition.getFidelityProgram()== null)  return false;
         return hostCoalition.addShopToParticipationRequests(requestingShop);
     }
 
@@ -42,6 +43,7 @@ public class CoalitionsController {
     public boolean acceptParticipationRequest(Shop requestingShop, GenericCoalition hostCoalition){
         if (requestingShop == null || hostCoalition == null) return false;
         if (requestingShop.getCoalition().getMembers().size() != 1) return false;
+        if(hostCoalition.getFidelityProgram()== null)  return false;
         return hostCoalition.acceptMember(requestingShop);
     }
 

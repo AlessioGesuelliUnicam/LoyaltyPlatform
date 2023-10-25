@@ -9,12 +9,13 @@ public class DiscountsTable implements Table<Discount> {
 
     private HashSet<Discount> discounts;
 
-    public DiscountsTable(){
+    public DiscountsTable() {
         discounts = new HashSet<>();
     }
 
     /**
      * Returns the collection of discounts
+     *
      * @return the collection
      */
     public HashSet<Discount> getRecords() {
@@ -23,27 +24,34 @@ public class DiscountsTable implements Table<Discount> {
 
     /**
      * Adds a Discount to the collection
+     *
      * @param record the Discount to add
+     * @return true if the Discount has been added, false otherwise
      */
-    public void add(Discount record) {
-        discounts.add(record);
+    public boolean add(Discount record) {
+        if (record == null) return false;
+        return discounts.add(record);
     }
 
     /**
      * Removes a Discount from the collection
+     *
      * @param record the Discount to remove
+     * @return true if the Discount has been removed, false otherwise
      */
-    public void remove(Discount record) {
-        discounts.remove(record);
+    public boolean remove(Discount record) {
+        if (record == null) return false;
+        return discounts.remove(record);
     }
 
     /**
      * Finds a Discount by id
+     *
      * @param id the id of the Discount
      * @return the Discount if found
      */
     public Discount findById(int id) {
-        for(Discount discount: discounts){
+        for (Discount discount : discounts) {
             if (discount.getId() == id) return discount;
         }
         return null;

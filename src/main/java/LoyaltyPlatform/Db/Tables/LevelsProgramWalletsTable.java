@@ -26,18 +26,22 @@ public class LevelsProgramWalletsTable implements Table<LevelsProgramWallet> {
      * Adds a record to the collection
      *
      * @param record the record to add
+     * @return true if the record is added, false otherwise
      */
-    public void add(LevelsProgramWallet record) {
-        levelsProgramWallets.add(record);
+    public boolean add(LevelsProgramWallet record) {
+        if (record == null) return false;
+        return levelsProgramWallets.add(record);
     }
 
     /**
      * Removes a record from the collection
      *
      * @param record the record to remove
+     * @return true if the record is deleted, false otherwise
      */
-    public void remove(LevelsProgramWallet record) {
-        levelsProgramWallets.remove(record);
+    public boolean remove(LevelsProgramWallet record) {
+        if (record == null) return false;
+        return levelsProgramWallets.remove(record);
     }
 
     /**

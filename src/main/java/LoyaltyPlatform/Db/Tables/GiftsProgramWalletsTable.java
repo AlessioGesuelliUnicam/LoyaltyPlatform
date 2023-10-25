@@ -26,18 +26,22 @@ public class GiftsProgramWalletsTable implements Table<GiftsProgramWallet> {
      * Adds a record to the collection
      *
      * @param record the record to add
+     * @return true if the record is added, false otherwise
      */
-    public void add(GiftsProgramWallet record) {
-        giftsProgramWallets.add(record);
+    public boolean add(GiftsProgramWallet record) {
+        if (record == null) return false;
+        return giftsProgramWallets.add(record);
     }
 
     /**
      * Removes a record from the collection
      *
      * @param record the record to remove
+     * @return true if the record is deleted, false otherwise
      */
-    public void remove(GiftsProgramWallet record) {
-        giftsProgramWallets.remove(record);
+    public boolean remove(GiftsProgramWallet record) {
+        if (record == null) return false;
+        return giftsProgramWallets.remove(record);
     }
 
     /**

@@ -1,9 +1,10 @@
 package LoyaltyPlatform.Db.Tables;
 
 import LoyaltyPlatform.Components.Shop.Shop;
+
 import java.util.HashSet;
 
-public class ShopsTable implements Table<Shop>{
+public class ShopsTable implements Table<Shop> {
 
     private HashSet<Shop> shops;
 
@@ -13,6 +14,7 @@ public class ShopsTable implements Table<Shop>{
 
     /**
      * Returns the collection of shop
+     *
      * @return the collection
      */
     public HashSet<Shop> getRecords() {
@@ -21,28 +23,35 @@ public class ShopsTable implements Table<Shop>{
 
     /**
      * Adds a Shop to the collection
+     *
      * @param record the Shop to add
+     * @return true if the Shop is added, false otherwise
      */
-    public void add(Shop record) {
-        shops.add(record);
+    public boolean add(Shop record) {
+        if (record == null) return false;
+        return shops.add(record);
     }
 
     /**
      * Removes a Shop from the collection
+     *
      * @param record the Shop to remove
+     * @return true if the Shop is deleted, false otherwise
      */
-    public void remove(Shop record) {
-        shops.remove(record);
+    public boolean remove(Shop record) {
+        if (record == null) return false;
+        return shops.remove(record);
     }
 
     /**
      * Finds a Shop by id
+     *
      * @param id the Shop of the record
      * @return the Shop if found
      */
     public Shop findById(int id) {
-        for(Shop shop : shops){
-            if(shop.getId() == id) return shop;
+        for (Shop shop : shops) {
+            if (shop.getId() == id) return shop;
         }
         return null;
     }

@@ -25,18 +25,22 @@ public class CoalitionsTable implements Table<Coalition> {
      * Adds a record to the collection
      *
      * @param record the record to add
+     * @return true if the record is added, false otherwise
      */
-    public void add(Coalition record) {
-        coalitions.add(record);
+    public boolean add(Coalition record) {
+        if (record == null) return false;
+        return coalitions.add(record);
     }
 
     /**
      * Removes a record from the collection
      *
      * @param record the record to remove
+     * @return true if the record is deleted, false otherwise
      */
-    public void remove(Coalition record) {
-        coalitions.remove(record);
+    public boolean remove(Coalition record) {
+        if (record == null) return false;
+        return coalitions.remove(record);
     }
 
     /**

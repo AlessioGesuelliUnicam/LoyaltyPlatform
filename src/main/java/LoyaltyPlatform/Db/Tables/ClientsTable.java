@@ -22,17 +22,21 @@ public class ClientsTable implements Table<Client> {
     /**
      * Adds a Client to the collection
      * @param record the Client to add
+     * @return true if the Client is added, false otherwise
      */
-    public void add(Client record) {
-        clients.add(record);
+    public boolean add(Client record) {
+        if(record == null) return false;
+        return clients.add(record);
     }
 
     /**
      * Removes a Client from the collection
      * @param record the Client to remove
+     * @return true if the Client is deleted, false otherwise
      */
-    public void remove(Client record) {
-        clients.remove(record);
+    public boolean remove(Client record) {
+        if(record == null) return false;
+        return clients.remove(record);
     }
 
     /**

@@ -4,16 +4,17 @@ import LoyaltyPlatform.Components.Level.Level;
 
 import java.util.HashSet;
 
-public class LevelsTable implements Table<Level>{
+public class LevelsTable implements Table<Level> {
 
     private HashSet<Level> levels;
 
-    public LevelsTable(){
+    public LevelsTable() {
         levels = new HashSet<>();
     }
 
     /**
      * Returns the collection of levels
+     *
      * @return the collection
      */
     public HashSet<Level> getRecords() {
@@ -22,27 +23,34 @@ public class LevelsTable implements Table<Level>{
 
     /**
      * Adds a Level to the collection
+     *
      * @param record the Level to add
+     * @return true if the Level is added, false otherwise
      */
-    public void add(Level record) {
-        levels.add(record);
+    public boolean add(Level record) {
+        if (record == null) return false;
+        return levels.add(record);
     }
 
     /**
      * Removes a Level from the collection
+     *
      * @param record the Level to remove
+     * @return true if the Level is deleted, false otherwise
      */
-    public void remove(Level record) {
-        levels.remove(record);
+    public boolean remove(Level record) {
+        if (record == null) return false;
+        return levels.remove(record);
     }
 
     /**
      * Finds a Level by id
+     *
      * @param id the id of the Level
      * @return the Level if found
      */
     public Level findById(int id) {
-        for(Level level: levels){
+        for (Level level : levels) {
             if (level.getId() == id) return level;
         }
         return null;
