@@ -6,10 +6,19 @@ import LoyaltyPlatform.Db.Db;
 import java.util.HashSet;
 
 public class CoalitionsController {
-    private HashSet<Coalition> coalitions;
+
+    private final Db db;
 
     public CoalitionsController(Db db) {
-        coalitions = db.getCoalitionsTable().getRecords();
+        this.db = db;
+    }
+
+    /**
+     * Returns the set of existing coalitions
+     * @return the set
+     */
+    public HashSet<Coalition> getCoalitions(){
+        return db.getCoalitionsTable().getRecords();
     }
 
     /**
