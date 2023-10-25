@@ -12,12 +12,14 @@ import java.util.List;
  */
 public class Level {
 
+    private static int idCounter = 0;
     private final int id;
     private final int pointsThreshold;
     private HashMap<Shop, List<Discount>> discountMap;
 
-    public Level(int id, int pointsThreshold){
-        this.id = id;
+    public Level(int pointsThreshold){
+        id = idCounter;
+        idCounter++;
         this.pointsThreshold = pointsThreshold;
     }
 

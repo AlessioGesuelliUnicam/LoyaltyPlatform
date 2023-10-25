@@ -2,11 +2,11 @@ package LoyaltyPlatform.Components.FidelityProgram;
 
 import LoyaltyPlatform.Db.Db;
 
-public class FidelityProgramController {
+public class FidelityProgramsController {
 
     private final Db db;
 
-    public FidelityProgramController(Db db) {
+    public FidelityProgramsController(Db db) {
         this.db = db;
     }
 

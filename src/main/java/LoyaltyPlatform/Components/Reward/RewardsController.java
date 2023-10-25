@@ -2,11 +2,11 @@ package LoyaltyPlatform.Components.Reward;
 
 import LoyaltyPlatform.Db.Db;
 
-public class RewardController {
+public class RewardsController {
 
     private final Db db;
 
-    public RewardController(Db db) {
+    public RewardsController(Db db) {
         this.db = db;
     }
 
