@@ -17,14 +17,16 @@ public interface Table <T> {
     /**
      * Adds a record to the collection
      * @param record the record to add
+     * @return true if the record is added, false otherwise
      */
-    void add(T record);
+    boolean add(T record);
 
     /**
      * Removes a record from the collection
      * @param record the record to remove
+     * @return true if the record is deleted, false otherwise
      */
-    void remove(T record);
+    boolean remove(T record);
 
     /**
      * Finds a record by id

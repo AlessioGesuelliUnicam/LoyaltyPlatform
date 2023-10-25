@@ -2,12 +2,14 @@ package LoyaltyPlatform.Components.FidelityProgram;
 
 public abstract class GenericFidelityProgram implements FidelityProgram {
 
+    private static int idCounter = 0;
     private final int id;
     private final double multiplier;
     private String description;
 
-    public GenericFidelityProgram(int id, double multiplier, String description) {
-        this.id = id;
+    public GenericFidelityProgram(double multiplier, String description) {
+        id = idCounter;
+        idCounter++;
         this.multiplier = multiplier;
         this.description = description;
     }

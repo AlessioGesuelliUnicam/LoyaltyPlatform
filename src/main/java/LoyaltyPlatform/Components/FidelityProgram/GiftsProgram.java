@@ -14,7 +14,7 @@ public class GiftsProgram extends GenericFidelityProgram{
 
     private HashMap<Shop, List<Gift>> giftsMap;
 
-    public GiftsProgram(int id, double multiplier, String description) {
-        super(id, multiplier, description);
+    public GiftsProgram(double multiplier, String description) {
+        super(multiplier, description);
     }
 }

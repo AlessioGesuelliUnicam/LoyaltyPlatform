@@ -12,8 +12,8 @@ public class LevelsProgram extends GenericFidelityProgram {
 
     private List<Level> levels;
 
-    public LevelsProgram(int id, double multiplier, String description) {
-        super(id, multiplier, description);
+    public LevelsProgram(double multiplier, String description) {
+        super(multiplier, description);
     }
 
 }

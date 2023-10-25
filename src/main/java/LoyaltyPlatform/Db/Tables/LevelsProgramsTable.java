@@ -23,17 +23,23 @@ public class LevelsProgramsTable implements Table<LevelsProgram>{
     /**
      * Adds a LevelsProgram to the collection
      * @param record the LevelsProgram to add
+     * @return true if the LevelsProgram is added, false otherwise
      */
-    public void add(LevelsProgram record) {
+    public boolean add(LevelsProgram record) {
+        if(record == null) return false;
         levelsPrograms.add(record);
+        return true;
     }
 
     /**
      * Removes a LevelsProgram from the collection
      * @param record the LevelsProgram to remove
+     * @return true if the LevelsProgram is deleted, false otherwise
      */
-    public void remove(LevelsProgram record) {
+    public boolean remove(LevelsProgram record) {
+        if(record == null) return false;
         levelsPrograms.remove(record);
+        return true;
     }
 
     /**
