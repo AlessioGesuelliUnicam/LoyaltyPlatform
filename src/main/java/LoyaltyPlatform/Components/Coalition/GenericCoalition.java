@@ -10,14 +10,17 @@ import java.util.List;
  * This class represents a generic coalition
  */
 public class GenericCoalition implements Coalition {
+
+    private static int idCounter = 0;
     private final int id;
     private String name;
     private List<Shop> members;
     private FidelityProgram fidelityProgram;
     private List<Shop> participationRequests;
 
-    public GenericCoalition(int id, String name) {
-        this.id = id;
+    public GenericCoalition(String name) {
+        this.id = idCounter;
+        idCounter++;
         this.name = name;
         this.members = new ArrayList<Shop>();
         this.fidelityProgram = null;
