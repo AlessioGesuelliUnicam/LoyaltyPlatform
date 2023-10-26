@@ -28,11 +28,4 @@ public interface Table <T> {
      */
     boolean remove(T record);
 
-    /**
-     * Finds a record by id
-     * @param id the id of the record
-     * @return the record if found
-     */
-    T findById(int id);
-
 }
