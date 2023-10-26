@@ -5,6 +5,7 @@ import LoyaltyPlatform.Components.Shop.Shop;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A level represents a collection of unlockable discounts
@@ -17,7 +18,7 @@ public class Level {
     private final int pointsThreshold;
     private HashMap<Shop, List<Discount>> discountMap;
 
-    public Level(int pointsThreshold){
+    public Level(int pointsThreshold) {
         id = idCounter;
         idCounter++;
         this.pointsThreshold = pointsThreshold;
@@ -25,6 +26,7 @@ public class Level {
 
     /**
      * Returns the id of the level
+     *
      * @return the id of the level
      */
     public int getId() {
@@ -33,9 +35,22 @@ public class Level {
 
     /**
      * Returns the points threshold
+     *
      * @return the points threshold
      */
     public int getPointsThreshold() {
         return pointsThreshold;
+    }
+
+    public boolean equals(Object o) {
+        if (o == null) return false;
+        if (this == o) return true;
+        if (!(o instanceof Level)) return false;
+        Level level = (Level) o;
+        return this.id == level.id;
+    }
+
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

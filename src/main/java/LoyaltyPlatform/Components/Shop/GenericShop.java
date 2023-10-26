@@ -24,6 +24,7 @@ public class GenericShop implements Shop {
 
     /**
      * Return the ID of the Generic User
+     *
      * @return the ID
      */
     public int getId() {
@@ -32,6 +33,7 @@ public class GenericShop implements Shop {
 
     /**
      * Return the Partita Iva of the Shop
+     *
      * @return the Partita Iva
      */
     public String getPartitaIva() {
@@ -40,6 +42,7 @@ public class GenericShop implements Shop {
 
     /**
      * Return the Name of the Shop
+     *
      * @return the Name
      */
     public String getName() {
@@ -48,6 +51,7 @@ public class GenericShop implements Shop {
 
     /**
      * Sets the Name for the Shop
+     *
      * @param name the Name to set
      */
     public void setName(String name) {
@@ -56,6 +60,7 @@ public class GenericShop implements Shop {
 
     /**
      * Return the Owner of the Shop
+     *
      * @return the Owner
      */
     public Owner getOwner() {
@@ -64,6 +69,7 @@ public class GenericShop implements Shop {
 
     /**
      * Sets the Owner for the Shop
+     *
      * @param Owner the Owner to set
      */
     public void setOwner(Owner Owner) {
@@ -72,6 +78,7 @@ public class GenericShop implements Shop {
 
     /**
      * Return Coalition of the Shop
+     *
      * @return the Coalition
      */
     public Coalition getCoalition() {
@@ -80,9 +87,18 @@ public class GenericShop implements Shop {
 
     /**
      * Sets the Coalition for the Shop
+     *
      * @param Coalition the Coalition to set
      */
     public void setCoalition(Coalition Coalition) {
         this.coalition = coalition;
+    }
+
+    public boolean equals(Object o) {
+        if (o == null) return false;
+        if (this == o) return true;
+        if (!(o instanceof GenericShop)) return false;
+        GenericShop shop = (GenericShop) o;
+        return this.id == shop.id;
     }
 }

@@ -65,24 +65,26 @@ public class GenericCoalition implements Coalition {
 
     /**
      * Adds a new member to the coalition
+     *
      * @param shop the shop who joins
      * @return true if the member has been added, false otherwise
      */
     public boolean addMember(Shop shop) {
-        if(shop == null) return false;
-        if(!members.contains(shop)) return false;
+        if (shop == null) return false;
+        if (!members.contains(shop)) return false;
         members.add(shop);
         return true;
     }
 
     /**
      * Removes a member from the coalition
+     *
      * @param shop the shop who lefts
      * @return true if the member has been removed, false otherwise
      */
     public boolean removeMember(Shop shop) {
-        if(shop == null) return false;
-        if(!members.contains(shop)) return false;
+        if (shop == null) return false;
+        if (!members.contains(shop)) return false;
         members.remove(shop);
         return true;
     }
@@ -107,25 +109,27 @@ public class GenericCoalition implements Coalition {
 
     /**
      * Accepts an incoming request to participate
+     *
      * @param shop the shop who wants to join the coalition
      * @return true if the member is added, false otherwise
      */
     public boolean acceptMember(Shop shop) {
-        if(shop == null) return false;
-        if(!participationRequests.contains(shop)) return false;
+        if (shop == null) return false;
+        if (!participationRequests.contains(shop)) return false;
         participationRequests.remove(shop);
         return addMember(shop);
     }
 
     /**
      * Refuses an incoming request to participate
+     *
      * @param shop the shop who wants to join the coalition
      * @return true if the member is refused, false otherwise
      */
     public boolean refuseMember(Shop shop) {
-        if(shop == null) return false;
-        if(members.contains(shop)) return false;
-        if(!participationRequests.contains(shop)) return false;
+        if (shop == null) return false;
+        if (members.contains(shop)) return false;
+        if (!participationRequests.contains(shop)) return false;
         participationRequests.remove(shop);
         return true;
     }
@@ -144,5 +148,14 @@ public class GenericCoalition implements Coalition {
 
     }
 
+
+    public boolean equals(Object o) {
+        if (o == null) return false;
+        if (this == o) return true;
+        if (!(o instanceof GenericCoalition)) return false;
+        GenericCoalition coalition = (GenericCoalition) o;
+        return this.id == coalition.id;
+
+    }
 
 }

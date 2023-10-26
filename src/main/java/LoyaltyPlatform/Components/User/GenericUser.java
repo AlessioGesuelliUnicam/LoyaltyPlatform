@@ -18,6 +18,7 @@ public abstract class GenericUser implements User {
 
     /**
      * Return the ID of the Generic User
+     *
      * @return the ID
      */
     public int getId() {
@@ -26,6 +27,7 @@ public abstract class GenericUser implements User {
 
     /**
      * Return the Name of the Generic User
+     *
      * @return the Name
      */
     public String getName() {
@@ -34,6 +36,7 @@ public abstract class GenericUser implements User {
 
     /**
      * Sets the Name for the Generic User
+     *
      * @param name the Name to set
      */
     public void setName(String name) {
@@ -42,6 +45,7 @@ public abstract class GenericUser implements User {
 
     /**
      * Return the Surname of the Generic User
+     *
      * @return the Surname
      */
     public String getSurname() {
@@ -50,6 +54,7 @@ public abstract class GenericUser implements User {
 
     /**
      * Sets the Surname for the Generic User
+     *
      * @param surname the Surname to set
      */
     public void setSurname(String surname) {
@@ -58,6 +63,7 @@ public abstract class GenericUser implements User {
 
     /**
      * Return the Email of the Generic User
+     *
      * @return the Email
      */
     public String getEmail() {
@@ -66,11 +72,19 @@ public abstract class GenericUser implements User {
 
     /**
      * Sets the Email for the Generic User
+     *
      * @param email the Email to set
      */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    public boolean equals(Object o) {
+        if (o == null) return false;
+        if (this == o) return true;
+        if (!(o instanceof GenericUser)) return false;
+        GenericUser user = (GenericUser) o;
+        return this.id == user.id;
+    }
 }
 

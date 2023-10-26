@@ -22,6 +22,7 @@ public abstract class GenericWallet implements Wallet {
 
     /**
      * Returns the id of the wallet
+     *
      * @return id
      */
     public int getId() {
@@ -32,6 +33,7 @@ public abstract class GenericWallet implements Wallet {
 
     /**
      * Return the coalition of the wallet
+     *
      * @return coalition
      */
     public Coalition getCoalition() {
@@ -42,6 +44,7 @@ public abstract class GenericWallet implements Wallet {
 
     /**
      * Set the coalition of the wallet
+     *
      * @param coalition
      */
     public void setCoalition(Coalition coalition) {
@@ -52,6 +55,7 @@ public abstract class GenericWallet implements Wallet {
 
     /**
      * Return the owner of the wallet
+     *
      * @return client
      */
     public Client getClient() {
@@ -62,6 +66,7 @@ public abstract class GenericWallet implements Wallet {
 
     /**
      * Set the owner of the wallet
+     *
      * @param client
      */
     public void setClient(Client client) {
@@ -72,6 +77,7 @@ public abstract class GenericWallet implements Wallet {
 
     /**
      * Return the points of the wallet
+     *
      * @return points
      */
     public int getPoints() {
@@ -82,11 +88,18 @@ public abstract class GenericWallet implements Wallet {
 
     /**
      * Set the points of the wallet
+     *
      * @param points
      */
     public void setPoints(int points) {
         this.points = points;
     }
 
-    ;
+    public boolean equals(Object o) {
+        if (o == null) return false;
+        if (this == o) return true;
+        if (!(o instanceof GenericWallet)) return false;
+        GenericWallet wallet = (GenericWallet) o;
+        return this.id == wallet.id;
+    }
 }
