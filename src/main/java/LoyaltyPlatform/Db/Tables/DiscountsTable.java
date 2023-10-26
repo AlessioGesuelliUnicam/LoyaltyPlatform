@@ -27,9 +27,10 @@ public class DiscountsTable implements Table<Discount> {
      *
      * @param record the Discount to add
      * @return true if the Discount has been added, false otherwise
+     * @throws NullPointerException if the given Discount is null
      */
     public boolean add(Discount record) {
-        if (record == null) return false;
+        if (record == null) throw new NullPointerException("Field record can't be null");
         return discounts.add(record);
     }
 
@@ -38,9 +39,10 @@ public class DiscountsTable implements Table<Discount> {
      *
      * @param record the Discount to remove
      * @return true if the Discount has been removed, false otherwise
+     * @throws NullPointerException if the given Discount is null
      */
     public boolean remove(Discount record) {
-        if (record == null) return false;
+        if (record == null) throw new NullPointerException("Field record can't be null");
         return discounts.remove(record);
     }
 

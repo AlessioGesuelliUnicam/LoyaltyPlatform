@@ -26,9 +26,10 @@ public class LevelsProgramsTable implements Table<LevelsProgram> {
      *
      * @param record the LevelsProgram to add
      * @return true if the LevelsProgram is added, false otherwise
+     * @throws NullPointerException if the given LevelsProgram is null
      */
     public boolean add(LevelsProgram record) {
-        if (record == null) return false;
+        if (record == null) throw new NullPointerException("Field record can't be null");
         levelsPrograms.add(record);
         return true;
     }
@@ -38,9 +39,10 @@ public class LevelsProgramsTable implements Table<LevelsProgram> {
      *
      * @param record the LevelsProgram to remove
      * @return true if the LevelsProgram is deleted, false otherwise
+     * @throws NullPointerException if the given LevelsProgram is null
      */
     public boolean remove(LevelsProgram record) {
-        if (record == null) return false;
+        if (record == null) throw new NullPointerException("Field record can't be null");
         levelsPrograms.remove(record);
         return true;
     }

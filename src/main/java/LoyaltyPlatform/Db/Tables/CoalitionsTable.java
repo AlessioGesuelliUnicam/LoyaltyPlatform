@@ -26,9 +26,10 @@ public class CoalitionsTable implements Table<Coalition> {
      *
      * @param record the record to add
      * @return true if the record is added, false otherwise
+     * @throws NullPointerException if the given record is null
      */
     public boolean add(Coalition record) {
-        if (record == null) return false;
+        if (record == null) throw new NullPointerException("Field record can't be null");
         return coalitions.add(record);
     }
 
@@ -37,9 +38,10 @@ public class CoalitionsTable implements Table<Coalition> {
      *
      * @param record the record to remove
      * @return true if the record is deleted, false otherwise
+     * @throws NullPointerException if the given record is null
      */
     public boolean remove(Coalition record) {
-        if (record == null) return false;
+        if (record == null) throw new NullPointerException("Field record can't be null");
         return coalitions.remove(record);
     }
 

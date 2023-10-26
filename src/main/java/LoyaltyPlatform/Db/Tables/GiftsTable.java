@@ -26,9 +26,10 @@ public class GiftsTable implements Table<Gift> {
      *
      * @param record the Gift to add
      * @return true if the Gift is added, false otherwise
+     * @throws NullPointerException if the given Gift is null
      */
     public boolean add(Gift record) {
-        if (record == null) return false;
+        if (record == null) throw new NullPointerException("Field record can't be null");
         return gifts.add(record);
     }
 
@@ -37,9 +38,10 @@ public class GiftsTable implements Table<Gift> {
      *
      * @param record the Gift to remove
      * @return true if the Gift is deleted, false otherwise
+     * @throws NullPointerException if the given Gift is null
      */
     public boolean remove(Gift record) {
-        if (record == null) return false;
+        if (record == null) throw new NullPointerException("Field record can't be null");
         return gifts.remove(record);
     }
 

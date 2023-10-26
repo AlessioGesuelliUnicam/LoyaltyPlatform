@@ -26,9 +26,10 @@ public class EmployeesTable implements Table<Employee> {
      *
      * @param record the Employee to add
      * @return true if the Employee has been added, false otherwise
+     * @throws NullPointerException if the given Employee is null
      */
     public boolean add(Employee record) {
-        if (record == null) return false;
+        if (record == null) throw new NullPointerException("Field record can't be null");
         return employees.add(record);
     }
 
@@ -37,9 +38,10 @@ public class EmployeesTable implements Table<Employee> {
      *
      * @param record the Employee to remove
      * @return true if the Employee has been removed, false otherwise
+     * @throws NullPointerException if the given Employee is null
      */
     public boolean remove(Employee record) {
-        if (record == null) return false;
+        if (record == null) throw new NullPointerException("Field record can't be null");
         return employees.remove(record);
     }
 
