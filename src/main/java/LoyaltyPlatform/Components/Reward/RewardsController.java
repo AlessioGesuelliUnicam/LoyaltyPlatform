@@ -28,14 +28,14 @@ public class RewardsController {
     }
 
     /**
-     * Deletes a Gift
+     * Deletes a gift
      *
-     * @param id the id of the Gift to delete
-     * @return true if the Gift has been deleted, false otherwise
+     * @param gift the gift to delete
+     * @return true if the gift has been deleted, false otherwise
      */
-    public boolean deleteGift(int id) {
-        if (id < 0) return false;
-        return db.getGiftsTable().remove(db.getGiftsTable().findById(id));
+    public boolean deleteGift(Gift gift) {
+        if (gift == null) throw new NullPointerException("Field gift can't be null");
+        return db.getGiftsTable().remove(gift);
     }
 
     /**
@@ -53,14 +53,14 @@ public class RewardsController {
     }
 
     /**
-     * Deletes a Discount
+     * Deletes a discount
      *
-     * @param id the id of the Discount to delete
-     * @return true if the Discount has been deleted, false otherwise
+     * @param discount the discount to delete
+     * @return true if the discount has been deleted, false otherwise
      */
-    public boolean deleteDiscount(int id) {
-        if (id < 0) return false;
-        return db.getDiscountsTable().remove(db.getDiscountsTable().findById(id));
+    public boolean deleteDiscount(Discount discount) {
+        if (discount == null) throw new NullPointerException("Field discount can't be null");
+        return db.getDiscountsTable().remove(discount);
     }
 
 }

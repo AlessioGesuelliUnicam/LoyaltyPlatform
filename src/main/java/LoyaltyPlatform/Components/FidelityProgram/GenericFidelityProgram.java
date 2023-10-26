@@ -7,7 +7,9 @@ public abstract class GenericFidelityProgram implements FidelityProgram {
     private final double multiplier;
     private String description;
 
+
     public GenericFidelityProgram(double multiplier, String description) {
+        if(multiplier < 0 || multiplier > 1) throw new IllegalArgumentException("Field multiplier out of range 0-1");
         id = idCounter;
         idCounter++;
         this.multiplier = multiplier;

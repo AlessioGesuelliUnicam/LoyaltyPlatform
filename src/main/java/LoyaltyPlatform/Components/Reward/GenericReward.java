@@ -7,8 +7,8 @@ public abstract class GenericReward implements Reward {
     private String label;
 
 
-    public GenericReward(String label) {
-        if (label == null) throw new NullPointerException();
+    public GenericReward(String label){
+        if(label == null) throw new NullPointerException("Field label can't be null");
         this.id = idCounter;
         idCounter++;
         this.label = label;
@@ -36,8 +36,10 @@ public abstract class GenericReward implements Reward {
      * Sets the label for the Generic reward
      *
      * @param label the new label
+     * @throws NullPointerException when the given label is null
      */
     public void setLabel(String label) {
+        if(label == null) throw new NullPointerException("Field label can't be null");
         this.label = label;
     }
 

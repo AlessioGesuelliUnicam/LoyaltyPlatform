@@ -9,6 +9,7 @@ public class Discount extends GenericReward {
 
     public Discount(String label, int percentageDiscount) {
         super(label);
+        if(percentageDiscount < 0 || percentageDiscount > 100) throw new IllegalArgumentException("Field percentageDiscount out of range 0-100");
         this.percentageDiscount = percentageDiscount;
     }
 
@@ -25,8 +26,10 @@ public class Discount extends GenericReward {
      * Sets the percentage discount for the discount
      *
      * @param percentageDiscount the percentage discount
+     * @throws IllegalArgumentException when the given percentage discount is out of range 0-100
      */
     public void setPercentageDiscount(int percentageDiscount) {
+        if(percentageDiscount < 0 || percentageDiscount > 100) throw new IllegalArgumentException("Field percentageDiscount out of range 0-100");
         this.percentageDiscount = percentageDiscount;
     }
 
