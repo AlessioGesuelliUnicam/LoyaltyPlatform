@@ -26,9 +26,10 @@ public class LevelsTable implements Table<Level> {
      *
      * @param record the Level to add
      * @return true if the Level is added, false otherwise
+     * @throws NullPointerException if the record is null
      */
     public boolean add(Level record) {
-        if (record == null) return false;
+        if (record == null) throw new NullPointerException("Field record can't be null");
         return levels.add(record);
     }
 
@@ -37,9 +38,10 @@ public class LevelsTable implements Table<Level> {
      *
      * @param record the Level to remove
      * @return true if the Level is deleted, false otherwise
+     * @throws NullPointerException if the record is null
      */
     public boolean remove(Level record) {
-        if (record == null) return false;
+        if (record == null) throw new NullPointerException("Field record can't be null");
         return levels.remove(record);
     }
 

@@ -26,9 +26,10 @@ public class OwnersTable implements Table<Owner> {
      *
      * @param record the Owner to add
      * @return true if the Owner is added, false otherwise
+     * @throws NullPointerException if the record is null
      */
     public boolean add(Owner record) {
-        if (record == null) return false;
+        if (record == null) throw new NullPointerException("Field record can't be null");
         return owners.add(record);
     }
 
@@ -37,9 +38,10 @@ public class OwnersTable implements Table<Owner> {
      *
      * @param record the Owner to remove
      * @return true if the Owner is deleted, false otherwise
+     * @throws NullPointerException if the record is null
      */
     public boolean remove(Owner record) {
-        if (record == null) return false;
+        if (record == null) throw new NullPointerException("Field record can't be null");
         return owners.remove(record);
     }
 

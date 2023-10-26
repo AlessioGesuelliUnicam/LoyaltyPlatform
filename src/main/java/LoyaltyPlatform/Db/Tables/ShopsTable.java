@@ -26,9 +26,10 @@ public class ShopsTable implements Table<Shop> {
      *
      * @param record the Shop to add
      * @return true if the Shop is added, false otherwise
+     * @throws NullPointerException if the record is null
      */
     public boolean add(Shop record) {
-        if (record == null) return false;
+        if (record == null) throw new NullPointerException("Field record can't be null");
         return shops.add(record);
     }
 
@@ -37,9 +38,10 @@ public class ShopsTable implements Table<Shop> {
      *
      * @param record the Shop to remove
      * @return true if the Shop is deleted, false otherwise
+     * @throws NullPointerException if the record is null
      */
     public boolean remove(Shop record) {
-        if (record == null) return false;
+        if (record == null) throw new NullPointerException("Field record can't be null");
         return shops.remove(record);
     }
 
