@@ -23,9 +23,10 @@ public class ClientsTable implements Table<Client> {
      * Adds a Client to the collection
      * @param record the Client to add
      * @return true if the Client is added, false otherwise
+     * @throws NullPointerException if the given Client is null
      */
     public boolean add(Client record) {
-        if(record == null) return false;
+        if(record == null) throw new NullPointerException("Field record can't be null");
         return clients.add(record);
     }
 
@@ -33,9 +34,10 @@ public class ClientsTable implements Table<Client> {
      * Removes a Client from the collection
      * @param record the Client to remove
      * @return true if the Client is deleted, false otherwise
+     * @throws NullPointerException if the given Client is null
      */
     public boolean remove(Client record) {
-        if(record == null) return false;
+        if(record == null) throw new NullPointerException("Field record can't be null");
         return clients.remove(record);
     }
 
