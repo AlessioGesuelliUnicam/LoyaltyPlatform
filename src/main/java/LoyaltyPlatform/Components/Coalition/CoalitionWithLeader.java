@@ -29,8 +29,7 @@ public class CoalitionWithLeader extends GenericCoalition {
      */
     public boolean addToParticipationRequests(Shop shop) {
         if (shop == null) return false;
-        if (participationRequests.contains(shop)) return false;
-        if (super.getMembers().contains(shop)) return false;
+        if (super.hasMember(shop)) return false;
         return participationRequests.add(shop);
 
     }
@@ -43,7 +42,7 @@ public class CoalitionWithLeader extends GenericCoalition {
      */
     public boolean acceptMember(Shop shop) throws ShopNotInQueueException {
         if (shop == null) return false;
-        if(participationRequests.remove(shop)) return super.addMember(shop);
+        if (participationRequests.remove(shop)) return super.addMember(shop);
         throw new ShopNotInQueueException("The given shop was not found in the incoming requests queue");
     }
 
@@ -55,10 +54,8 @@ public class CoalitionWithLeader extends GenericCoalition {
      */
     public boolean refuseMember(Shop shop) {
         if (shop == null) return false;
-        if (super.getMembers().contains(shop)) return false;
         if (!participationRequests.contains(shop)) return false;
-        participationRequests.remove(shop);
-        return true;
+        return participationRequests.remove(shop);
     }
 
     /**
