@@ -1,5 +1,6 @@
 package LoyaltyPlatform.Components.Coalition;
 
+import LoyaltyPlatform.Components.FidelityProgram.FidelityProgram;
 import LoyaltyPlatform.Components.Shop.Shop;
 import LoyaltyPlatform.Db.Db;
 import LoyaltyPlatform.Exceptions.*;
@@ -64,6 +65,58 @@ public class CoalitionsController {
         if(coalition == null) throw new NullPointerException("Field coalition can't be null");
         if(!coalition.isEmpty()) throw new CoalitionNotEmptyException("Can't delete a coalition with some members");
         return db.getCoalitionsTable().remove(coalition);
+    }
+
+
+
+    /**
+     * Returns the name of the given coalition
+     * @param coalition the coalition
+     * @return the name of the coalition
+     * @throws NullPointerException if the given coalition is null
+     */
+    public String getNameOf(Coalition coalition) {
+        if(coalition == null) throw new NullPointerException("Field coalition can't be null");
+        return coalition.getName();
+    }
+
+    /**
+     * Sets the name of the given coalition
+     * @param coalition the coalition
+     * @param name the new name
+     * @throws NullPointerException if any of the fields is null
+     * @throws IllegalArgumentException if the given name is blank
+     */
+    public void setNameOf(Coalition coalition, String name) {
+        if(coalition == null) throw new NullPointerException("Field coalition can't be null");
+        if(name == null) throw new NullPointerException("Field name can't be null");
+        if(name.isEmpty()) throw new IllegalArgumentException("Field name can't be blank");
+        coalition.setName(name);
+    }
+
+
+    /**
+     * Returns the Fidelity Program of the given coalition
+     * @param coalition the coalition
+     * @return the fidelity program
+     * @throws NullPointerException if the given coalition is null
+     */
+    public FidelityProgram getFidelityProgramOf(Coalition coalition) {
+        if(coalition == null) throw new NullPointerException("Field coalition can't be null");
+        return coalition.getFidelityProgram();
+    }
+
+    /**
+     * Sets the fidelity program for the given coalition
+     * @param coalition the coalition
+     * @param fidelityProgram the new fidelity program
+     * @throws NullPointerException if the given coalition is null or
+     * if the fhe fidelityProgram is null and there is more than a member in the coalition
+     */
+    public void setFidelityProgramOf(Coalition coalition, FidelityProgram fidelityProgram) {
+        if(coalition == null) throw new NullPointerException("Field coalition can't be null");
+        if(!coalition.hasOneMember() && fidelityProgram == null) throw new NullPointerException("Field fidelityProgram can't be null if the coalition has more than one member");
+        coalition.setFidelityProgram(fidelityProgram);
     }
 
 
