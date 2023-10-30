@@ -21,6 +21,24 @@ public class FidelityProgramsController {
     }
 
     /**
+     * Deletes a fidelity program
+     * @param fidelityProgram the fidelityProgram to delete
+     * @return true if the fidelityProgram has been deleted, false otherwise
+     * @throws NullPointerException if the given fidelityProgram is null
+     */
+    public boolean deleteFidelityProgram(FidelityProgram fidelityProgram){
+        if(fidelityProgram == null) throw new NullPointerException("Field fidelityProgram can't be null");
+        if(fidelityProgram instanceof GiftsProgram giftsProgram)
+            return deleteGiftsProgram(giftsProgram);
+        if(fidelityProgram instanceof LevelsProgram levelsProgram){
+            return deleteLevelsProgram(levelsProgram);
+        }
+        return false;
+    }
+
+
+
+    /**
      * Returns the complete set of existing LevelsPrograms
      * @return the GiftsPrograms
      */
@@ -49,7 +67,7 @@ public class FidelityProgramsController {
      * @return true if the program has been deleted, false otherwise
      * @throws NullPointerException if field giftsProgram is null
      */
-    public boolean deleteGiftsProgram(GiftsProgram giftsProgram) {
+    private boolean deleteGiftsProgram(GiftsProgram giftsProgram) {
         if (giftsProgram == null) throw new NullPointerException("Field giftsProgram can't be null");
         RewardsController rewardsController = new RewardsController(db);
         HashMap<Shop, Set<Gift>> shopsGift = giftsProgram.getShopsGift();
@@ -122,7 +140,7 @@ public class FidelityProgramsController {
      * @return true if the program has been deleted, false otherwise
      * @throws NullPointerException if field levelsProgram is null
      */
-    public boolean deleteLevelsProgram(LevelsProgram levelsProgram) {
+    private boolean deleteLevelsProgram(LevelsProgram levelsProgram) {
         if(levelsProgram == null) throw new NullPointerException("Field levelsProgram can't be null");
         LevelsController levelsController = new LevelsController(db);
         TreeSet<Level> levels = levelsProgram.getLevels();

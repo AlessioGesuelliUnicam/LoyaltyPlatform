@@ -1,6 +1,7 @@
 package LoyaltyPlatform.Components.Coalition;
 
 import LoyaltyPlatform.Components.FidelityProgram.FidelityProgram;
+import LoyaltyPlatform.Components.FidelityProgram.FidelityProgramsController;
 import LoyaltyPlatform.Components.Shop.Shop;
 import LoyaltyPlatform.Db.Db;
 import LoyaltyPlatform.Exceptions.*;
@@ -64,6 +65,9 @@ public class CoalitionsController {
     public boolean deleteCoalition(Coalition coalition) throws CoalitionNotEmptyException {
         if(coalition == null) throw new NullPointerException("Field coalition can't be null");
         if(!coalition.isEmpty()) throw new CoalitionNotEmptyException("Can't delete a coalition with some members");
+        FidelityProgramsController fidelityProgramsController = new FidelityProgramsController(db);
+        FidelityProgram fidelityProgram = getFidelityProgramOf(coalition);
+        fidelityProgramsController.deleteFidelityProgram(fidelityProgram);
         return db.getCoalitionsTable().remove(coalition);
     }
 
