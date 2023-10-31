@@ -1,11 +1,12 @@
 package LoyaltyPlatform.Components.FidelityProgram;
 
-import LoyaltyPlatform.Components.Reward.Discount;
+import LoyaltyPlatform.Components.Coalition.Coalition;
 import LoyaltyPlatform.Components.Reward.Gift;
 import LoyaltyPlatform.Components.Shop.Shop;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -16,8 +17,10 @@ public class GiftsProgram extends GenericFidelityProgram{
 
     private HashMap<Shop, Set<Gift>> shopsGift;
 
-    public GiftsProgram(double multiplier, String description) {
-        super(multiplier, description);
+    public GiftsProgram(Coalition coalition, double multiplier, String description) {
+        super(coalition, multiplier, description);
+        List<Shop> members = coalition.getMembers();
+        for(Shop shop : members) addShop(shop);
     }
 
     /**
@@ -29,7 +32,7 @@ public class GiftsProgram extends GenericFidelityProgram{
     }
 
     /**
-     * Adds a shop to the list of shops of the program with an empty set of gifts
+     * Adds a shop in the list of shops of the program with an empty set of gifts
      * @param shop the shop to add
      * @return true if the shop is added, false if the shop was already present
      * @throws NullPointerException if the given shop is null
@@ -37,7 +40,7 @@ public class GiftsProgram extends GenericFidelityProgram{
     public boolean addShop(Shop shop){
         if(shop == null) throw new NullPointerException("Field shop can't be null");
         if(shopsGift.containsKey(shop)) return false;
-        shopsGift.put(shop, new HashSet<>());
+        shopsGift.put(shop, new HashSet<Gift>());
         return true;
     }
 
@@ -47,7 +50,7 @@ public class GiftsProgram extends GenericFidelityProgram{
      * @return true if the shop has been removed, false if the shop was not found
      * @throws NullPointerException if the given shop is null
      */
-    public boolean deleteShop(Shop shop){
+    public boolean removeShop(Shop shop){
         if(shop == null) throw new NullPointerException("Field shop can't be null");
         if(!shopsGift.containsKey(shop)) return false;
         shopsGift.remove(shop);

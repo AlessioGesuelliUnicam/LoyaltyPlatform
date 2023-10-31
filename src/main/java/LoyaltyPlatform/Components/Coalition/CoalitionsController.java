@@ -68,7 +68,7 @@ public class CoalitionsController {
         FidelityProgramsController fidelityProgramsController = new FidelityProgramsController(db);
         FidelityProgram fidelityProgram = getFidelityProgramOf(coalition);
         fidelityProgramsController.deleteFidelityProgram(fidelityProgram);
-        return db.getCoalitionsTable().remove(coalition);
+        return db.getCoalitionsTable().delete(coalition);
     }
 
 
@@ -154,14 +154,11 @@ public class CoalitionsController {
         if(coalition == null) throw new NullPointerException("Field newCoalition can't be null");
         if (!coalition.hasFidelityProgram()) throw new FidelityProgramNotProvidedException("Can't migrate a shop in a coalition who doesn't provide a fidelity program");
         Coalition oldCoalition = getCoalitionOf(shop);
-        if(oldCoalition == null) return coalition.acceptMember(shop);
-        if(coalition.acceptMember(shop)){
-            oldCoalition.removeMember(shop);
-            if(oldCoalition.isEmpty()) deleteCoalition(oldCoalition);
-            clearParticipationRequestsFor(shop);
-            return true;
-        }
-        return false;
+        if(!addShopToCoalition(coalition, shop)) return false;
+        if(!removeShopFromCoalition(coalition, shop)) return false;
+        if(oldCoalition.isEmpty()) deleteCoalition(oldCoalition);
+        clearParticipationRequestsFor(shop);
+        return true;
     }
 
     /**
@@ -175,6 +172,8 @@ public class CoalitionsController {
         return coalition.refuseMember(shop);
     }
 
+
+
     /**
      * Makes a shop leave the coalition
      *
@@ -187,11 +186,46 @@ public class CoalitionsController {
         if (shop == null) throw new NullPointerException("Field shop can't be null");
         Coalition coalition = getCoalitionOf(shop);
         if (coalition.hasOneMember()) throw new LastMemberLeavingException("A shop can't leave a coalition with only one member");
-        coalition.removeMember(shop);
+        if(!removeShopFromCoalition(coalition, shop)) return false;
         return createCoalition(shop);
     }
 
 
+
+    /**
+     * Adds a shop in a coalition
+     * @param coalition the coalition where to add the shop
+     * @param shop the shop to add
+     * @return true if the shop has been added, false otherwise
+     * @throws NullPointerException if any of the fields is null
+     * @throws ShopNotInQueueException if the shop wasn't found in the participation requests queue of the coalition
+     */
+    private boolean addShopToCoalition(CoalitionWithLeader coalition, Shop shop) throws ShopNotInQueueException {
+        if(shop == null) throw new NullPointerException("Field shop can't be null");
+        if(coalition == null) throw new NullPointerException("Field coalition can't be null");
+        if(coalition.acceptMember(shop)){
+            FidelityProgramsController fidelityProgramsController = new FidelityProgramsController(db);
+            return fidelityProgramsController.addShopToFidelityProgram(coalition.getFidelityProgram(),shop);
+        }
+        return false;
+    }
+
+    /**
+     * Removes a shop from a coalition
+     * @param coalition the coalition where to remove the shop
+     * @param shop the shop to remove
+     * @return true if the shop has been removed, false otherwise
+     * @throws NullPointerException if any of the fields is null
+     */
+    private boolean removeShopFromCoalition(Coalition coalition, Shop shop){
+        if(shop == null) throw new NullPointerException("Field shop can't be null");
+        if(coalition == null) throw new NullPointerException("Field coalition can't be null");
+        if(coalition.removeMember(shop)){
+            FidelityProgramsController fidelityProgramsController = new FidelityProgramsController(db);
+            return fidelityProgramsController.deleteShopFromFidelityProgram(coalition.getFidelityProgram(), shop);
+        }
+        return false;
+    }
 
     /**
      * Deletes a shop from all the participation requests queues

@@ -1,6 +1,8 @@
 package LoyaltyPlatform.Components.Coalition;
 
 import LoyaltyPlatform.Components.FidelityProgram.FidelityProgram;
+import LoyaltyPlatform.Components.FidelityProgram.GiftsProgram;
+import LoyaltyPlatform.Components.FidelityProgram.LevelsProgram;
 import LoyaltyPlatform.Components.Shop.Shop;
 
 import java.util.ArrayList;

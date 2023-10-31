@@ -1,5 +1,7 @@
 package LoyaltyPlatform.Components.FidelityProgram;
 
+import LoyaltyPlatform.Components.Coalition.Coalition;
+
 public interface FidelityProgram {
 
     /**
@@ -7,6 +9,12 @@ public interface FidelityProgram {
      * @return the ID
      */
     int getId();
+
+    /**
+     * Returns the coalition which the program belongs
+     * @return the coalition
+     */
+    public Coalition getCoalition();
 
     /**
      * Returns the multiplier used to convert Euros into Points

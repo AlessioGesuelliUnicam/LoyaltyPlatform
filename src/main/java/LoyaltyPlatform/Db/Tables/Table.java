@@ -22,10 +22,10 @@ public interface Table <T> {
     boolean add(T record);
 
     /**
-     * Removes a record from the collection
-     * @param record the record to remove
+     * Deletes a record in the collection
+     * @param record the record to delete
      * @return true if the record is deleted, false otherwise
      */
-    boolean remove(T record);
+    boolean delete(T record);
 
 }

@@ -1,5 +1,7 @@
 package LoyaltyPlatform.Components.Level;
 
+import LoyaltyPlatform.Components.Coalition.Coalition;
+import LoyaltyPlatform.Components.FidelityProgram.LevelsProgram;
 import LoyaltyPlatform.Components.Reward.Discount;
 import LoyaltyPlatform.Components.Shop.Shop;
 
@@ -7,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -18,16 +19,19 @@ public class Level {
 
     private static int idCounter = 0;
     private final int id;
+    private final LevelsProgram levelsProgram;
     private final int pointsThreshold;
     private HashMap<Shop, Set<Discount>> shopsDiscount;
 
-    public Level(int pointsThreshold, Set<Shop> shops){
+    public Level(LevelsProgram levelsProgram, int pointsThreshold){
         if(pointsThreshold < 0) throw new IllegalArgumentException("Field pointThreshold must be positive");
         id = idCounter;
         idCounter++;
+        this.levelsProgram = levelsProgram;
         this.pointsThreshold = pointsThreshold;
         shopsDiscount = new HashMap<>();
-        for(Shop shop: shops) addShop(shop);
+        List<Shop> members = levelsProgram.getCoalition().getMembers();
+        for(Shop shop : members) addShop(shop);
     }
 
     /**
@@ -62,10 +66,12 @@ public class Level {
      * @return true if the shop is added, false if the shop was already present
      * @throws NullPointerException if the given shop is null
      */
-    public boolean addShop(Shop shop){
+    public boolean
+
+    addShop(Shop shop){
         if(shop == null) throw new NullPointerException("Field shop can't be null");
         if(shopsDiscount.containsKey(shop)) return false;
-        shopsDiscount.put(shop, new HashSet<>());
+        shopsDiscount.put(shop, new HashSet<Discount>());
         return true;
     }
 
@@ -75,7 +81,7 @@ public class Level {
      * @return true if the shop has been removed, false if the shop was not found
      * @throws NullPointerException if the given shop is null
      */
-    public boolean deleteShop(Shop shop){
+    public boolean removeShop(Shop shop){
         if(shop == null) throw new NullPointerException("Field shop can't be null");
         if(!shopsDiscount.containsKey(shop)) return false;
         shopsDiscount.remove(shop);

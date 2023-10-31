@@ -35,7 +35,7 @@ public class RewardsController {
      */
     public boolean deleteGift(Gift gift) {
         if (gift == null) throw new NullPointerException("Field gift can't be null");
-        return db.getGiftsTable().remove(gift);
+        return db.getGiftsTable().delete(gift);
     }
 
     /**
@@ -60,7 +60,7 @@ public class RewardsController {
      */
     public boolean deleteDiscount(Discount discount) {
         if (discount == null) throw new NullPointerException("Field discount can't be null");
-        return db.getDiscountsTable().remove(discount);
+        return db.getDiscountsTable().delete(discount);
     }
 
 }

@@ -30,12 +30,12 @@ public abstract class GenericTable<T> implements Table<T>{
     }
 
     /**
-     * Removes a record from the collection
-     * @param record the record to remove
+     * Deletes a record in the collection
+     * @param record the record to delete
      * @return true if the record is deleted, false otherwise
      * @throws NullPointerException if the given record is null
      */
-    public boolean remove(T record) {
+    public boolean delete(T record) {
         if(record == null) throw new NullPointerException("Field record can't be null");
         return records.remove(record);
     }

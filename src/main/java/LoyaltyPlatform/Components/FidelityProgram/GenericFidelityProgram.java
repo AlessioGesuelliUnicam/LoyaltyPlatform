@@ -1,17 +1,23 @@
 package LoyaltyPlatform.Components.FidelityProgram;
 
+import LoyaltyPlatform.Components.Coalition.Coalition;
+import LoyaltyPlatform.Components.Level.Level;
+import LoyaltyPlatform.Components.Shop.Shop;
+
 public abstract class GenericFidelityProgram implements FidelityProgram {
 
     private static int idCounter = 0;
     private final int id;
+    private final Coalition coalition;
     private final double multiplier;
     private String description;
 
 
-    public GenericFidelityProgram(double multiplier, String description) {
+    public GenericFidelityProgram(Coalition coalition, double multiplier, String description) {
         if(multiplier < 0 || multiplier > 1) throw new IllegalArgumentException("Field multiplier out of range 0-1");
         id = idCounter;
         idCounter++;
+        this.coalition = coalition;
         this.multiplier = multiplier;
         this.description = description;
     }
@@ -23,6 +29,14 @@ public abstract class GenericFidelityProgram implements FidelityProgram {
      */
     public int getId() {
         return id;
+    }
+
+    /**
+     * Returns the coalition which the program belongs
+     * @return the coalition
+     */
+    public Coalition getCoalition(){
+        return coalition;
     }
 
     /**

@@ -37,11 +37,11 @@ public class GiftsTableTest {
     @Test
     final void removeTest(){
         giftsTable.add(gift);
-        assertThrows(NullPointerException.class, () -> giftsTable.remove(null));
+        assertThrows(NullPointerException.class, () -> giftsTable.delete(null));
         assertTrue(giftsTable.getRecords().contains(gift));
-        assertTrue(giftsTable.remove(gift));
+        assertTrue(giftsTable.delete(gift));
         assertFalse(giftsTable.getRecords().contains(gift));
-        assertFalse(giftsTable.remove(gift));
+        assertFalse(giftsTable.delete(gift));
         assertTrue(giftsTable.getRecords().isEmpty());
     }
 
