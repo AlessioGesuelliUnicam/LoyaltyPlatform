@@ -6,7 +6,7 @@ public class Gift extends GenericReward {
 
     public Gift(String label, int necessaryPoints, double addition) {
         super(label);
-        if(necessaryPoints < 0) throw new IllegalArgumentException("Field necessaryPoints must be positive");
+        if(necessaryPoints < 1) throw new IllegalArgumentException("Field necessaryPoints can't be less than 1");
         if(addition < 0) throw new IllegalArgumentException("Field addition must be positive");
         this.necessaryPoints = necessaryPoints;
         this.addition = addition;
@@ -28,7 +28,7 @@ public class Gift extends GenericReward {
      * @throws IllegalArgumentException when the given necessaryPoints is negative
      */
     public void setNecessaryPoints(int necessaryPoints) {
-        if(necessaryPoints < 0) throw new IllegalArgumentException("Field necessaryPoints must be positive");
+        if(necessaryPoints < 1) throw new IllegalArgumentException("Field necessaryPoints can't be less than 1");
         this.necessaryPoints = necessaryPoints;
     }
 
