@@ -222,7 +222,7 @@ public class CoalitionsController {
         if(coalition == null) throw new NullPointerException("Field coalition can't be null");
         if(coalition.removeMember(shop)){
             FidelityProgramsController fidelityProgramsController = new FidelityProgramsController(db);
-            return fidelityProgramsController.deleteShopFromFidelityProgram(coalition.getFidelityProgram(), shop);
+            return fidelityProgramsController.removeShopFromFidelityProgram(coalition.getFidelityProgram(), shop);
         }
         return false;
     }

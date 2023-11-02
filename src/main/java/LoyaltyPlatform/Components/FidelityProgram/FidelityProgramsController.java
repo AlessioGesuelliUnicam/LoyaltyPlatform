@@ -7,16 +7,21 @@ import LoyaltyPlatform.Components.Reward.Gift;
 import LoyaltyPlatform.Components.Reward.RewardsController;
 import LoyaltyPlatform.Components.Shop.Shop;
 import LoyaltyPlatform.Db.Db;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+@RestController
+@RequestMapping("/fidelityPrograms")
 public class FidelityProgramsController {
 
     private final Db db;
 
+    @Autowired
     public FidelityProgramsController(Db db) {
         this.db = db;
     }
@@ -27,7 +32,8 @@ public class FidelityProgramsController {
      * @return true if the fidelityProgram has been deleted, false otherwise
      * @throws NullPointerException if the given fidelityProgram is null
      */
-    public boolean deleteFidelityProgram(FidelityProgram fidelityProgram){
+    @DeleteMapping("/deleteFidelityProgram")
+    public boolean deleteFidelityProgram(@RequestBody FidelityProgram fidelityProgram){
         if(fidelityProgram == null) throw new NullPointerException("Field fidelityProgram can't be null");
         if(fidelityProgram instanceof GiftsProgram giftsProgram)
             return deleteGiftsProgram(giftsProgram);
@@ -44,7 +50,8 @@ public class FidelityProgramsController {
      * @return true if the shop has been added, false otherwise
      * @throws NullPointerException if any of the fields is null
      */
-    public boolean addShopToFidelityProgram(FidelityProgram fidelityProgram, Shop shop){
+    @PostMapping("/addShopToFidelityProgram")
+    public boolean addShopToFidelityProgram(@RequestBody FidelityProgram fidelityProgram, @RequestBody Shop shop){
         if(fidelityProgram == null) throw new NullPointerException("Field fidelityProgram can't be null");
         if(shop == null) throw new NullPointerException("Field shop can't be null");
         if(fidelityProgram instanceof GiftsProgram giftsProgram)
@@ -61,7 +68,8 @@ public class FidelityProgramsController {
      * @return true if the shop has been removed, false otherwise
      * @throws NullPointerException if any of the fields is null
      */
-    public boolean deleteShopFromFidelityProgram(FidelityProgram fidelityProgram, Shop shop){
+    @DeleteMapping("/deleteShopFromFidelityProgram")
+    public boolean removeShopFromFidelityProgram(@RequestBody FidelityProgram fidelityProgram, @RequestBody Shop shop){
         if(fidelityProgram == null) throw new NullPointerException("Field fidelityProgram can't be null");
         if(shop == null) throw new NullPointerException("Field shop can't be null");
         if(fidelityProgram instanceof GiftsProgram giftsProgram)
@@ -77,6 +85,7 @@ public class FidelityProgramsController {
      * Returns the complete set of existing LevelsPrograms
      * @return the GiftsPrograms
      */
+    @GetMapping("/getGiftsPrograms")
     public Set<GiftsProgram> getGiftsPrograms(){
         return db.getGiftsProgramsTable().getRecords();
     }
@@ -90,7 +99,8 @@ public class FidelityProgramsController {
      * @return true if the program has been created, false otherwise
      * @throws IllegalArgumentException if the field multiplier is out of range 0-1
      */
-    public boolean createGiftsProgram(Coalition coalition, double multiplier, String description) {
+    @PostMapping("/createGiftsProgram")
+    public boolean createGiftsProgram(@RequestBody Coalition coalition, @RequestParam double multiplier, @RequestParam String description) {
         if(multiplier < 0 || multiplier > 1) throw new IllegalArgumentException("Field multiplier out of range 0-1");
         GiftsProgram giftsProgram = new GiftsProgram(coalition, multiplier, description);
         return db.getGiftsProgramsTable().add(giftsProgram);
@@ -103,7 +113,8 @@ public class FidelityProgramsController {
      * @return true if the program has been deleted, false otherwise
      * @throws NullPointerException if field giftsProgram is null
      */
-    private boolean deleteGiftsProgram(GiftsProgram giftsProgram) {
+    @DeleteMapping("/deleteGiftsProgram")
+    private boolean deleteGiftsProgram(@RequestBody GiftsProgram giftsProgram) {
         if (giftsProgram == null) throw new NullPointerException("Field giftsProgram can't be null");
         RewardsController rewardsController = new RewardsController(db);
         HashMap<Shop, Set<Gift>> shopsGift = giftsProgram.getShopsGift();
@@ -122,7 +133,8 @@ public class FidelityProgramsController {
      * @return true if the shop has been added, false otherwise
      * @throws NullPointerException if any of the fields is null
      */
-    private boolean addShopToGiftsProgram(GiftsProgram giftsProgram, Shop shop){
+    @PostMapping("/addShopToGiftsProgram")
+    private boolean addShopToGiftsProgram(@RequestBody GiftsProgram giftsProgram, @RequestBody Shop shop){
         if(giftsProgram == null) throw new NullPointerException("Field giftsProgram can't be null");
         if(shop == null) throw new NullPointerException("Field shop can't be null");
         return giftsProgram.addShop(shop);
@@ -135,7 +147,8 @@ public class FidelityProgramsController {
      * @return true if the shop has been removed, false otherwise
      * @throws NullPointerException if any of the fields is null
      */
-    private boolean removeShopFromGiftsProgram(GiftsProgram giftsProgram, Shop shop){
+    @DeleteMapping("/removeShopFromGiftsProgram")
+    private boolean removeShopFromGiftsProgram(@RequestBody GiftsProgram giftsProgram, @RequestBody Shop shop){
         if(giftsProgram == null) throw new NullPointerException("Field giftsProgram can't be null");
         if(shop == null) throw new NullPointerException("Field shop can't be null");
         RewardsController rewardsController = new RewardsController(db);
@@ -154,6 +167,7 @@ public class FidelityProgramsController {
      * Returns the complete set of existing LevelsPrograms
      * @return the LevelsPrograms
      */
+    @GetMapping("/getLevelsPrograms")
     public Set<LevelsProgram> getLevelsPrograms(){
         return db.getLevelsProgramsTable().getRecords();
     }
@@ -167,7 +181,8 @@ public class FidelityProgramsController {
      * @return true if the program has been created, false otherwise
      * @throws NullPointerException if field multiplier is null
      */
-    public boolean createLevelsProgram(Coalition coalition, double multiplier, String description) {
+    @PostMapping("/createLevelsProgram")
+    public boolean createLevelsProgram(@RequestBody Coalition coalition, @RequestParam double multiplier, @RequestParam String description) {
         if(multiplier < 0 || multiplier > 1) throw new IllegalArgumentException("Field multiplier out of range 0-1");
         LevelsProgram levelsProgram = new LevelsProgram(coalition, multiplier, description);
         return db.getLevelsProgramsTable().add(levelsProgram);
@@ -180,7 +195,8 @@ public class FidelityProgramsController {
      * @return true if the program has been deleted, false otherwise
      * @throws NullPointerException if field levelsProgram is null
      */
-    private boolean deleteLevelsProgram(LevelsProgram levelsProgram) {
+    @DeleteMapping("/deleteLevelsProgram")
+    private boolean deleteLevelsProgram(@RequestBody LevelsProgram levelsProgram) {
         if(levelsProgram == null) throw new NullPointerException("Field levelsProgram can't be null");
         LevelsController levelsController = new LevelsController(db);
         TreeSet<Level> levels = levelsProgram.getLevels();
@@ -195,7 +211,8 @@ public class FidelityProgramsController {
      * @return true if the shop has been added, false otherwise
      * @throws NullPointerException if any of the fields is null
      */
-    private boolean addShopToLevelsProgram(LevelsProgram levelsProgram, Shop shop){
+    @PostMapping("/addShopToLevelsProgram")
+    private boolean addShopToLevelsProgram(@RequestBody LevelsProgram levelsProgram, @RequestBody Shop shop){
         if(levelsProgram == null) throw new NullPointerException("Field levelsProgram can't be null");
         if(shop == null) throw new NullPointerException("Field shop can't be null");
         LevelsController levelsController = new LevelsController(db);
@@ -212,7 +229,8 @@ public class FidelityProgramsController {
      * @return true if the shop has been removed, false otherwise
      * @throws NullPointerException if any of the fields is null
      */
-    private boolean removeShopFromLevelsProgram(LevelsProgram levelsProgram, Shop shop){
+    @DeleteMapping("/removeShopFromLevelsProgram")
+    private boolean removeShopFromLevelsProgram(@RequestBody LevelsProgram levelsProgram, @RequestBody Shop shop){
         if(levelsProgram == null) throw new NullPointerException("Field levelsProgram can't be null");
         if(shop == null) throw new NullPointerException("Field shop can't be null");
         LevelsController levelsController = new LevelsController(db);
@@ -229,7 +247,8 @@ public class FidelityProgramsController {
      * @return true if the level has been added, false otherwise
      * @throws NullPointerException if any of the fields is null
      */
-    public boolean addLevelToLevelsProgram(LevelsProgram levelsProgram, Level level){
+    @PostMapping("/addLevelToLevelsProgram")
+    public boolean addLevelToLevelsProgram(@RequestBody LevelsProgram levelsProgram, @RequestBody Level level){
         if(levelsProgram == null) throw new NullPointerException("Field levelsProgram can't be null");
         if(level == null) throw new NullPointerException("Field level can't be null");
         return levelsProgram.addLevel(level);
@@ -242,7 +261,8 @@ public class FidelityProgramsController {
      * @return true if the level has been deleted, false otherwise
      * @throws NullPointerException if any of the fields is null
      */
-    public boolean deleteLevelFromLevelsProgram(LevelsProgram levelsProgram, Level level){
+    @DeleteMapping("/deleteLevelFromLevelsProgram")
+    public boolean deleteLevelFromLevelsProgram(@RequestBody LevelsProgram levelsProgram, @RequestBody Level level){
         if(levelsProgram == null) throw new NullPointerException("Field levelsProgram can't be null");
         if(level == null) throw new NullPointerException("Field level can't be null");
         LevelsController levelsController = new LevelsController(db);
