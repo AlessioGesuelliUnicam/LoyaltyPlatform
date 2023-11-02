@@ -5,15 +5,20 @@ import LoyaltyPlatform.Components.Reward.Discount;
 import LoyaltyPlatform.Components.Reward.RewardsController;
 import LoyaltyPlatform.Components.Shop.Shop;
 import LoyaltyPlatform.Db.Db;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+@RestController
+@RequestMapping("/levels")
 public class LevelsController {
 
     private final Db db;
 
+    @Autowired
     public LevelsController(Db db) {
         this.db = db;
     }
@@ -22,6 +27,7 @@ public class LevelsController {
      * Returns the complete set of existing levels
      * @return the levels
      */
+    @GetMapping("/getLevels")
     public Set<Level> getLevels(){
         return db.getLevelsTable().getRecords();
     }
@@ -32,7 +38,8 @@ public class LevelsController {
      * @param pointsThreshold the pointsThreshold
      * @return true if the Level has been created, false otherwise
      */
-    public boolean createLevel(LevelsProgram levelsProgram, int pointsThreshold){
+    @PostMapping("/createLevel")
+    public boolean createLevel(@RequestBody LevelsProgram levelsProgram, @RequestParam int pointsThreshold){
         if(pointsThreshold < 0) return false;
         Level level = new Level(levelsProgram, pointsThreshold);
         return db.getLevelsTable().add(level);
@@ -43,7 +50,8 @@ public class LevelsController {
      * @param level the level to delete
      * @return true if the level has been deleted, false otherwise
      */
-    public boolean deleteLevel(Level level){
+    @DeleteMapping("/deleteLevel")
+    public boolean deleteLevel(@RequestBody Level level){
         if(level == null) throw new NullPointerException("Field level can't be nul");
         RewardsController rewardsController = new RewardsController(db);
         HashMap<Shop, Set<Discount>> shopsDiscount = level.getShopsDiscount();
@@ -61,7 +69,8 @@ public class LevelsController {
      * @param shop the shop to add
      * @return true if the shop has been added to the level, false if the shop was already present
      */
-    public boolean addShopToLevel(Level level, Shop shop){
+    @PostMapping("/addShopToLevel")
+    public boolean addShopToLevel(@RequestBody Level level, @RequestBody Shop shop){
         if(level == null) throw new NullPointerException("Field level can't be null");
         if(shop == null) throw new NullPointerException("Field shop can't be null");
         return level.addShop(shop);
@@ -74,7 +83,8 @@ public class LevelsController {
      * @return true if the shop has been removed, false if the shop was not found
      * @throws NullPointerException if any of the fields is null
      */
-    public boolean removeShopFromLevel(Level level, Shop shop){
+    @DeleteMapping("/removeShopFromLevel")
+    public boolean removeShopFromLevel(@RequestBody Level level, @RequestBody Shop shop){
         if(level == null) throw new NullPointerException("Field level can't be null");
         if(shop == null) throw new NullPointerException("Field shop can't be null");
         HashMap<Shop, Set<Discount>> shopsDiscount = level.getShopsDiscount();

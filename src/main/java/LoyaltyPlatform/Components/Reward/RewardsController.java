@@ -70,7 +70,6 @@ public class RewardsController {
     @DeleteMapping("/deleteGift")
     public boolean deleteGift(@RequestBody Gift gift) {
         if (gift == null) throw new NullPointerException("Field gift can't be null");
-        System.out.println(gift.getId());
         return db.getGiftsTable().delete(gift);
     }
 
