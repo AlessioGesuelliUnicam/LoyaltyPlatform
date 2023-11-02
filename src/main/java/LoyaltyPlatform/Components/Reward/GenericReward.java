@@ -1,5 +1,7 @@
 package LoyaltyPlatform.Components.Reward;
 
+import java.util.Objects;
+
 public abstract class GenericReward implements Reward {
 
     private static int idCounter = 0;
@@ -49,5 +51,9 @@ public abstract class GenericReward implements Reward {
         if (!(o instanceof GenericReward)) return false;
         GenericReward reward = (GenericReward) o;
         return this.id == reward.id;
+    }
+
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

@@ -1,7 +1,9 @@
 package LoyaltyPlatform.Db;
 
 import LoyaltyPlatform.Db.Tables.*;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Db {
     private ClientsTable clientsTable;
     private OwnersTable ownersTable;
