@@ -1,7 +1,9 @@
 package LoyaltyPlatform.Components.Shop;
 
-import LoyaltyPlatform.Components.Coalition.Coalition;
+import LoyaltyPlatform.Components.User.Employee;
 import LoyaltyPlatform.Components.User.Owner;
+
+import java.util.HashSet;
 
 public interface Shop {
     /**
@@ -35,21 +37,23 @@ public interface Shop {
     Owner getOwner();
 
     /**
-     * Sets the Owner for the Shop
-     * @param Owner the Owner to set
+     * Returns the set of employees
+     * @return the employees
      */
-    void setOwner(Owner Owner);
+    public HashSet<Employee> getEmployees();
 
     /**
-     * Return Coalition of the Shop
-     * @return the Coalition
+     * Adds an employee to the set of employees
+     * @param employee the employee to add
+     * @return true if the employee has been added, false otherwise
      */
-    Coalition getCoalition();
+    public boolean addEmployee(Employee employee);
 
     /**
-     * Sets the Coalition for the Shop
-     * @param Coalition the Coalition to set
+     * Removes an employee from the set of employees
+     * @param employee the employee to remove
+     * @return true if the employee has been removed, false otherwise
      */
-    void setCoalition(Coalition Coalition);
+    public boolean removeEmployee(Employee employee);
 
 }

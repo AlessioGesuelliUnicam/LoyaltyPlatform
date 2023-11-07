@@ -31,12 +31,13 @@ public class EmployeesController{
      * @param name the name of the employee
      * @param surname the surname of the employee
      * @param email the email of the employee
-     * @return true if the employee has been created, false otherwise
+     * @return the new employee
      */
     @PostMapping("/createEmployee")
-    public boolean createEmployee(@RequestParam String name, @RequestParam String surname, @RequestParam String email){
+    public Employee createEmployee(@RequestParam String name, @RequestParam String surname, @RequestParam String email){
         Employee employee = new Employee(name, surname, email);
-        return db.getEmployeesTable().add(employee);
+        if(!db.getEmployeesTable().add(employee)) return null;
+        return employee;
     }
 
     /**
