@@ -1,9 +1,8 @@
 package LoyaltyPlatform.Components.Level;
 
-import LoyaltyPlatform.Components.Coalition.Coalition;
-import LoyaltyPlatform.Components.FidelityProgram.LevelsProgram;
 import LoyaltyPlatform.Components.Reward.Discount;
 import LoyaltyPlatform.Components.Shop.Shop;
+import LoyaltyPlatform.Utilities.ObjectWithId;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,23 +14,20 @@ import java.util.Set;
  * A level represents a collection of unlockable discounts
  * upon reaching a specific points threshold.
  */
-public class Level {
+public class Level implements ObjectWithId {
 
     private static int idCounter = 0;
     private final int id;
-    private final LevelsProgram levelsProgram;
     private final int pointsThreshold;
     private HashMap<Shop, Set<Discount>> shopsDiscount;
 
-    public Level(LevelsProgram levelsProgram, int pointsThreshold){
+    public Level(int pointsThreshold){
         if(pointsThreshold < 0) throw new IllegalArgumentException("Field pointThreshold must be positive");
         id = idCounter;
         idCounter++;
-        this.levelsProgram = levelsProgram;
         this.pointsThreshold = pointsThreshold;
-        shopsDiscount = new HashMap<>();
-        List<Shop> members = levelsProgram.getCoalition().getMembers();
-        for(Shop shop : members) addShop(shop);
+        shopsDiscount = new HashMap<Shop, Set<Discount>>();
+
     }
 
     /**
@@ -122,8 +118,7 @@ public class Level {
     public boolean equals(Object o) {
         if (o == null) return false;
         if (this == o) return true;
-        if (!(o instanceof Level)) return false;
-        Level level = (Level) o;
+        if (!(o instanceof Level level)) return false;
         return this.id == level.id;
     }
 
