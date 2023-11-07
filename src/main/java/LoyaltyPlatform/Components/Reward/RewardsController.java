@@ -25,7 +25,6 @@ public class RewardsController {
      * @throws NullPointerException     if any of the fields is null
      * @throws IllegalArgumentException if the given label is blank
      */
-
     @PostMapping("/setRewardLabel")
     public void setRewardLabel(@RequestBody Reward reward, @RequestParam String label) {
         if (reward == null) throw new NullPointerException("Field reward can't be ull");

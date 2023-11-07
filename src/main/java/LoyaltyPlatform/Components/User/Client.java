@@ -1,58 +1,72 @@
 package LoyaltyPlatform.Components.User;
 
 
+import LoyaltyPlatform.Components.User.GenericUser;
 import LoyaltyPlatform.Components.Wallet.Wallet;
 
-import java.util.List;
+import java.util.HashSet;
 
 /**
- * A Client represent the Final Consumer of the Loyalty Platform
+ * A Client represent the final consumer of the Loyalty Platform
  */
 public class Client extends GenericUser {
-    private int telephoneNumber;
-    private List<Wallet> wallets;
+    private String telephoneNumber;
+    private HashSet<Wallet> wallets;
 
-    public Client(int id, String name, String surname, String email, int telephoneNumber, List<Wallet> wallets) {
-        super(id, name, surname, email);
+    public Client(String name, String surname, String email, String telephoneNumber) {
+        super(name, surname, email);
         this.telephoneNumber = telephoneNumber;
-        this.wallets = wallets;
+        this.wallets = new HashSet<Wallet>();
     }
+
     /**
-     * Return the Telephone Number of the Client
-     * @return the Telephone Number
+     * Returns the telephoneNumber of the client
+     * @return the telephoneNumber
      */
-    public int getTelephoneNumber() {
+    public String getTelephoneNumber() {
         return telephoneNumber;
     }
 
     /**
-     * Sets the Telephone Number for the Client
-     * @param telephoneNumber the Telephone Number to set
+     * Sets the telephoneNumber of the client
+     * @param telephoneNumber the new telephoneNumber
+     * @throws NullPointerException if the given telephoneNumber is null
+     * @throws IllegalArgumentException if the given telephoneNumber is blank
      */
-    public void setTelephoneNumber(int telephoneNumber) {
+    public void setTelephoneNumber(String telephoneNumber) {
+        if(telephoneNumber == null) throw new NullPointerException("Field telephoneNumber can't be null");
+        if(telephoneNumber.isEmpty()) throw new IllegalArgumentException("Field telephoneNumber can't be blank");
         this.telephoneNumber = telephoneNumber;
     }
 
     /**
-     * Return the Wallet List of the Client
-     * @return the Wallet
+     * Returns the wallets of the client
+     * @return a wallets set
      */
-    public List<Wallet> getWallets() {
+    public HashSet<Wallet> getWallets() {
         return wallets;
     }
 
     /**
-     * Adds a Wallet into the Wallets List
-     * @param wallet the Wallet to add
+     * Adds a wallet into the set of wallets
+     * @param wallet the wallet to add
+     * @return true if the wallet has been added, false otherwise
+     * @throws NullPointerException if the given wallet is null
      */
-    public void addWallet(Wallet wallet) {
-
+    public boolean addWallet(Wallet wallet) {
+        if(wallet == null) throw new NullPointerException("Field wallet can't be null");
+        return wallets.add(wallet);
     }
 
     /**
-     * Deletes a Wallet into the Wallets List
+     * Removes a wallet from the set of wallets
      * @param wallet the Wallet to delete
+     * @return true if the wallet has been removed, false otherwise
+     * @throws NullPointerException if the given wallet is null
      */
-    public void deleteWallet(Wallet wallet) {
+    public boolean deleteWallet(Wallet wallet) {
+        if(wallet == null) throw new NullPointerException("Field wallet can't be null");
+        return wallets.remove(wallet);
     }
+
 }
