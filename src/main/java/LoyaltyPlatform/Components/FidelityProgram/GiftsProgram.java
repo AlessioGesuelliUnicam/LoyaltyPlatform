@@ -1,12 +1,10 @@
 package LoyaltyPlatform.Components.FidelityProgram;
 
-import LoyaltyPlatform.Components.Coalition.Coalition;
 import LoyaltyPlatform.Components.Reward.Gift;
 import LoyaltyPlatform.Components.Shop.Shop;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -17,10 +15,9 @@ public class GiftsProgram extends GenericFidelityProgram{
 
     private HashMap<Shop, Set<Gift>> shopsGift;
 
-    public GiftsProgram(Coalition coalition, double multiplier, String description) {
-        super(coalition, multiplier, description);
-        List<Shop> members = coalition.getMembers();
-        for(Shop shop : members) addShop(shop);
+    public GiftsProgram(double multiplier, String description) {
+        super(multiplier, description);
+        shopsGift = new HashMap<Shop, Set<Gift>>();
     }
 
     /**

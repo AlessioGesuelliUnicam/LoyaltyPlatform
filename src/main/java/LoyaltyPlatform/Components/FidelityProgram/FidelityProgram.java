@@ -11,12 +11,6 @@ public interface FidelityProgram {
     int getId();
 
     /**
-     * Returns the coalition which the program belongs
-     * @return the coalition
-     */
-    public Coalition getCoalition();
-
-    /**
      * Returns the multiplier used to convert Euros into Points
      * @return the multiplier
      */

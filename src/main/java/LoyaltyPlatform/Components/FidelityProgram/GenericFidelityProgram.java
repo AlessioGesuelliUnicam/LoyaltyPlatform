@@ -1,23 +1,21 @@
 package LoyaltyPlatform.Components.FidelityProgram;
 
-import LoyaltyPlatform.Components.Coalition.Coalition;
-import LoyaltyPlatform.Components.Level.Level;
-import LoyaltyPlatform.Components.Shop.Shop;
+import LoyaltyPlatform.Utilities.ObjectWithId;
 
-public abstract class GenericFidelityProgram implements FidelityProgram {
+import java.util.Objects;
+
+public abstract class GenericFidelityProgram implements FidelityProgram, ObjectWithId {
 
     private static int idCounter = 0;
     private final int id;
-    private final Coalition coalition;
     private final double multiplier;
     private String description;
 
 
-    public GenericFidelityProgram(Coalition coalition, double multiplier, String description) {
+    public GenericFidelityProgram(double multiplier, String description) {
         if(multiplier < 0 || multiplier > 1) throw new IllegalArgumentException("Field multiplier out of range 0-1");
         id = idCounter;
         idCounter++;
-        this.coalition = coalition;
         this.multiplier = multiplier;
         this.description = description;
     }
@@ -29,14 +27,6 @@ public abstract class GenericFidelityProgram implements FidelityProgram {
      */
     public int getId() {
         return id;
-    }
-
-    /**
-     * Returns the coalition which the program belongs
-     * @return the coalition
-     */
-    public Coalition getCoalition(){
-        return coalition;
     }
 
     /**
@@ -70,9 +60,12 @@ public abstract class GenericFidelityProgram implements FidelityProgram {
     public boolean equals(Object o) {
         if (o == null) return false;
         if (this == o) return true;
-        if (!(o instanceof GenericFidelityProgram)) return false;
-        GenericFidelityProgram fidelityProgram = (GenericFidelityProgram) o;
+        if (!(o instanceof GenericFidelityProgram fidelityProgram)) return false;
         return this.id == fidelityProgram.id;
+    }
+
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
 }

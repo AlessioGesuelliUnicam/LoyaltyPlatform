@@ -1,6 +1,5 @@
 package LoyaltyPlatform.Components.FidelityProgram;
 
-import LoyaltyPlatform.Components.Coalition.Coalition;
 import LoyaltyPlatform.Components.Level.Level;
 import LoyaltyPlatform.Components.Shop.Shop;
 
@@ -15,8 +14,8 @@ public class LevelsProgram extends GenericFidelityProgram {
 
     private TreeSet<Level> levels;
 
-    public LevelsProgram(Coalition coalition, double multiplier, String description) {
-        super(coalition, multiplier, description);
+    public LevelsProgram(double multiplier, String description) {
+        super(multiplier, description);
         levels = new TreeSet<>(Comparator.comparing(Level::getPointsThreshold));
     }
 
