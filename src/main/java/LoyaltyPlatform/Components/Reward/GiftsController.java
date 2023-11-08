@@ -61,6 +61,7 @@ public class GiftsController {
      * @param giftId the id of the gift where to change the label
      * @param label  the new label
      */
+    @PostMapping("/setGiftLabel")
     public void setGiftLabel(int giftId, String label) {
         Gift gift = db.getGiftsTable().getRecordById(giftId);
         if (gift != null) gift.setLabel(label);
