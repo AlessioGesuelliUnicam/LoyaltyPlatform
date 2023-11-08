@@ -88,7 +88,7 @@ public class LevelsController {
      * @return true if the shop has been removed, false if the shop was not found
      * @throws NullPointerException if any of the fields is null
      */
-    @DeleteMapping("/removeShopFromLevel")
+    @PostMapping("/removeShopFromLevel")
     public boolean removeShopFromLevel(@RequestParam int levelId, @RequestParam int shopId) {
         Level level = db.getLevelsTable().getRecordById(levelId);
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
