@@ -1,7 +1,7 @@
 package LoyaltyPlatform.Components.Level;
 
 import LoyaltyPlatform.Components.Reward.Discount;
-import LoyaltyPlatform.Components.Reward.RewardsController;
+import LoyaltyPlatform.Components.Reward.DiscountsController;
 import LoyaltyPlatform.Components.Shop.GenericShop;
 import LoyaltyPlatform.Db.Db;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,12 +36,13 @@ public class LevelsController {
      * Creates a new Level
      *
      * @param pointsThreshold the pointsThreshold
-     * @return true if the Level has been created, false otherwise
+     * @return the new level
      */
     @PostMapping("/createLevel")
-    public boolean createLevel(@RequestParam int pointsThreshold) {
+    public Level createLevel(@RequestParam int pointsThreshold) {
         Level level = new Level(pointsThreshold);
-        return db.getLevelsTable().add(level);
+        if(!db.getLevelsTable().add(level)) return null;
+        return level;
     }
 
     /**
@@ -54,12 +55,12 @@ public class LevelsController {
     public boolean deleteLevel(@RequestParam int levelId) {
         Level level = db.getLevelsTable().getRecordById(levelId);
         if (level == null) return false;
-        RewardsController rewardsController = new RewardsController(db);
+        DiscountsController discountsController = new DiscountsController(db);
         HashMap<GenericShop, Set<Discount>> shopsDiscount = level.getShopsDiscount();
         for (Map.Entry<GenericShop, Set<Discount>> entry : shopsDiscount.entrySet()) {
             Set<Discount> discounts = entry.getValue();
             for (Discount discount : discounts)
-                if (!rewardsController.deleteDiscount(discount)) return false;
+                if (!discountsController.deleteDiscount(discount.getId())) return false;
         }
         return db.getLevelsTable().delete(level);
     }

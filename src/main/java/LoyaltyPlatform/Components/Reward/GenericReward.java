@@ -44,14 +44,14 @@ public abstract class GenericReward implements Reward, ObjectWithId {
      */
     public void setLabel(String label) {
         if (label == null) throw new NullPointerException("Field label can't be null");
+        if (label.isEmpty()) throw new IllegalArgumentException("Field label can't be blank");
         this.label = label;
     }
 
     public boolean equals(Object o) {
         if (o == null) return false;
         if (this == o) return true;
-        if (!(o instanceof GenericReward)) return false;
-        GenericReward reward = (GenericReward) o;
+        if (!(o instanceof GenericReward reward)) return false;
         return this.id == reward.id;
     }
 

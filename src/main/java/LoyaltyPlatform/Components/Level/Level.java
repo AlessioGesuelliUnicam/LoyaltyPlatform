@@ -63,9 +63,7 @@ public class Level implements ObjectWithId {
      * @return true if the shop is added, false if the shop was already present
      * @throws NullPointerException if the given shop is null
      */
-    public boolean
-
-    addShop(GenericShop shop){
+    public boolean addShop(GenericShop shop){
         if(shop == null) throw new NullPointerException("Field shop can't be null");
         if(shopsDiscount.containsKey(shop)) return false;
         shopsDiscount.put(shop, new HashSet<Discount>());
