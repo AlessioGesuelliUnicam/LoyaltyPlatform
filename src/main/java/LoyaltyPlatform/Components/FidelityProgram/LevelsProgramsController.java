@@ -122,7 +122,7 @@ public class LevelsProgramsController {
      * @param levelId the id of the level to remove
      * @return true if the level has been deleted, false otherwise
      */
-    @DeleteMapping("/deleteLevelFromLevelsProgram")
+    @PostMapping("/deleteLevelFromLevelsProgram")
     public boolean deleteLevelFromLevelsProgram(@RequestParam int levelsProgramId, @RequestParam int levelId){
         LevelsProgram levelsProgram = db.getLevelsProgramsTable().getRecordById(levelsProgramId);
         Level level = db.getLevelsTable().getRecordById(levelId);

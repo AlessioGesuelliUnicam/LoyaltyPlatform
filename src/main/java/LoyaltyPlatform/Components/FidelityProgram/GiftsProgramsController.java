@@ -89,8 +89,8 @@ public class GiftsProgramsController {
      * @return true if the shop has been removed, false otherwise
      * @throws NullPointerException if any of the fields is null
      */
-    @DeleteMapping("/removeShopFromGiftsProgram")
-    private boolean removeShopFromGiftsProgram(@RequestParam int giftsProgramId, @RequestParam int shopId){
+    @PostMapping("/removeShopFromGiftsProgram")
+    public boolean removeShopFromGiftsProgram(@RequestParam int giftsProgramId, @RequestParam int shopId){
         GiftsProgram giftsProgram = db.getGiftsProgramsTable().getRecordById(giftsProgramId);
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
         if(giftsProgram == null || shop == null) return false;
