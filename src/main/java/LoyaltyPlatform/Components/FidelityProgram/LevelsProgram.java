@@ -1,7 +1,7 @@
 package LoyaltyPlatform.Components.FidelityProgram;
 
 import LoyaltyPlatform.Components.Level.Level;
-import LoyaltyPlatform.Components.Shop.Shop;
+import LoyaltyPlatform.Components.Shop.GenericShop;
 
 import java.util.Comparator;
 import java.util.TreeSet;
@@ -34,8 +34,7 @@ public class LevelsProgram extends GenericFidelityProgram {
      * @return true if the shop has been added, false otherwise
      * @throws NullPointerException if the given shop is null
      */
-    public boolean addShop(Shop shop){
-        if(shop == null) throw new NullPointerException("Field shop can't be null");
+    public boolean addShop(GenericShop shop){
         for(Level level : levels)
             if(!level.addShop(shop)) return false;
         return true;
@@ -47,8 +46,7 @@ public class LevelsProgram extends GenericFidelityProgram {
      * @return true if the shop has been removed, false otherwise
      * @throws NullPointerException if the given shop is null
      */
-    public boolean removeShop(Shop shop){
-        if(shop == null) throw new NullPointerException("Field shop can't be null");
+    public boolean removeShop(GenericShop shop){
         for(Level level : levels)
             if(!level.removeShop(shop)) return false;
         return true;

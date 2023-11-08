@@ -60,6 +60,7 @@ public class DiscountsController {
      * @param discountId the id of the discount where to change the label
      * @param label      the new label
      */
+    @PostMapping("/setDiscountLabel")
     public void setDiscountLabel(int discountId, String label) {
         Discount discount = db.getDiscountsTable().getRecordById(discountId);
         if (discount != null) discount.setLabel(label);

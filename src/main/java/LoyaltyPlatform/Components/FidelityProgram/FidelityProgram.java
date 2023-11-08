@@ -1,7 +1,5 @@
 package LoyaltyPlatform.Components.FidelityProgram;
 
-import LoyaltyPlatform.Components.Coalition.Coalition;
-
 public interface FidelityProgram {
 
     /**
