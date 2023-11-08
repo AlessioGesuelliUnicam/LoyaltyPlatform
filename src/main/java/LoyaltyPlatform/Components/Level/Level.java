@@ -1,6 +1,7 @@
 package LoyaltyPlatform.Components.Level;
 
 import LoyaltyPlatform.Components.Reward.Discount;
+import LoyaltyPlatform.Components.Shop.GenericShop;
 import LoyaltyPlatform.Components.Shop.Shop;
 import LoyaltyPlatform.Utilities.ObjectWithId;
 
@@ -19,14 +20,14 @@ public class Level implements ObjectWithId {
     private static int idCounter = 0;
     private final int id;
     private final int pointsThreshold;
-    private HashMap<Shop, Set<Discount>> shopsDiscount;
+    private HashMap<GenericShop, Set<Discount>> shopsDiscount;
 
     public Level(int pointsThreshold){
         if(pointsThreshold < 0) throw new IllegalArgumentException("Field pointThreshold must be positive");
         id = idCounter;
         idCounter++;
         this.pointsThreshold = pointsThreshold;
-        shopsDiscount = new HashMap<Shop, Set<Discount>>();
+        shopsDiscount = new HashMap<GenericShop, Set<Discount>>();
 
     }
 
@@ -52,7 +53,7 @@ public class Level implements ObjectWithId {
      * Returns all the shops in this level and the associated discounts
      * @return the shops discount
      */
-    public HashMap<Shop, Set<Discount>> getShopsDiscount(){
+    public HashMap<GenericShop, Set<Discount>> getShopsDiscount(){
         return shopsDiscount;
     }
 
@@ -64,7 +65,7 @@ public class Level implements ObjectWithId {
      */
     public boolean
 
-    addShop(Shop shop){
+    addShop(GenericShop shop){
         if(shop == null) throw new NullPointerException("Field shop can't be null");
         if(shopsDiscount.containsKey(shop)) return false;
         shopsDiscount.put(shop, new HashSet<Discount>());
@@ -77,7 +78,7 @@ public class Level implements ObjectWithId {
      * @return true if the shop has been removed, false if the shop was not found
      * @throws NullPointerException if the given shop is null
      */
-    public boolean removeShop(Shop shop){
+    public boolean removeShop(GenericShop shop){
         if(shop == null) throw new NullPointerException("Field shop can't be null");
         if(!shopsDiscount.containsKey(shop)) return false;
         shopsDiscount.remove(shop);
@@ -92,7 +93,7 @@ public class Level implements ObjectWithId {
      * @throws NullPointerException if any of the fields is null
      * @throws IllegalArgumentException if the shop doesn't belong to this level
      */
-    public boolean addShopDiscount(Shop shop, Discount discount){
+    public boolean addShopDiscount(GenericShop shop, Discount discount){
         if(shop == null) throw new NullPointerException("Field shop can't be null");
         if(discount == null) throw new NullPointerException("Field discount can't be null");
         if(!shopsDiscount.containsKey(shop)) throw new IllegalArgumentException(("Field shop is invalid"));
@@ -107,7 +108,7 @@ public class Level implements ObjectWithId {
      * @throws NullPointerException if any of the fields is null
      * @throws IllegalArgumentException if the shop doesn't belong to this level
      */
-    public boolean removeShopDiscount(Shop shop, Discount discount){
+    public boolean removeShopDiscount(GenericShop shop, Discount discount){
         if(shop == null) throw new NullPointerException("Field shop can't be null");
         if(discount == null) throw new NullPointerException("Field discount can't be null");
         if(!shopsDiscount.containsKey(shop)) throw new IllegalArgumentException(("Field shop is invalid"));
