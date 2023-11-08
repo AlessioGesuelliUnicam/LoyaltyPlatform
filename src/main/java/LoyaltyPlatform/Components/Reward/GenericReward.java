@@ -1,16 +1,18 @@
 package LoyaltyPlatform.Components.Reward;
 
+import LoyaltyPlatform.Utilities.ObjectWithId;
+
 import java.util.Objects;
 
-public abstract class GenericReward implements Reward {
+public abstract class GenericReward implements Reward, ObjectWithId {
 
     private static int idCounter = 0;
     private final int id;
     private String label;
 
 
-    public GenericReward(String label){
-        if(label == null) throw new NullPointerException("Field label can't be null");
+    public GenericReward(String label) {
+        if (label == null) throw new NullPointerException("Field label can't be null");
         this.id = idCounter;
         idCounter++;
         this.label = label;
@@ -41,7 +43,7 @@ public abstract class GenericReward implements Reward {
      * @throws NullPointerException when the given label is null
      */
     public void setLabel(String label) {
-        if(label == null) throw new NullPointerException("Field label can't be null");
+        if (label == null) throw new NullPointerException("Field label can't be null");
         this.label = label;
     }
 

@@ -1,9 +1,8 @@
 package LoyaltyPlatform.Components.Coalition;
 
 import LoyaltyPlatform.Components.FidelityProgram.FidelityProgram;
-import LoyaltyPlatform.Components.FidelityProgram.GiftsProgram;
-import LoyaltyPlatform.Components.FidelityProgram.LevelsProgram;
 import LoyaltyPlatform.Components.Shop.Shop;
+import LoyaltyPlatform.Utilities.ObjectWithId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +10,7 @@ import java.util.List;
 /**
  * This class represents a generic coalition with a fidelity program
  */
-public class GenericCoalition implements Coalition{
+public class GenericCoalition implements Coalition, ObjectWithId {
 
     private static int idCounter = 0;
     private final int id;
@@ -19,7 +18,7 @@ public class GenericCoalition implements Coalition{
     private List<Shop> members;
     private FidelityProgram fidelityProgram;
 
-    public GenericCoalition(){
+    public GenericCoalition() {
         this.id = idCounter;
         idCounter++;
         this.name = "Nuova coalizione";
@@ -49,12 +48,12 @@ public class GenericCoalition implements Coalition{
      * Sets the name of the coalition
      *
      * @param name the name of the coalition
-     * @throws NullPointerException if the given name is null
+     * @throws NullPointerException     if the given name is null
      * @throws IllegalArgumentException if the given name is blank
      */
     public void setName(String name) {
-        if(name == null) throw new NullPointerException("Field name can't be null");
-        if(name.isEmpty()) throw new IllegalArgumentException("Field name can't be blank");
+        if (name == null) throw new NullPointerException("Field name can't be null");
+        if (name.isEmpty()) throw new IllegalArgumentException("Field name can't be blank");
         this.name = name;
     }
 
@@ -122,7 +121,6 @@ public class GenericCoalition implements Coalition{
     }
 
 
-
     /**
      * Returns the fidelity program of the coalition
      *
@@ -140,15 +138,16 @@ public class GenericCoalition implements Coalition{
      * @throws NullPointerException if the given fidelityProgram is null
      */
     public void setFidelityProgram(FidelityProgram fidelityProgram) {
-        if(fidelityProgram == null) throw new NullPointerException("Field fidelityProgram can't be null");
+        if (fidelityProgram == null) throw new NullPointerException("Field fidelityProgram can't be null");
         this.fidelityProgram = fidelityProgram;
     }
 
     /**
      * Tells if the coalition has a fidelity program
+     *
      * @return true if it has, false otherwise
      */
-    public boolean hasFidelityProgram(){
+    public boolean hasFidelityProgram() {
         return getFidelityProgram() != null;
     }
 

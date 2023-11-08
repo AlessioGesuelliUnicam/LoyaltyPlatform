@@ -8,7 +8,8 @@ import java.util.HashSet;
 
 @RestController
 @RequestMapping("/owners")
-public class OwnersController {
+public class
+OwnersController {
 
     private final Db db;
 
