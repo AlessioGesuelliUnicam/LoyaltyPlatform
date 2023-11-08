@@ -100,4 +100,40 @@ public class LevelsController {
         return level.removeShop(shop);
     }
 
+    /**
+     * Adds a discount for a shop in a level
+     * @param levelId the id of the level
+     * @param shopId the id of the shop
+     * @param label the label of the discount
+     * @param percentageDiscount the percentageDiscount of the discount
+     * @return true if the discount has been added, false otherwise
+     */
+    @PostMapping("/addShopDiscountToLevel")
+    public boolean addShopDiscountToLevel(@RequestParam int levelId, @RequestParam int shopId, @RequestParam String label, @RequestParam int percentageDiscount){
+        Level level = db.getLevelsTable().getRecordById(levelId);
+        GenericShop shop = db.getShopsTable().getRecordById(shopId);
+        if(level == null) return false;
+        DiscountsController discountsController = new DiscountsController(db);
+        Discount discount = discountsController.createDiscount(label, percentageDiscount);
+        return level.addShopDiscount(shop, discount);
+    }
+
+    /**
+     * Removes a discount of a shop in a level
+     * @param levelId the id of the level
+     * @param shopId the id of the shop
+     * @param discountId the label of the discount
+     * @return true if the discount has been removed, false otherwise
+     */
+    @PostMapping("/removeShopDiscountFromLevel")
+    public boolean removeShopDiscountFromLevel(@RequestParam int levelId, @RequestParam int shopId, @RequestParam int discountId){
+        Level level = db.getLevelsTable().getRecordById(levelId);
+        GenericShop shop = db.getShopsTable().getRecordById(shopId);
+        Discount discount = db.getDiscountsTable().getRecordById(discountId);
+        if(level == null) return false;
+        DiscountsController discountsController = new DiscountsController(db);
+        if(!level.removeShopDiscount(shop, discount)) return false;
+        return discountsController.deleteDiscount(discount.getId());
+    }
+
 }

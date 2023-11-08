@@ -1,6 +1,7 @@
 package LoyaltyPlatform.Components.FidelityProgram;
 
 import LoyaltyPlatform.Components.Coalition.Coalition;
+import LoyaltyPlatform.Components.Reward.GenericReward;
 import LoyaltyPlatform.Components.Reward.Gift;
 import LoyaltyPlatform.Components.Reward.GiftsController;
 import LoyaltyPlatform.Components.Shop.GenericShop;
@@ -102,4 +103,41 @@ public class GiftsProgramsController {
         return giftsProgram.removeShop(shop);
     }
 
+    /**
+     * Adds a gift for a shop in a gift program
+     * @param giftProgramId the id of the giftProgram
+     * @param shopId the id of the shop
+     * @param label the label of the gift
+     * @param necessaryPoints the necessaryPoints of the gift
+     * @param addition the addition of the gift
+     * @return true if the gift has been added, false otherwise
+     */
+    @PostMapping("/addShopGiftInGiftProgram")
+    public boolean addShopGiftInGiftProgram(@RequestParam int giftProgramId, @RequestParam int shopId, @RequestParam String label, @RequestParam int necessaryPoints, @RequestParam double addition){
+        GiftsProgram giftsProgram = db.getGiftsProgramsTable().getRecordById(giftProgramId);
+        GenericShop shop = db.getShopsTable().getRecordById(shopId);
+        if(giftsProgram == null) return false;
+        GiftsController giftsController = new GiftsController(db);
+        Gift gift = giftsController.createGift(label, necessaryPoints, addition);
+        return giftsProgram.addShopGift(shop, gift);
+
+    }
+
+    /**
+     * Removes a gift of a shop in a giftProgram
+     * @param giftProgramId the id of the giftProgram
+     * @param shopId the id of the shop
+     * @param giftId the id of the gift
+     * @return true if the gift has been removed, false otherwise
+     */
+    @PostMapping("/removeShopGiftFromGiftProgram")
+    public boolean removeShopGiftFromGiftProgram(@RequestParam int giftProgramId, @RequestParam int shopId, @RequestParam int giftId){
+        GiftsProgram giftsProgram = db.getGiftsProgramsTable().getRecordById(giftProgramId);
+        GenericShop shop = db.getShopsTable().getRecordById(shopId);
+        Gift gift = db.getGiftsTable().getRecordById(giftId);
+        if(giftsProgram == null) return false;
+        GiftsController giftsController = new GiftsController(db);
+        if(!giftsProgram.removeShopGift(shop, gift)) return false;
+        return giftsController.deleteGift(gift.getId());
+    }
 }
