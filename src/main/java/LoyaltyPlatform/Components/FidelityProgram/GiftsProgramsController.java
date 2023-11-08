@@ -15,7 +15,7 @@ import java.util.Set;
 
 
 @RestController
-@RequestMapping("/levelsPrograms")
+@RequestMapping("/giftsPrograms")
 public class GiftsProgramsController {
 
     private final Db db;
