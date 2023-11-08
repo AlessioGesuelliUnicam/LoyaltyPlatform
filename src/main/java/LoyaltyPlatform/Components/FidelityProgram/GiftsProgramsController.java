@@ -55,7 +55,7 @@ public class GiftsProgramsController {
      * @return true if the program has been deleted, false otherwise
      */
     @DeleteMapping("/deleteGiftsProgram")
-    private boolean deleteGiftsProgram(@RequestParam int giftsProgramId) {
+    public boolean deleteGiftsProgram(@RequestParam int giftsProgramId) {
         GiftsProgram giftsProgram = db.getGiftsProgramsTable().getRecordById(giftsProgramId);
         if (giftsProgram == null) return false;
         GiftsController giftsController = new GiftsController(db);
@@ -75,7 +75,7 @@ public class GiftsProgramsController {
      * @return true if the shop has been added, false otherwise
      */
     @PostMapping("/addShopToGiftsProgram")
-    private boolean addShopToGiftsProgram(@RequestParam int giftsProgramId, @RequestParam int shopId){
+    public boolean addShopToGiftsProgram(@RequestParam int giftsProgramId, @RequestParam int shopId){
         GiftsProgram giftsProgram = db.getGiftsProgramsTable().getRecordById(giftsProgramId);
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
         if(giftsProgram == null || shop == null) return false;

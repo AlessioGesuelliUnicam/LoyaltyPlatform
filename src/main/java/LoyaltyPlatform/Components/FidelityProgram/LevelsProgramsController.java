@@ -72,7 +72,7 @@ public class LevelsProgramsController {
      * @return true if the shop has been added, false otherwise
      */
     @PostMapping("/addShopToLevelsProgram")
-    private boolean addShopToLevelsProgram(@RequestParam int levelsProgramId, @RequestParam int shopId){
+    public boolean addShopToLevelsProgram(@RequestParam int levelsProgramId, @RequestParam int shopId){
         LevelsProgram levelsProgram = db.getLevelsProgramsTable().getRecordById(levelsProgramId);
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
         if(levelsProgram == null || shop == null) return false;
@@ -90,7 +90,7 @@ public class LevelsProgramsController {
      * @return true if the shop has been removed, false otherwise
      */
     @PostMapping("/removeShopFromLevelsProgram")
-    private boolean removeShopFromLevelsProgram(@RequestParam int levelsProgramId, @RequestParam int shopId){
+    public boolean removeShopFromLevelsProgram(@RequestParam int levelsProgramId, @RequestParam int shopId){
         LevelsProgram levelsProgram = db.getLevelsProgramsTable().getRecordById(levelsProgramId);
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
         if(levelsProgram == null || shop == null) return false;
