@@ -1,8 +1,8 @@
 package LoyaltyPlatform.Components.Coalition;
 
 import LoyaltyPlatform.Components.FidelityProgram.FidelityProgram;
+import LoyaltyPlatform.Components.Shop.GenericShop;
 import LoyaltyPlatform.Components.Shop.Shop;
-import LoyaltyPlatform.Exceptions.ShopNotInQueueException;
 
 import java.util.List;
 
@@ -34,14 +34,14 @@ public interface Coalition {
      *
      * @return shopsList
      */
-    List<Shop> getMembers();
+    List<GenericShop> getMembers();
 
     /**
      * Adds a new member to the coalition
      *
      * @param shop the shop who joins
      */
-    boolean addMember(Shop shop);
+    boolean addMember(GenericShop shop);
 
     /**
      * Removes a member from the coalition
@@ -50,7 +50,7 @@ public interface Coalition {
      * @return true if the shop has been removed, false otherwise
      * @throws NullPointerException if the given shop is null
      */
-    boolean removeMember(Shop shop);
+    boolean removeMember(GenericShop shop);
 
     /**
      * Tells if the given shop is a member of the coalition
@@ -59,7 +59,7 @@ public interface Coalition {
      * @return true if the given shop is a member of the coalition, false otherwise
      * @throws NullPointerException if the given shop is null
      */
-    boolean hasMember(Shop shop);
+    boolean hasMember(GenericShop shop);
 
     /**
      * Tells if the coalition has only one member

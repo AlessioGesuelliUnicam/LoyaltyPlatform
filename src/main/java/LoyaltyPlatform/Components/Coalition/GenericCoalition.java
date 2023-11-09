@@ -17,7 +17,7 @@ public class GenericCoalition implements Coalition, ObjectWithId {
     private static int idCounter = 0;
     private final int id;
     private String name;
-    private List<Shop> members;
+    private List<GenericShop> members;
     private FidelityProgram fidelityProgram;
     @JsonProperty
     private Set<GenericShop> participationRequests;
@@ -26,7 +26,8 @@ public class GenericCoalition implements Coalition, ObjectWithId {
         this.id = idCounter;
         idCounter++;
         this.name = "Coalizione di " + leader.getName();
-        this.members = new ArrayList<Shop>();
+        this.members = new ArrayList<GenericShop>();
+        this.members.add(leader);
         this.fidelityProgram = null;
         this.participationRequests = new HashSet<>();
     }
@@ -67,7 +68,7 @@ public class GenericCoalition implements Coalition, ObjectWithId {
      *
      * @return shopsList
      */
-    public List<Shop> getMembers() {
+    public List<GenericShop> getMembers() {
         return members;
     }
 
@@ -78,7 +79,7 @@ public class GenericCoalition implements Coalition, ObjectWithId {
      * @return true if the member has been added, false otherwise
      * @throws NullPointerException if the given shop is null
      */
-    public boolean addMember(Shop shop) {
+    public boolean addMember(GenericShop shop) {
         if (shop == null) throw new NullPointerException("Field shop can't be null");
         return members.add(shop);
     }
@@ -90,7 +91,7 @@ public class GenericCoalition implements Coalition, ObjectWithId {
      * @return true if the member has been removed, false otherwise
      * @throws NullPointerException if the given shop is null
      */
-    public boolean removeMember(Shop shop) {
+    public boolean removeMember(GenericShop shop) {
         if (shop == null) throw new NullPointerException("Field shop can't be null");
         return members.remove(shop);
     }
@@ -102,7 +103,7 @@ public class GenericCoalition implements Coalition, ObjectWithId {
      * @return true if the given shop is a member of the coalition, false otherwise
      * @throws NullPointerException if the given shop is null
      */
-    public boolean hasMember(Shop shop) {
+    public boolean hasMember(GenericShop shop) {
         if (shop == null) throw new NullPointerException("Field shop can't be null");
         return members.contains(shop);
     }
@@ -144,7 +145,7 @@ public class GenericCoalition implements Coalition, ObjectWithId {
      * @throws NullPointerException if the given fidelityProgram is null and the coalition more than one member
      */
     public boolean setFidelityProgram(FidelityProgram fidelityProgram) {
-        if (!hasOneMember() && fidelityProgram == null)
+        if ((members.size() > 1) && fidelityProgram == null)
             throw new NullPointerException("Field fidelityProgram can't be null if the coalition has more than one member");
         this.fidelityProgram = fidelityProgram;
         return true;

@@ -2,13 +2,13 @@ package LoyaltyPlatform.Components.Coalition;
 
 import LoyaltyPlatform.Components.FidelityProgram.*;
 import LoyaltyPlatform.Components.Shop.GenericShop;
-import LoyaltyPlatform.Components.Shop.Shop;
 import LoyaltyPlatform.Db.Db;
 import LoyaltyPlatform.Exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
+import java.util.List;
 
 @RestController
 @RequestMapping("/coalitions")
@@ -60,7 +60,7 @@ public class CoalitionsController {
         if (getCoalitionOf(shopId) != null)
             throw new HasAlreadyACoalitionException("Can't create a coalition with a member of another coalition");
         GenericCoalition coalition = new GenericCoalition(shop);
-        if(!db.getCoalitionsTable().add(coalition)) return null;
+        if (!db.getCoalitionsTable().add(coalition)) return null;
         return coalition;
     }
 
@@ -74,17 +74,16 @@ public class CoalitionsController {
     public boolean deleteCoalition(int coalitionId) throws CoalitionNotEmptyException {
         GenericCoalition coalition = db.getCoalitionsTable().getRecordById(coalitionId);
         if (!coalition.isEmpty()) throw new CoalitionNotEmptyException("Can't delete a coalition with some members");
-        removeFidelityProgramFromCoalition(coalition.getId());
-        return db.getCoalitionsTable().delete(coalition);
+        if (removeFidelityProgramFromCoalition(coalition.getId())) return db.getCoalitionsTable().delete(coalition);
+        return false;
     }
-
 
 
     /**
      * Sets the name of the given coalition
      *
      * @param coalitionId the id of the coalition
-     * @param name the new name
+     * @param name        the new name
      */
     @PostMapping("/setNameOf")
     public void setNameOf(@RequestParam int coalitionId, @RequestParam String name) {
@@ -96,7 +95,7 @@ public class CoalitionsController {
      * Adds a giftsProgram in the given coalition
      *
      * @param coalitionId the id of the coalition
-     * @param multiplier the multiplier for the giftsProgram
+     * @param multiplier  the multiplier for the giftsProgram
      * @param description the description for the giftsProgram
      */
     @PostMapping("/addGiftsProgramToCoalition")
@@ -105,44 +104,78 @@ public class CoalitionsController {
         if (coalition == null) return false;
         GiftsProgramsController giftsProgramsController = new GiftsProgramsController(db);
         GiftsProgram giftsProgram = giftsProgramsController.createGiftsProgram(multiplier, description);
-        if(giftsProgram == null) return false;
-        return coalition.setFidelityProgram(giftsProgram);
+        if (giftsProgram == null) return false;
+        if(!coalition.setFidelityProgram(giftsProgram)) return false;
+        List<GenericShop> members = coalition.getMembers();
+        for(GenericShop member : members)
+            if(!giftsProgramsController.addShopToGiftsProgram(giftsProgram.getId(),member.getId())) return false;
+        return true;
     }
 
     /**
      * Adds a levelsProgram in the given coalition
      *
      * @param coalitionId the id of the coalition
-     * @param multiplier the multiplier for the levelsProgram
+     * @param multiplier  the multiplier for the levelsProgram
      * @param description the description for the levelsProgram
      */
     @PostMapping("/addLevelsProgramToCoalition")
     public boolean addLevelsProgramToCoalition(@RequestParam int coalitionId, @RequestParam double multiplier, @RequestParam String description) {
         GenericCoalition coalition = db.getCoalitionsTable().getRecordById(coalitionId);
-        if(coalition == null) return false;
+        if (coalition == null) return false;
         LevelsProgramsController levelsProgramsController = new LevelsProgramsController(db);
         LevelsProgram levelsProgram = levelsProgramsController.createLevelsProgram(multiplier, description);
-        if(levelsProgram == null) return false;
+        if (levelsProgram == null) return false;
         return coalition.setFidelityProgram(levelsProgram);
     }
 
     /**
+     * Adds a level to the levelsProgram of the given coalition
+     *
+     * @param coalitionId    the id of the coalition
+     * @param pointsThreshold the pointsThreshold for the level
+     */
+    @PostMapping("/addLevelToLevelsProgramOfCoalition")
+    public boolean addLevelToLevelsProgramOfCoalition(@RequestParam int coalitionId, @RequestParam int pointsThreshold){
+        GenericCoalition coalition = db.getCoalitionsTable().getRecordById(coalitionId);
+        if (coalition == null) return false;
+        if(!(coalition.getFidelityProgram() instanceof LevelsProgram levelsProgram)) return false;
+        LevelsProgramsController levelsProgramsController = new LevelsProgramsController(db);
+        if(!levelsProgramsController.addLevelToLevelsProgram(levelsProgram.getId(), pointsThreshold)) return false;
+        List<GenericShop> members = coalition.getMembers();
+        for(GenericShop member : members)
+            if(!levelsProgramsController.addShopToLevelsProgram(levelsProgram.getId(),member.getId())) return false;
+        return true;
+
+    }
+
+    @PostMapping("/removeLevelFromLevelsProgramOfCoalition")
+    public boolean removeLevelFromLevelsProgramOfCoalition(@RequestParam int coalitionId, @RequestParam int levelId){
+        GenericCoalition coalition = db.getCoalitionsTable().getRecordById(coalitionId);
+        if (coalition == null) return false;
+        if(!(coalition.getFidelityProgram() instanceof LevelsProgram levelsProgram)) return false;
+        LevelsProgramsController levelsProgramsController = new LevelsProgramsController(db);
+        return levelsProgramsController.deleteLevelFromLevelsProgram(levelsProgram.getId(), levelId);
+    }
+
+    /**
      * Removes the fidelityProgram from a given coalition
+     *
      * @param coalitionId the id of the coalition where to remove the fidelityProgram
      * @return true if the fidelityProgram has been removed, false otherwise
      */
     @DeleteMapping("/removeFidelityProgramFromCoalition")
-    public boolean removeFidelityProgramFromCoalition(@RequestParam int coalitionId){
+    public boolean removeFidelityProgramFromCoalition(@RequestParam int coalitionId) {
         GenericCoalition coalition = db.getCoalitionsTable().getRecordById(coalitionId);
-        if(coalition == null) return false;
+        if (coalition == null) return false;
         FidelityProgram fidelityProgram = coalition.getFidelityProgram();
-        if(fidelityProgram == null) return false;
-        if(coalition.setFidelityProgram(null)){
-            if(fidelityProgram instanceof GiftsProgram giftsProgram) {
+        if (fidelityProgram == null) return true;
+        if (coalition.setFidelityProgram(null)) {
+            if (fidelityProgram instanceof GiftsProgram giftsProgram) {
                 GiftsProgramsController giftsProgramsController = new GiftsProgramsController(db);
                 return giftsProgramsController.deleteGiftsProgram(giftsProgram.getId());
             }
-            if(fidelityProgram instanceof LevelsProgram levelsprogram){
+            if (fidelityProgram instanceof LevelsProgram levelsprogram) {
                 LevelsProgramsController levelsProgramsController = new LevelsProgramsController(db);
                 return levelsProgramsController.deleteLevelsProgram(levelsprogram.getId());
             }
@@ -151,12 +184,11 @@ public class CoalitionsController {
     }
 
 
-
     /**
      * Sends a participation request from a requesting shop to a hosting coalition
      *
      * @param coalitionId the id of the hosting coalition
-     * @param shopId the id of the requesting shop
+     * @param shopId      the id of the requesting shop
      * @return true if the request has been sent, false otherwise
      * @throws FidelityProgramNotProvidedException if the hosting coalition has no fidelityProgram
      */
@@ -165,7 +197,8 @@ public class CoalitionsController {
         GenericCoalition coalition = db.getCoalitionsTable().getRecordById(coalitionId);
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
         if (coalition == null) return false;
-        if (!coalition.hasFidelityProgram()) throw new FidelityProgramNotProvidedException("Can't send a partecipation request to a coalition with no fidelityProgram");
+        if (!coalition.hasFidelityProgram())
+            throw new FidelityProgramNotProvidedException("Can't send a partecipation request to a coalition with no fidelityProgram");
         return coalition.addToParticipationRequests(shop);
     }
 
@@ -173,7 +206,7 @@ public class CoalitionsController {
      * Accepts a participation request from a requesting shop in a hosting coalition
      * and then migrates the shop from its old coalition to the new one
      *
-     * @param shopId the id of the requesting shop
+     * @param shopId      the id of the requesting shop
      * @param coalitionId the id of the hosting coalition
      * @return true if the request has been accepted and the shop migrated coalition, false otherwise
      * @throws ShopNotInQueueException             if the shop wasn't found in the participation requests queue of the new coalition
@@ -184,11 +217,11 @@ public class CoalitionsController {
         GenericCoalition coalition = db.getCoalitionsTable().getRecordById(coalitionId);
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
         if (coalition == null) return false;
-        if (!coalition.hasFidelityProgram()) throw new FidelityProgramNotProvidedException("Can't migrate a shop in a coalition who doesn't provide a fidelity program");
+        if (!coalition.hasFidelityProgram())
+            throw new FidelityProgramNotProvidedException("Can't migrate a shop in a coalition who doesn't provide a fidelity program");
         Coalition oldCoalition = getCoalitionOf(shop.getId());
         if (!addShopToCoalition(coalition.getId(), shop.getId())) return false;
         if (!removeShopFromCoalition(oldCoalition.getId(), shop.getId())) return false;
-        if (oldCoalition.isEmpty()) deleteCoalition(oldCoalition.getId());
         clearParticipationRequestsFor(shop);
         return true;
     }
@@ -197,14 +230,14 @@ public class CoalitionsController {
      * Refuses a participation request from a requesting shop in a hosting coalition
      *
      * @param coalitionId the id of the hosting coalition
-     * @param shopId the id of the requesting shop
+     * @param shopId      the id of the requesting shop
      * @return true if the request has been refused, false otherwise
      */
     @PostMapping("/refuseParticipationRequest")
     public boolean refuseParticipationRequest(@RequestParam int coalitionId, @RequestParam int shopId) {
         GenericCoalition coalition = db.getCoalitionsTable().getRecordById(coalitionId);
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
-        if(coalition == null) return false;
+        if (coalition == null) return false;
         return coalition.refuseMember(shop);
     }
 
@@ -220,18 +253,18 @@ public class CoalitionsController {
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
         Coalition coalition = getCoalitionOf(shop.getId());
         if (coalition == null) return false;
-        if (coalition.hasOneMember()) throw new LastMemberLeavingException("A shop can't leave a coalition with only one member");
+        if (coalition.hasOneMember())
+            throw new LastMemberLeavingException("A shop can't leave a coalition with only one member");
         if (!removeShopFromCoalition(coalition.getId(), shop.getId())) return false;
         return createCoalition(shop.getId()) != null;
     }
-
 
 
     /**
      * Adds a shop in a coalition
      *
      * @param coalitionId the id of the coalition where to add the shop
-     * @param shopId the id of the shop to add
+     * @param shopId      the id of the shop to add
      * @return true if the shop has been added, false otherwise
      * @throws ShopNotInQueueException if the shop wasn't found in the participation requests queue of the coalition
      */
@@ -241,11 +274,11 @@ public class CoalitionsController {
         if (coalition == null) return false;
         if (coalition.acceptMember(shop)) {
             FidelityProgram fidelityProgram = coalition.getFidelityProgram();
-            if(fidelityProgram instanceof GiftsProgram giftsProgram){
+            if (fidelityProgram instanceof GiftsProgram giftsProgram) {
                 GiftsProgramsController giftsProgramsController = new GiftsProgramsController(db);
                 return giftsProgramsController.addShopToGiftsProgram(giftsProgram.getId(), shop.getId());
             }
-            if(fidelityProgram instanceof LevelsProgram levelsProgram){
+            if (fidelityProgram instanceof LevelsProgram levelsProgram) {
                 LevelsProgramsController levelsProgramsController = new LevelsProgramsController(db);
                 return levelsProgramsController.addShopToLevelsProgram(levelsProgram.getId(), shop.getId());
             }
@@ -257,7 +290,7 @@ public class CoalitionsController {
      * Removes a shop from a coalition
      *
      * @param coalitionId the id of the coalition where to remove the shop
-     * @param shopId the id of the shop to remove
+     * @param shopId      the id of the shop to remove
      * @return true if the shop has been removed, false otherwise
      */
     public boolean removeShopFromCoalition(int coalitionId, int shopId) throws CoalitionNotEmptyException {
@@ -265,13 +298,13 @@ public class CoalitionsController {
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
         if (coalition == null) return false;
         if (coalition.removeMember(shop)) {
-            if(coalition.isEmpty()) return deleteCoalition(coalition.getId());
+            if (coalition.isEmpty()) return deleteCoalition(coalition.getId());
             FidelityProgram fidelityProgram = coalition.getFidelityProgram();
-            if(fidelityProgram instanceof GiftsProgram giftsProgram){
+            if (fidelityProgram instanceof GiftsProgram giftsProgram) {
                 GiftsProgramsController giftsProgramsController = new GiftsProgramsController(db);
                 return giftsProgramsController.removeShopFromGiftsProgram(giftsProgram.getId(), shop.getId());
             }
-            if(fidelityProgram instanceof LevelsProgram levelsProgram){
+            if (fidelityProgram instanceof LevelsProgram levelsProgram) {
                 LevelsProgramsController levelsProgramsController = new LevelsProgramsController(db);
                 return levelsProgramsController.removeShopFromLevelsProgram(levelsProgram.getId(), shop.getId());
             }

@@ -33,8 +33,7 @@ public class EmployeesController{
      * @param email the email of the employee
      * @return the new employee
      */
-    @PostMapping("/createEmployee")
-    public Employee createEmployee(@RequestParam String name, @RequestParam String surname, @RequestParam String email){
+    public Employee createEmployee(String name, String surname, String email){
         Employee employee = new Employee(name, surname, email);
         if(!db.getEmployeesTable().add(employee)) return null;
         return employee;
@@ -45,8 +44,7 @@ public class EmployeesController{
      * @param employeeId the id of the employee to delete
      * @return true if the employee has been deleted, false otherwise
      */
-    @DeleteMapping("/deleteEmployee")
-    public boolean deleteEmployee(@RequestParam int employeeId){
+    public boolean deleteEmployee(int employeeId){
         Employee employee = db.getEmployeesTable().getRecordById(employeeId);
         if (employee == null) return false;
         return db.getEmployeesTable().delete(employee);

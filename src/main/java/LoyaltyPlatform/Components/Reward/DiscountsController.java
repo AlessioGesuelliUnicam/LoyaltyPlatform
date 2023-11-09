@@ -34,8 +34,7 @@ public class DiscountsController {
      * @param percentageDiscount the percentageDiscount
      * @return the new discount
      */
-    @PostMapping("/createDiscount")
-    public Discount createDiscount(@RequestParam String label, @RequestParam int percentageDiscount) {
+    public Discount createDiscount(String label, int percentageDiscount) {
         Discount discount = new Discount(label, percentageDiscount);
         if (!db.getDiscountsTable().add(discount)) return null;
         return discount;
@@ -47,8 +46,7 @@ public class DiscountsController {
      * @param discountId the id of the discount to delete
      * @return true if the discount has been deleted, false otherwise
      */
-    @DeleteMapping("/deleteDiscount")
-    public boolean deleteDiscount(@RequestParam int discountId) {
+    public boolean deleteDiscount(int discountId) {
         Discount discount = db.getDiscountsTable().getRecordById(discountId);
         if (discount == null) return false;
         return db.getDiscountsTable().delete(discount);

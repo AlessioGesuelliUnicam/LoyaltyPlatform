@@ -41,8 +41,7 @@ public class LevelsProgramsController {
      * @param description the description of the program
      * @return the new levelsProgram
      */
-    @PostMapping("/createLevelsProgram")
-    public LevelsProgram createLevelsProgram(@RequestParam double multiplier, @RequestParam String description) {
+    public LevelsProgram createLevelsProgram(double multiplier, String description) {
         LevelsProgram levelsProgram = new LevelsProgram(multiplier, description);
         if(!db.getLevelsProgramsTable().add(levelsProgram)) return null;
         return levelsProgram;
@@ -54,8 +53,7 @@ public class LevelsProgramsController {
      * @param levelsProgramId the id of the levelsProgram to delete
      * @return true if the program has been deleted, false otherwise
      */
-    @DeleteMapping("/deleteLevelsProgram")
-    public boolean deleteLevelsProgram(@RequestParam int levelsProgramId) {
+    public boolean deleteLevelsProgram(int levelsProgramId) {
         LevelsProgram levelsProgram = db.getLevelsProgramsTable().getRecordById(levelsProgramId);
         if(levelsProgram == null) return false;
         LevelsController levelsController = new LevelsController(db);
@@ -71,11 +69,10 @@ public class LevelsProgramsController {
      * @param shopId the id of the shop to add
      * @return true if the shop has been added, false otherwise
      */
-    @PostMapping("/addShopToLevelsProgram")
-    public boolean addShopToLevelsProgram(@RequestParam int levelsProgramId, @RequestParam int shopId){
+    public boolean addShopToLevelsProgram(int levelsProgramId, int shopId){
         LevelsProgram levelsProgram = db.getLevelsProgramsTable().getRecordById(levelsProgramId);
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
-        if(levelsProgram == null || shop == null) return false;
+        if(levelsProgram == null) return false;
         LevelsController levelsController = new LevelsController(db);
         TreeSet<Level> levels = levelsProgram.getLevels();
         for(Level level : levels)
@@ -89,8 +86,7 @@ public class LevelsProgramsController {
      * @param shopId the id of the shop to remove
      * @return true if the shop has been removed, false otherwise
      */
-    @PostMapping("/removeShopFromLevelsProgram")
-    public boolean removeShopFromLevelsProgram(@RequestParam int levelsProgramId, @RequestParam int shopId){
+    public boolean removeShopFromLevelsProgram(int levelsProgramId, int shopId){
         LevelsProgram levelsProgram = db.getLevelsProgramsTable().getRecordById(levelsProgramId);
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
         if(levelsProgram == null || shop == null) return false;
@@ -107,8 +103,7 @@ public class LevelsProgramsController {
      * @param pointsThreshold the pointsThreshold of the new level
      * @return true if the level has been added, false otherwise
      */
-    @PostMapping("/addLevelToLevelsProgram")
-    public boolean addLevelToLevelsProgram(@RequestParam int levelsProgramId, @RequestParam int pointsThreshold){
+    public boolean addLevelToLevelsProgram(int levelsProgramId, int pointsThreshold){
         LevelsProgram levelsProgram = db.getLevelsProgramsTable().getRecordById(levelsProgramId);
         if(levelsProgram == null) return false;
         LevelsController levelsController = new LevelsController(db);
@@ -122,8 +117,7 @@ public class LevelsProgramsController {
      * @param levelId the id of the level to remove
      * @return true if the level has been deleted, false otherwise
      */
-    @PostMapping("/deleteLevelFromLevelsProgram")
-    public boolean deleteLevelFromLevelsProgram(@RequestParam int levelsProgramId, @RequestParam int levelId){
+    public boolean deleteLevelFromLevelsProgram(int levelsProgramId, int levelId){
         LevelsProgram levelsProgram = db.getLevelsProgramsTable().getRecordById(levelsProgramId);
         Level level = db.getLevelsTable().getRecordById(levelId);
         if(levelsProgram == null || level == null) return false;

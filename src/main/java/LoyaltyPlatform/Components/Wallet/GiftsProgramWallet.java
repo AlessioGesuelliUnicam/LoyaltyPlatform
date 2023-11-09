@@ -1,5 +1,6 @@
 package LoyaltyPlatform.Components.Wallet;
 
+import LoyaltyPlatform.Components.Coalition.GenericCoalition;
 import LoyaltyPlatform.Components.Reward.Gift;
 import LoyaltyPlatform.Components.User.Client;
 
@@ -8,7 +9,7 @@ import LoyaltyPlatform.Components.User.Client;
  */
 public class GiftsProgramWallet extends GenericWallet {
 
-    public GiftsProgramWallet(int id, CoalitionWithLeader coalition, Client client, int points) {
+    public GiftsProgramWallet(int id, GenericCoalition coalition, Client client, int points) {
         super(id, coalition, client, points);
     }
 

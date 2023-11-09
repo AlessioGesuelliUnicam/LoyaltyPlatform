@@ -42,8 +42,7 @@ public class GiftsProgramsController {
      * @param description the description of the program
      * @return the new GiftsProgram
      */
-    @PostMapping("/createGiftsProgram")
-    public GiftsProgram createGiftsProgram(@RequestParam double multiplier, @RequestParam String description) {
+    public GiftsProgram createGiftsProgram(double multiplier, String description) {
         GiftsProgram giftsProgram = new GiftsProgram(multiplier, description);
         if(!db.getGiftsProgramsTable().add(giftsProgram)) return null;
         return giftsProgram;
@@ -55,8 +54,7 @@ public class GiftsProgramsController {
      * @param giftsProgramId the id of the giftProgram to delete
      * @return true if the program has been deleted, false otherwise
      */
-    @DeleteMapping("/deleteGiftsProgram")
-    public boolean deleteGiftsProgram(@RequestParam int giftsProgramId) {
+    public boolean deleteGiftsProgram(int giftsProgramId) {
         GiftsProgram giftsProgram = db.getGiftsProgramsTable().getRecordById(giftsProgramId);
         if (giftsProgram == null) return false;
         GiftsController giftsController = new GiftsController(db);
@@ -75,11 +73,10 @@ public class GiftsProgramsController {
      * @param shopId the id of the shop to add
      * @return true if the shop has been added, false otherwise
      */
-    @PostMapping("/addShopToGiftsProgram")
-    public boolean addShopToGiftsProgram(@RequestParam int giftsProgramId, @RequestParam int shopId){
+    public boolean addShopToGiftsProgram(int giftsProgramId, int shopId){
         GiftsProgram giftsProgram = db.getGiftsProgramsTable().getRecordById(giftsProgramId);
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
-        if(giftsProgram == null || shop == null) return false;
+        if(giftsProgram == null) return false;
         return giftsProgram.addShop(shop);
     }
 
@@ -90,8 +87,7 @@ public class GiftsProgramsController {
      * @return true if the shop has been removed, false otherwise
      * @throws NullPointerException if any of the fields is null
      */
-    @PostMapping("/removeShopFromGiftsProgram")
-    public boolean removeShopFromGiftsProgram(@RequestParam int giftsProgramId, @RequestParam int shopId){
+    public boolean removeShopFromGiftsProgram(int giftsProgramId, int shopId){
         GiftsProgram giftsProgram = db.getGiftsProgramsTable().getRecordById(giftsProgramId);
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
         if(giftsProgram == null || shop == null) return false;

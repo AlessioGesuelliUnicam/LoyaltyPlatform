@@ -56,10 +56,10 @@ OwnersController {
     public boolean deleteOwner(@RequestParam int ownerId) throws CoalitionNotEmptyException {
         Owner owner = db.getOwnersTable().getRecordById(ownerId);
         if (owner == null) return false;
-        if(!db.getOwnersTable().delete(owner)) return false;
         ShopsController shopsController = new ShopsController(db);
         GenericShop shop = shopsController.getShopOf(owner.getId());
-        return shopsController.deleteShop(shop.getId());
+        if(!shopsController.deleteShop(shop.getId())) return false;
+        return db.getOwnersTable().delete(owner);
     }
 
 

@@ -1,0 +1,1408 @@
+{
+	"info": {
+		"_postman_id": "413a0537-7fe8-4a15-b1a1-7ac6c5eee940",
+		"name": "LoyaltyPlatform",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30747961",
+		"_collection_link": "https://warped-robot-152130.postman.co/workspace/My-Workspace~110626c6-8c70-40f5-893a-7f4f5dc16418/collection/26353465-413a0537-7fe8-4a15-b1a1-7ac6c5eee940?action=share&source=collection_link&creator=30747961"
+	},
+	"item": [
+		{
+			"name": "Rewards",
+			"item": [
+				{
+					"name": "Gifts",
+					"item": [
+						{
+							"name": "getGifts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/gifts/getGifts",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"gifts",
+										"getGifts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "setGiftLabel",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/gifts/setGiftLabel?giftId=0&label=b",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"gifts",
+										"setGiftLabel"
+									],
+									"query": [
+										{
+											"key": "giftId",
+											"value": "0"
+										},
+										{
+											"key": "label",
+											"value": "b"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "setGiftNecessaryPoints",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/gifts/setGiftNecessaryPoints?giftId=0&necessaryPoints=150",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"gifts",
+										"setGiftNecessaryPoints"
+									],
+									"query": [
+										{
+											"key": "giftId",
+											"value": "0"
+										},
+										{
+											"key": "necessaryPoints",
+											"value": "150"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "setGiftAddition",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/gifts/setGiftAddition?giftId=0&addition=50",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"gifts",
+										"setGiftAddition"
+									],
+									"query": [
+										{
+											"key": "giftId",
+											"value": "0"
+										},
+										{
+											"key": "addition",
+											"value": "50"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Discounts",
+					"item": [
+						{
+							"name": "getDiscounts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/discounts/getDiscounts",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"discounts",
+										"getDiscounts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "setDiscountLabel",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/discounts/setDiscountLabel?discountId=1&label=descrizione2",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"discounts",
+										"setDiscountLabel"
+									],
+									"query": [
+										{
+											"key": "discountId",
+											"value": "1"
+										},
+										{
+											"key": "label",
+											"value": "descrizione2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "setDiscountPercentageDiscount",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/discounts/setDiscountPercentageDiscount?discountId=1&percentageDiscount=10",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"discounts",
+										"setDiscountPercentageDiscount"
+									],
+									"query": [
+										{
+											"key": "discountId",
+											"value": "1"
+										},
+										{
+											"key": "percentageDiscount",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Levels",
+			"item": [
+				{
+					"name": "getLevels",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/levels/getLevels",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"levels",
+								"getLevels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addShopDiscountToLevel",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/levels/addShopDiscountToLevel?levelId=1&shopId=0&label=Pizza in scontoo!&percentageDiscount=30",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"levels",
+								"addShopDiscountToLevel"
+							],
+							"query": [
+								{
+									"key": "levelId",
+									"value": "1"
+								},
+								{
+									"key": "shopId",
+									"value": "0"
+								},
+								{
+									"key": "label",
+									"value": "Pizza in scontoo!"
+								},
+								{
+									"key": "percentageDiscount",
+									"value": "30"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removeShopDiscountFromLevel",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/levels/removeShopDiscountFromLevel?levelId=1&shopId=0&discountId=3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"levels",
+								"removeShopDiscountFromLevel"
+							],
+							"query": [
+								{
+									"key": "levelId",
+									"value": "1"
+								},
+								{
+									"key": "shopId",
+									"value": "0"
+								},
+								{
+									"key": "discountId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Coalitions",
+			"item": [
+				{
+					"name": "getCoalitions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/coalitions/getCoalitions",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"coalitions",
+								"getCoalitions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCoalitionsOf",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/coalitions/getCoalitionOf?shopId=0",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"coalitions",
+								"getCoalitionOf"
+							],
+							"query": [
+								{
+									"key": "shopId",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "setNameOf",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/coalitions/setNameOf?coalitionId=0&name=pluto",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"coalitions",
+								"setNameOf"
+							],
+							"query": [
+								{
+									"key": "coalitionId",
+									"value": "0"
+								},
+								{
+									"key": "name",
+									"value": "pluto"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addGiftsProgramToCoalition",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/coalitions/addGiftsProgramToCoalition?coalitionId=0&multiplier=0.6&description=descrizioneRegali",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"coalitions",
+								"addGiftsProgramToCoalition"
+							],
+							"query": [
+								{
+									"key": "coalitionId",
+									"value": "0"
+								},
+								{
+									"key": "multiplier",
+									"value": "0.6"
+								},
+								{
+									"key": "description",
+									"value": "descrizioneRegali"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addLevelsProgramToCoalition",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/coalitions/addLevelsProgramToCoalition?coalitionId=1&multiplier=0.4&description=descrizioneLivelli",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"coalitions",
+								"addLevelsProgramToCoalition"
+							],
+							"query": [
+								{
+									"key": "coalitionId",
+									"value": "1"
+								},
+								{
+									"key": "multiplier",
+									"value": "0.4"
+								},
+								{
+									"key": "description",
+									"value": "descrizioneLivelli"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removeFidelityProgramFromCoalition",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/coalitions/removeFidelityProgramFromCoalition?coalitionId=0",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"coalitions",
+								"removeFidelityProgramFromCoalition"
+							],
+							"query": [
+								{
+									"key": "coalitionId",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sendParticipationRequest",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/coalitions/sendParticipationRequest?coalitionId=0&shopId=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"coalitions",
+								"sendParticipationRequest"
+							],
+							"query": [
+								{
+									"key": "coalitionId",
+									"value": "0"
+								},
+								{
+									"key": "shopId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "acceptParticipationRequest",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/coalitions/acceptParticipationRequest?coalitionId=0&shopId=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"coalitions",
+								"acceptParticipationRequest"
+							],
+							"query": [
+								{
+									"key": "coalitionId",
+									"value": "0"
+								},
+								{
+									"key": "shopId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refuseParticipationRequest",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/coalitions/refuseParticipationRequest?coalitionId=0&shopId=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"coalitions",
+								"refuseParticipationRequest"
+							],
+							"query": [
+								{
+									"key": "coalitionId",
+									"value": "0"
+								},
+								{
+									"key": "shopId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "leftCoalition",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/coalitions/leftCoalition?shopId=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"coalitions",
+								"leftCoalition"
+							],
+							"query": [
+								{
+									"key": "shopId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addLevelToLevelsProgramOfCoalition",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/coalitions/addLevelToLevelsProgramOfCoalition?coalitionId=0&pointsThreshold=5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"coalitions",
+								"addLevelToLevelsProgramOfCoalition"
+							],
+							"query": [
+								{
+									"key": "coalitionId",
+									"value": "0"
+								},
+								{
+									"key": "pointsThreshold",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removeLevelFromLevelsProgramOfCoalition",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/coalitions/removeLevelFromLevelsProgramOfCoalition?coalitionId=0&levelId=0",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"coalitions",
+								"removeLevelFromLevelsProgramOfCoalition"
+							],
+							"query": [
+								{
+									"key": "coalitionId",
+									"value": "0"
+								},
+								{
+									"key": "levelId",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FidelityPrograms",
+			"item": [
+				{
+					"name": "GiftsPrograms",
+					"item": [
+						{
+							"name": "getGiftsPrograms",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/giftsPrograms/getGiftsPrograms",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"giftsPrograms",
+										"getGiftsPrograms"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "createGiftsProgram",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/giftsPrograms/createGiftsProgram?multiplier=0.5&description=LoremIpsum",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"giftsPrograms",
+										"createGiftsProgram"
+									],
+									"query": [
+										{
+											"key": "multiplier",
+											"value": "0.5"
+										},
+										{
+											"key": "description",
+											"value": "LoremIpsum"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteGiftsProgram",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/giftsPrograms/deleteGiftsProgram?giftsProgramId=0",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"giftsPrograms",
+										"deleteGiftsProgram"
+									],
+									"query": [
+										{
+											"key": "giftsProgramId",
+											"value": "0"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "addShopGiftInGiftProgram",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/giftsPrograms/addShopGiftInGiftProgram?giftProgramId=0&shopId=0&label=Zaino&necessaryPoints=30&addition=5",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"giftsPrograms",
+										"addShopGiftInGiftProgram"
+									],
+									"query": [
+										{
+											"key": "giftProgramId",
+											"value": "0"
+										},
+										{
+											"key": "shopId",
+											"value": "0"
+										},
+										{
+											"key": "label",
+											"value": "Zaino"
+										},
+										{
+											"key": "necessaryPoints",
+											"value": "30"
+										},
+										{
+											"key": "addition",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "removeShopGiftFromGiftProgram",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/giftsPrograms/removeShopGiftFromGiftProgram?giftProgramId=0&shopId=0&giftId=0",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"giftsPrograms",
+										"removeShopGiftFromGiftProgram"
+									],
+									"query": [
+										{
+											"key": "giftProgramId",
+											"value": "0"
+										},
+										{
+											"key": "shopId",
+											"value": "0"
+										},
+										{
+											"key": "giftId",
+											"value": "0"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "LevelsPrograms",
+					"item": [
+						{
+							"name": "getLevelsPrograms",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/levelsPrograms/getLevelsPrograms",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"levelsPrograms",
+										"getLevelsPrograms"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "employees",
+					"item": [
+						{
+							"name": "getEmployees",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/employees/getEmployees",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"employees",
+										"getEmployees"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "setEmployeeSurname",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/employees/setEmployeeSurname?employeeId=0&surname=Carletti",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"employees",
+										"setEmployeeSurname"
+									],
+									"query": [
+										{
+											"key": "employeeId",
+											"value": "0"
+										},
+										{
+											"key": "surname",
+											"value": "Carletti"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "setEmployeeEmail",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/employees/setEmployeeEmail?employeeId=0&email=carletto104@gmail.com",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"employees",
+										"setEmployeeEmail"
+									],
+									"query": [
+										{
+											"key": "employeeId",
+											"value": "0"
+										},
+										{
+											"key": "email",
+											"value": "carletto104@gmail.com"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "setEmployeeName",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/employees/setEmployeeName?employeeId=0&name=Carletto",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"employees",
+										"setEmployeeName"
+									],
+									"query": [
+										{
+											"key": "employeeId",
+											"value": "0"
+										},
+										{
+											"key": "name",
+											"value": "Carletto"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "owners",
+					"item": [
+						{
+							"name": "createOwner",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/owners/createOwner?name=Pippo&surname=De Pippis&email=pippo@gmail.com&partitaIva=123456789",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"owners",
+										"createOwner"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Pippo"
+										},
+										{
+											"key": "surname",
+											"value": "De Pippis"
+										},
+										{
+											"key": "email",
+											"value": "pippo@gmail.com"
+										},
+										{
+											"key": "partitaIva",
+											"value": "123456789"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "createOwner",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "localhost:8080/owners/createOwner?name=Pippo&surname=De Pippis&email=pippo@gmail.com&partitaIva=123456789",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"owners",
+												"createOwner"
+											],
+											"query": [
+												{
+													"key": "name",
+													"value": "Pippo"
+												},
+												{
+													"key": "surname",
+													"value": "De Pippis"
+												},
+												{
+													"key": "email",
+													"value": "pippo@gmail.com"
+												},
+												{
+													"key": "partitaIva",
+													"value": "123456789"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 09 Nov 2023 15:54:21 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "true"
+								},
+								{
+									"name": "createOwner",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "localhost:8080/owners/createOwner?name=Pippa&surname=De Pippis&email=pippo@gmail.com&partitaIva=123456789",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"owners",
+												"createOwner"
+											],
+											"query": [
+												{
+													"key": "name",
+													"value": "Pippa"
+												},
+												{
+													"key": "surname",
+													"value": "De Pippis"
+												},
+												{
+													"key": "email",
+													"value": "pippo@gmail.com"
+												},
+												{
+													"key": "partitaIva",
+													"value": "123456789"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 09 Nov 2023 15:54:21 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "true"
+								}
+							]
+						},
+						{
+							"name": "getOwners",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/owners/getOwners",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"owners",
+										"getOwners"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteOwner",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/owners/deleteOwner?ownerId=0",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"owners",
+										"deleteOwner"
+									],
+									"query": [
+										{
+											"key": "ownerId",
+											"value": "0"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "setOwnerSurname",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/owners/setOwnerSurname?ownerId=0&surname=CapoCarletti",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"owners",
+										"setOwnerSurname"
+									],
+									"query": [
+										{
+											"key": "ownerId",
+											"value": "0"
+										},
+										{
+											"key": "surname",
+											"value": "CapoCarletti"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "setOwnerEmail",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/owners/setOwnerEmail?ownerId=0&email=capocarletto104@gmail.com",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"owners",
+										"setOwnerEmail"
+									],
+									"query": [
+										{
+											"key": "ownerId",
+											"value": "0"
+										},
+										{
+											"key": "email",
+											"value": "capocarletto104@gmail.com"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "setOwnerName",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/owners/setOwnerName?ownerId=0&name=CapoCarletto",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"owners",
+										"setOwnerName"
+									],
+									"query": [
+										{
+											"key": "ownerId",
+											"value": "0"
+										},
+										{
+											"key": "name",
+											"value": "CapoCarletto"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Shops",
+			"item": [
+				{
+					"name": "getShops",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/shops/getShops",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shops",
+								"getShops"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getShopEmployees",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/shops/getShopEmployees?shopId=0",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shops",
+								"getShopEmployees"
+							],
+							"query": [
+								{
+									"key": "shopId",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addShopEmployee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/shops/addShopEmployee?shopId=0&name=Sofia&surname=Martinelli&email=sofia@gmail.com",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shops",
+								"addShopEmployee"
+							],
+							"query": [
+								{
+									"key": "shopId",
+									"value": "0"
+								},
+								{
+									"key": "name",
+									"value": "Sofia"
+								},
+								{
+									"key": "surname",
+									"value": "Martinelli"
+								},
+								{
+									"key": "email",
+									"value": "sofia@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removeShopEmployee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/shops/removeShopEmployee?shopId=0&employeeId=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shops",
+								"removeShopEmployee"
+							],
+							"query": [
+								{
+									"key": "shopId",
+									"value": "0"
+								},
+								{
+									"key": "employeeId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "setShopName",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/shops/setShopName?shopId=0&name=Pippo's Pizzeria",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shops",
+								"setShopName"
+							],
+							"query": [
+								{
+									"key": "shopId",
+									"value": "0"
+								},
+								{
+									"key": "name",
+									"value": "Pippo's Pizzeria"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getShopOf",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/shops/getShopOf?ownerId=0",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shops",
+								"getShopOf"
+							],
+							"query": [
+								{
+									"key": "ownerId",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

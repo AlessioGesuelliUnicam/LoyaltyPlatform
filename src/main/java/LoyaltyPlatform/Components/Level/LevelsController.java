@@ -38,10 +38,9 @@ public class LevelsController {
      * @param pointsThreshold the pointsThreshold
      * @return the new level
      */
-    @PostMapping("/createLevel")
-    public Level createLevel(@RequestParam int pointsThreshold) {
+    public Level createLevel(int pointsThreshold) {
         Level level = new Level(pointsThreshold);
-        if(!db.getLevelsTable().add(level)) return null;
+        if (!db.getLevelsTable().add(level)) return null;
         return level;
     }
 
@@ -51,8 +50,7 @@ public class LevelsController {
      * @param levelId the id of the level to delete
      * @return true if the level has been deleted, false otherwise
      */
-    @DeleteMapping("/deleteLevel")
-    public boolean deleteLevel(@RequestParam int levelId) {
+    public boolean deleteLevel(int levelId) {
         Level level = db.getLevelsTable().getRecordById(levelId);
         if (level == null) return false;
         DiscountsController discountsController = new DiscountsController(db);
@@ -72,11 +70,10 @@ public class LevelsController {
      * @param shopId  the id of the shop to add
      * @return true if the shop has been added to the level, false if the shop was already present
      */
-    @PostMapping("/addShopToLevel")
-    public boolean addShopToLevel(@RequestParam int levelId, @RequestParam int shopId) {
+    public boolean addShopToLevel(int levelId, int shopId) {
         Level level = db.getLevelsTable().getRecordById(levelId);
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
-        if (level == null || shop == null) return false;
+        if (level == null) return false;
         return level.addShop(shop);
     }
 
@@ -88,8 +85,7 @@ public class LevelsController {
      * @return true if the shop has been removed, false if the shop was not found
      * @throws NullPointerException if any of the fields is null
      */
-    @PostMapping("/removeShopFromLevel")
-    public boolean removeShopFromLevel(@RequestParam int levelId, @RequestParam int shopId) {
+    public boolean removeShopFromLevel(int levelId, int shopId) {
         Level level = db.getLevelsTable().getRecordById(levelId);
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
         if (level == null || shop == null) return false;
@@ -102,17 +98,18 @@ public class LevelsController {
 
     /**
      * Adds a discount for a shop in a level
-     * @param levelId the id of the level
-     * @param shopId the id of the shop
-     * @param label the label of the discount
+     *
+     * @param levelId            the id of the level
+     * @param shopId             the id of the shop
+     * @param label              the label of the discount
      * @param percentageDiscount the percentageDiscount of the discount
      * @return true if the discount has been added, false otherwise
      */
     @PostMapping("/addShopDiscountToLevel")
-    public boolean addShopDiscountToLevel(@RequestParam int levelId, @RequestParam int shopId, @RequestParam String label, @RequestParam int percentageDiscount){
+    public boolean addShopDiscountToLevel(@RequestParam int levelId, @RequestParam int shopId, @RequestParam String label, @RequestParam int percentageDiscount) {
         Level level = db.getLevelsTable().getRecordById(levelId);
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
-        if(level == null) return false;
+        if (level == null) return false;
         DiscountsController discountsController = new DiscountsController(db);
         Discount discount = discountsController.createDiscount(label, percentageDiscount);
         return level.addShopDiscount(shop, discount);
@@ -120,19 +117,20 @@ public class LevelsController {
 
     /**
      * Removes a discount of a shop in a level
-     * @param levelId the id of the level
-     * @param shopId the id of the shop
+     *
+     * @param levelId    the id of the level
+     * @param shopId     the id of the shop
      * @param discountId the label of the discount
      * @return true if the discount has been removed, false otherwise
      */
     @PostMapping("/removeShopDiscountFromLevel")
-    public boolean removeShopDiscountFromLevel(@RequestParam int levelId, @RequestParam int shopId, @RequestParam int discountId){
+    public boolean removeShopDiscountFromLevel(@RequestParam int levelId, @RequestParam int shopId, @RequestParam int discountId) {
         Level level = db.getLevelsTable().getRecordById(levelId);
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
         Discount discount = db.getDiscountsTable().getRecordById(discountId);
-        if(level == null) return false;
+        if (level == null) return false;
         DiscountsController discountsController = new DiscountsController(db);
-        if(!level.removeShopDiscount(shop, discount)) return false;
+        if (!level.removeShopDiscount(shop, discount)) return false;
         return discountsController.deleteDiscount(discount.getId());
     }
 

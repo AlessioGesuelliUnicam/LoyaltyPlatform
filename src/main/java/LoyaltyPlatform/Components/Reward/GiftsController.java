@@ -35,8 +35,7 @@ public class GiftsController {
      * @param addition        the addition to redeem the Gift
      * @return the new gift
      */
-    @PostMapping("/createGift")
-    public Gift createGift(@RequestParam String label, @RequestParam int necessaryPoints, @RequestParam double addition) {
+    public Gift createGift(String label, int necessaryPoints, double addition) {
         Gift gift = new Gift(label, necessaryPoints, addition);
         if (!db.getGiftsTable().add(gift)) return null;
         return gift;
@@ -48,8 +47,7 @@ public class GiftsController {
      * @param giftId the id of the gift to delete
      * @return true if the gift has been deleted, false otherwise
      */
-    @DeleteMapping("/deleteGift")
-    public boolean deleteGift(@RequestParam int giftId) {
+    public boolean deleteGift(int giftId) {
         Gift gift = db.getGiftsTable().getRecordById(giftId);
         if (gift == null) return false;
         return db.getGiftsTable().delete(gift);

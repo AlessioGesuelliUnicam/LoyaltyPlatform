@@ -1,6 +1,7 @@
 package LoyaltyPlatform.Components.Wallet;
 
 
+import LoyaltyPlatform.Components.Coalition.GenericCoalition;
 import LoyaltyPlatform.Components.Level.Level;
 import LoyaltyPlatform.Components.User.Client;
 
@@ -11,7 +12,7 @@ public class LevelsProgramWallet extends GenericWallet {
 
     private Level level;
 
-    public LevelsProgramWallet(int id, CoalitionWithLeader coalition, Client client, int points, Level level) {
+    public LevelsProgramWallet(int id, GenericCoalition coalition, Client client, int points, Level level) {
         super(id, coalition, client, points);
         this.level = level;
     }
