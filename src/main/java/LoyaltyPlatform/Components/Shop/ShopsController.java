@@ -1,9 +1,13 @@
 package LoyaltyPlatform.Components.Shop;
 
+import LoyaltyPlatform.Components.Coalition.CoalitionsController;
+import LoyaltyPlatform.Components.Coalition.GenericCoalition;
 import LoyaltyPlatform.Components.User.Employee;
 import LoyaltyPlatform.Components.User.EmployeesController;
 import LoyaltyPlatform.Components.User.Owner;
 import LoyaltyPlatform.Db.Db;
+import LoyaltyPlatform.Exceptions.CoalitionNotEmptyException;
+import LoyaltyPlatform.Exceptions.HasAlreadyACoalitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,33 +34,47 @@ public class ShopsController {
     }
 
     /**
-     * Creates a new shop
-     * @param partitaIva the partitaIva of the shop
-     * @param name the name of the shop
-     * @param ownerId the id of the owner of the shop
-     * @return true if the shop has been created, false otherwise
+     * Returns the shop of a given owner
+     * @param ownerId the id of the owner
+     * @return the shop of the owner
      */
-    @PostMapping("/createShop")
-    public boolean createShop(@RequestParam String partitaIva, @RequestParam String name, @RequestParam int ownerId){
+    @GetMapping("/getShopOf")
+    public GenericShop getShopOf(@RequestParam int ownerId){
         Owner owner = db.getOwnersTable().getRecordById(ownerId);
-        GenericShop shop = new GenericShop(partitaIva, name, owner);
-        return db.getShopsTable().add(shop);
+        if(owner == null) return null;
+        HashSet<GenericShop> shops = getShops();
+        for (GenericShop shop : shops)
+            if (shop.getOwner().equals(owner)) return shop;
+        return null;
     }
 
     /**
-     * Deletes a shop
+     * Creates a new shop and puts it in a new coalition
+     * @param partitaIva the partitaIva of the shop
+     * @param ownerId the id of the owner of the shop
+     * @return the new shop
+     */
+    public GenericShop createShop(String partitaIva, int ownerId) throws HasAlreadyACoalitionException {
+        Owner owner = db.getOwnersTable().getRecordById(ownerId);
+        GenericShop shop = new GenericShop(partitaIva, owner);
+        if(!db.getShopsTable().add(shop)) return null;
+        CoalitionsController coalitionsController = new CoalitionsController(db);
+        if(coalitionsController.createCoalition(shop.getId()) != null) return shop;
+        return null;
+    }
+
+    /**
+     * Deletes a shop and removes it from its coalition
      * @param shopId the id of the shop to remove
      * @return true if the shop has been deleted, false otherwise
      */
-    @DeleteMapping("/deleteShop")
-    public boolean deleteShop(@RequestParam int shopId){
+    public boolean deleteShop(int shopId) throws CoalitionNotEmptyException {
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
-        EmployeesController employeesController = new EmployeesController(db);
-        HashSet<Employee> employees = shop.getEmployees();
-        for(Employee employee : employees){
-            int employeeId = employee.getId();
-            if(!employeesController.deleteEmployee(employeeId)) return false;
-        }
+        if(shop == null) return false;
+        CoalitionsController coalitionsController = new CoalitionsController(db);
+        GenericCoalition coalition = coalitionsController.getCoalitionOf(shop.getId());
+        if(!coalitionsController.removeShopFromCoalition(coalition.getId(), shop.getId())) return false;
+        deleteShopEmployees(shop.getId());
         return db.getShopsTable().delete(shop);
     }
 
@@ -111,6 +129,22 @@ public class ShopsController {
     public void setShopName(@RequestParam int shopId, @RequestParam String name){
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
         shop.setName(name);
+    }
+
+
+    /**
+     * Deletes all the employees from a shop
+     * @param shopId the id of the shop where to delete the employees
+     */
+    private void deleteShopEmployees(@RequestParam int shopId){
+        GenericShop shop = db.getShopsTable().getRecordById(shopId);
+        if(shop == null) return;
+        EmployeesController employeesController = new EmployeesController(db);
+        HashSet<Employee> employees = shop.getEmployees();
+        for(Employee employee : employees){
+            int employeeId = employee.getId();
+            employeesController.deleteEmployee(employeeId);
+        }
     }
 
 }

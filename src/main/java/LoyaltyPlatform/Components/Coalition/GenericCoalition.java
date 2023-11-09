@@ -1,12 +1,13 @@
 package LoyaltyPlatform.Components.Coalition;
 
 import LoyaltyPlatform.Components.FidelityProgram.FidelityProgram;
+import LoyaltyPlatform.Components.Shop.GenericShop;
 import LoyaltyPlatform.Components.Shop.Shop;
+import LoyaltyPlatform.Exceptions.ShopNotInQueueException;
 import LoyaltyPlatform.Utilities.ObjectWithId;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * This class represents a generic coalition with a fidelity program
@@ -18,13 +19,16 @@ public class GenericCoalition implements Coalition, ObjectWithId {
     private String name;
     private List<Shop> members;
     private FidelityProgram fidelityProgram;
+    @JsonProperty
+    private Set<GenericShop> participationRequests;
 
-    public GenericCoalition() {
+    public GenericCoalition(GenericShop leader) {
         this.id = idCounter;
         idCounter++;
-        this.name = "Nuova coalizione";
+        this.name = "Coalizione di " + leader.getName();
         this.members = new ArrayList<Shop>();
         this.fidelityProgram = null;
+        this.participationRequests = new HashSet<>();
     }
 
     /**
@@ -136,11 +140,12 @@ public class GenericCoalition implements Coalition, ObjectWithId {
      * Set the fidelity program of the coalition
      *
      * @param fidelityProgram the new fidelity program
-     * @throws NullPointerException if the given fidelityProgram is null and the coalition more than one member
      * @return true if the fidelityProgram has been changed, false otherwise
+     * @throws NullPointerException if the given fidelityProgram is null and the coalition more than one member
      */
     public boolean setFidelityProgram(FidelityProgram fidelityProgram) {
-        if (!hasOneMember() && fidelityProgram == null) throw new NullPointerException("Field fidelityProgram can't be null if the coalition has more than one member");
+        if (!hasOneMember() && fidelityProgram == null)
+            throw new NullPointerException("Field fidelityProgram can't be null if the coalition has more than one member");
         this.fidelityProgram = fidelityProgram;
         return true;
     }
@@ -154,6 +159,54 @@ public class GenericCoalition implements Coalition, ObjectWithId {
         return getFidelityProgram() != null;
     }
 
+    /**
+     * Adds a shop to the participation requests list
+     *
+     * @param shop the shop waiting for approval
+     * @return true if the shop is added, false otherwise
+     */
+    public boolean addToParticipationRequests(GenericShop shop) {
+        if (shop == null) return false;
+        if (hasMember(shop)) return false;
+        return participationRequests.add(shop);
+
+    }
+
+    /**
+     * Accepts an incoming request to participate
+     *
+     * @param shop the shop who wants to join the coalition
+     * @return true if the member has been added, false otherwise
+     */
+    public boolean acceptMember(GenericShop shop) throws ShopNotInQueueException {
+        if (shop == null) return false;
+        if (participationRequests.remove(shop)) return addMember(shop);
+        throw new ShopNotInQueueException("The given shop was not found in the incoming requests queue");
+    }
+
+    /**
+     * Refuses an incoming request to participate
+     *
+     * @param shop the shop who wants to join the coalition
+     * @return true if the member is refused, false otherwise
+     */
+    public boolean refuseMember(GenericShop shop) {
+        if (shop == null) return false;
+        if (!participationRequests.contains(shop)) return false;
+        return participationRequests.remove(shop);
+    }
+
+    /**
+     * Tells if the given shop is in the participation requests queue
+     *
+     * @param shop the shop waiting for approval
+     * @return true if the shop is in the queue, false otherwise
+     * @throws NullPointerException if the given shop is null
+     */
+    public boolean isWaiting(GenericShop shop) {
+        if (shop == null) throw new NullPointerException("Field shop can't be null");
+        return participationRequests.contains(shop);
+    }
 
     public boolean equals(Object o) {
         if (o == null) return false;

@@ -27,7 +27,7 @@ public class CoalitionsController {
      * @return the set
      */
     @GetMapping("/getCoalitions")
-    public HashSet<CoalitionWithLeader> getCoalitions() {
+    public HashSet<GenericCoalition> getCoalitions() {
         return db.getCoalitionsTable().getRecords();
     }
 
@@ -39,10 +39,10 @@ public class CoalitionsController {
      * @throws NullPointerException if the given shop is null
      */
     @GetMapping("/getCoalitionOf")
-    public CoalitionWithLeader getCoalitionOf(@RequestParam int shopId) {
+    public GenericCoalition getCoalitionOf(@RequestParam int shopId) {
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
-        HashSet<CoalitionWithLeader> coalitions = getCoalitions();
-        for (CoalitionWithLeader coalition : coalitions) {
+        HashSet<GenericCoalition> coalitions = getCoalitions();
+        for (GenericCoalition coalition : coalitions) {
             if (coalition.hasMember(shop)) return coalition;
         }
         return null;
@@ -55,12 +55,11 @@ public class CoalitionsController {
      * @return the new coalition
      * @throws HasAlreadyACoalitionException if the given shop already belongs to a coalition
      */
-    @PostMapping("/createCoalition")
-    public GenericCoalition createCoalition(@RequestParam int shopId) throws HasAlreadyACoalitionException {
+    public GenericCoalition createCoalition(int shopId) throws HasAlreadyACoalitionException {
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
         if (getCoalitionOf(shopId) != null)
             throw new HasAlreadyACoalitionException("Can't create a coalition with a member of another coalition");
-        CoalitionWithLeader coalition = new CoalitionWithLeader(shop);
+        GenericCoalition coalition = new GenericCoalition(shop);
         if(!db.getCoalitionsTable().add(coalition)) return null;
         return coalition;
     }
@@ -72,23 +71,11 @@ public class CoalitionsController {
      * @return true if the coalition has been deleted, false otherwise
      * @throws CoalitionNotEmptyException if the given coalition is not empty
      */
-    @DeleteMapping("/deleteCoalition")
-    public boolean deleteCoalition(@RequestParam int coalitionId) throws CoalitionNotEmptyException {
-        CoalitionWithLeader coalition = db.getCoalitionsTable().getRecordById(coalitionId);
+    public boolean deleteCoalition(int coalitionId) throws CoalitionNotEmptyException {
+        GenericCoalition coalition = db.getCoalitionsTable().getRecordById(coalitionId);
         if (!coalition.isEmpty()) throw new CoalitionNotEmptyException("Can't delete a coalition with some members");
-        FidelityProgram fidelityProgram = coalition.getFidelityProgram();
-        if(fidelityProgram == null) return db.getCoalitionsTable().delete(coalition);
-        if(fidelityProgram instanceof GiftsProgram giftsProgram) {
-            GiftsProgramsController giftsProgramsController = new GiftsProgramsController(db);
-            if(giftsProgramsController.deleteGiftsProgram(giftsProgram.getId()))
-                return db.getCoalitionsTable().delete(coalition);
-        }
-        if(fidelityProgram instanceof LevelsProgram levelsprogram){
-            LevelsProgramsController levelsProgramsController = new LevelsProgramsController(db);
-            if(levelsProgramsController.deleteLevelsProgram(levelsprogram.getId()))
-                return db.getCoalitionsTable().delete(coalition);
-        }
-        return false;
+        removeFidelityProgramFromCoalition(coalition.getId());
+        return db.getCoalitionsTable().delete(coalition);
     }
 
 
@@ -119,8 +106,7 @@ public class CoalitionsController {
         GiftsProgramsController giftsProgramsController = new GiftsProgramsController(db);
         GiftsProgram giftsProgram = giftsProgramsController.createGiftsProgram(multiplier, description);
         if(giftsProgram == null) return false;
-        coalition.setFidelityProgram(giftsProgram);
-        return true;
+        return coalition.setFidelityProgram(giftsProgram);
     }
 
     /**
@@ -137,8 +123,7 @@ public class CoalitionsController {
         LevelsProgramsController levelsProgramsController = new LevelsProgramsController(db);
         LevelsProgram levelsProgram = levelsProgramsController.createLevelsProgram(multiplier, description);
         if(levelsProgram == null) return false;
-        coalition.setFidelityProgram(levelsProgram);
-        return true;
+        return coalition.setFidelityProgram(levelsProgram);
     }
 
     /**
@@ -177,7 +162,7 @@ public class CoalitionsController {
      */
     @PostMapping("/sendParticipationRequest")
     public boolean sendParticipationRequest(@RequestParam int coalitionId, @RequestParam int shopId) throws FidelityProgramNotProvidedException {
-        CoalitionWithLeader coalition = db.getCoalitionsTable().getRecordById(coalitionId);
+        GenericCoalition coalition = db.getCoalitionsTable().getRecordById(coalitionId);
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
         if (coalition == null) return false;
         if (!coalition.hasFidelityProgram()) throw new FidelityProgramNotProvidedException("Can't send a partecipation request to a coalition with no fidelityProgram");
@@ -196,13 +181,13 @@ public class CoalitionsController {
      */
     @PostMapping("/acceptParticipationRequest")
     public boolean acceptParticipationRequest(@RequestParam int coalitionId, @RequestParam int shopId) throws CoalitionNotEmptyException, ShopNotInQueueException, FidelityProgramNotProvidedException {
-        CoalitionWithLeader coalition = db.getCoalitionsTable().getRecordById(coalitionId);
+        GenericCoalition coalition = db.getCoalitionsTable().getRecordById(coalitionId);
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
         if (coalition == null) return false;
         if (!coalition.hasFidelityProgram()) throw new FidelityProgramNotProvidedException("Can't migrate a shop in a coalition who doesn't provide a fidelity program");
         Coalition oldCoalition = getCoalitionOf(shop.getId());
         if (!addShopToCoalition(coalition.getId(), shop.getId())) return false;
-        if (!removeShopFromCoalition(coalition.getId(), shop.getId())) return false;
+        if (!removeShopFromCoalition(oldCoalition.getId(), shop.getId())) return false;
         if (oldCoalition.isEmpty()) deleteCoalition(oldCoalition.getId());
         clearParticipationRequestsFor(shop);
         return true;
@@ -217,7 +202,7 @@ public class CoalitionsController {
      */
     @PostMapping("/refuseParticipationRequest")
     public boolean refuseParticipationRequest(@RequestParam int coalitionId, @RequestParam int shopId) {
-        CoalitionWithLeader coalition = db.getCoalitionsTable().getRecordById(coalitionId);
+        GenericCoalition coalition = db.getCoalitionsTable().getRecordById(coalitionId);
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
         if(coalition == null) return false;
         return coalition.refuseMember(shop);
@@ -231,12 +216,12 @@ public class CoalitionsController {
      * @throws LastMemberLeavingException if the given shop is the only member of the coalition
      */
     @PostMapping("/leftCoalition")
-    public boolean leftCoalition(@RequestParam int shopId) throws LastMemberLeavingException, HasAlreadyACoalitionException {
+    public boolean leftCoalition(@RequestParam int shopId) throws LastMemberLeavingException, HasAlreadyACoalitionException, CoalitionNotEmptyException {
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
         Coalition coalition = getCoalitionOf(shop.getId());
         if (coalition == null) return false;
         if (coalition.hasOneMember()) throw new LastMemberLeavingException("A shop can't leave a coalition with only one member");
-        if (removeShopFromCoalition(coalition.getId(), shop.getId())) return false;
+        if (!removeShopFromCoalition(coalition.getId(), shop.getId())) return false;
         return createCoalition(shop.getId()) != null;
     }
 
@@ -251,7 +236,7 @@ public class CoalitionsController {
      * @throws ShopNotInQueueException if the shop wasn't found in the participation requests queue of the coalition
      */
     private boolean addShopToCoalition(int coalitionId, int shopId) throws ShopNotInQueueException {
-        CoalitionWithLeader coalition = db.getCoalitionsTable().getRecordById(coalitionId);
+        GenericCoalition coalition = db.getCoalitionsTable().getRecordById(coalitionId);
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
         if (coalition == null) return false;
         if (coalition.acceptMember(shop)) {
@@ -275,11 +260,12 @@ public class CoalitionsController {
      * @param shopId the id of the shop to remove
      * @return true if the shop has been removed, false otherwise
      */
-    private boolean removeShopFromCoalition(int coalitionId, int shopId) {
-        CoalitionWithLeader coalition = db.getCoalitionsTable().getRecordById(coalitionId);
+    public boolean removeShopFromCoalition(int coalitionId, int shopId) throws CoalitionNotEmptyException {
+        GenericCoalition coalition = db.getCoalitionsTable().getRecordById(coalitionId);
         GenericShop shop = db.getShopsTable().getRecordById(shopId);
         if (coalition == null) return false;
         if (coalition.removeMember(shop)) {
+            if(coalition.isEmpty()) return deleteCoalition(coalition.getId());
             FidelityProgram fidelityProgram = coalition.getFidelityProgram();
             if(fidelityProgram instanceof GiftsProgram giftsProgram){
                 GiftsProgramsController giftsProgramsController = new GiftsProgramsController(db);
@@ -299,10 +285,10 @@ public class CoalitionsController {
      * @param shop the shop
      * @throws NullPointerException if the given shop is null
      */
-    private void clearParticipationRequestsFor(Shop shop) {
+    private void clearParticipationRequestsFor(GenericShop shop) {
         if (shop == null) throw new NullPointerException("Field shop can't be null");
-        HashSet<CoalitionWithLeader> coalitions = getCoalitions();
-        for (CoalitionWithLeader coalition : coalitions)
+        HashSet<GenericCoalition> coalitions = getCoalitions();
+        for (GenericCoalition coalition : coalitions)
             if (coalition.isWaiting(shop)) coalition.refuseMember(shop);
     }
 

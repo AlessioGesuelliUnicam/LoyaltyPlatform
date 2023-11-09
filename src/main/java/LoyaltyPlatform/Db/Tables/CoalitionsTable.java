@@ -1,8 +1,8 @@
 package LoyaltyPlatform.Db.Tables;
 
-import LoyaltyPlatform.Components.Coalition.CoalitionWithLeader;
+import LoyaltyPlatform.Components.Coalition.GenericCoalition;
 
-public class CoalitionsTable extends GenericTable<CoalitionWithLeader> {
+public class CoalitionsTable extends GenericTable<GenericCoalition> {
 
     public CoalitionsTable(){
         super();

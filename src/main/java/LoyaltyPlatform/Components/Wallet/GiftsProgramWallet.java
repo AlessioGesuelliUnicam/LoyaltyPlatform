@@ -1,6 +1,5 @@
 package LoyaltyPlatform.Components.Wallet;
 
-import LoyaltyPlatform.Components.Coalition.CoalitionWithLeader;
 import LoyaltyPlatform.Components.Reward.Gift;
 import LoyaltyPlatform.Components.User.Client;
 

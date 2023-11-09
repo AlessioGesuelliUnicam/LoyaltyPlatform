@@ -1,6 +1,10 @@
 package LoyaltyPlatform.Components.User;
 
+import LoyaltyPlatform.Components.Shop.GenericShop;
+import LoyaltyPlatform.Components.Shop.ShopsController;
 import LoyaltyPlatform.Db.Db;
+import LoyaltyPlatform.Exceptions.CoalitionNotEmptyException;
+import LoyaltyPlatform.Exceptions.HasAlreadyACoalitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,28 +32,34 @@ OwnersController {
     }
 
     /**
-     * Creates a new owner
+     * Creates a new owner and a related shop
      * @param name the name of the owner
      * @param surname the surname of the owner
      * @param email the email of the owner
-     * @return true if the owner has been created, false otherwise
+     * @param partitaIva the partitaIva of the new shop
+     * @return true if the owner and its shop have been created, false otherwise
      */
     @PostMapping("/createOwner")
-    public boolean createOwner(@RequestParam String name, @RequestParam String surname, @RequestParam String email){
+    public boolean createOwner(@RequestParam String name, @RequestParam String surname, @RequestParam String email, @RequestParam String partitaIva) throws HasAlreadyACoalitionException {
         Owner owner = new Owner(name, surname, email);
-        return db.getOwnersTable().add(owner);
+        if(!db.getOwnersTable().add(owner)) return false;
+        ShopsController shopsController = new ShopsController(db);
+        return shopsController.createShop(partitaIva, owner.getId()) != null;
     }
 
     /**
-     * Deletes an owner
+     * Deletes an owner and its shop
      * @param ownerId the id of the owner to delete
-     * @return true if the owner has been deleted, false otherwise
+     * @return true if the owner and its shop have been deleted, false otherwise
      */
     @DeleteMapping("/deleteOwner")
-    public boolean deleteOwner(@RequestParam int ownerId){
+    public boolean deleteOwner(@RequestParam int ownerId) throws CoalitionNotEmptyException {
         Owner owner = db.getOwnersTable().getRecordById(ownerId);
         if (owner == null) return false;
-        return db.getOwnersTable().delete(owner);
+        if(!db.getOwnersTable().delete(owner)) return false;
+        ShopsController shopsController = new ShopsController(db);
+        GenericShop shop = shopsController.getShopOf(owner.getId());
+        return shopsController.deleteShop(shop.getId());
     }
 
 

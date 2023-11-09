@@ -19,16 +19,14 @@ public class GenericShop implements Shop, ObjectWithId {
     private Owner owner;
     private HashSet<Employee> employees;
 
-    public GenericShop(String partitaIva, String name, Owner owner) {
+    public GenericShop(String partitaIva, Owner owner) {
         if(partitaIva == null) throw new NullPointerException("Field partitaIva can't be null");
         if(partitaIva.isEmpty()) throw new IllegalArgumentException("Field partitaIva can't be blank");
-        if(name == null) throw new NullPointerException("Field name can't be null");
-        if(name.isEmpty()) throw new IllegalArgumentException("Field name can't be blank");
         if(owner == null) throw new NullPointerException("Field owner can't be null");
         this.id = idCounter;
         idCounter++;
         this.partitaIva = partitaIva;
-        this.name = name;
+        this.name = "Negozio di " + owner.getName();
         this.owner = owner;
         this.employees = new HashSet<Employee>();
     }

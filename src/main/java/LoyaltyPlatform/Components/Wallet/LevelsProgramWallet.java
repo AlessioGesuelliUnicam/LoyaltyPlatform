@@ -1,7 +1,6 @@
 package LoyaltyPlatform.Components.Wallet;
 
 
-import LoyaltyPlatform.Components.Coalition.CoalitionWithLeader;
 import LoyaltyPlatform.Components.Level.Level;
 import LoyaltyPlatform.Components.User.Client;
 
