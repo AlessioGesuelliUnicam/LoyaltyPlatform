@@ -6,6 +6,7 @@ import LoyaltyPlatform.Utilities.ObjectWithId;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This class represents a generic coalition with a fidelity program
@@ -135,11 +136,13 @@ public class GenericCoalition implements Coalition, ObjectWithId {
      * Set the fidelity program of the coalition
      *
      * @param fidelityProgram the new fidelity program
-     * @throws NullPointerException if the given fidelityProgram is null
+     * @throws NullPointerException if the given fidelityProgram is null and the coalition more than one member
+     * @return true if the fidelityProgram has been changed, false otherwise
      */
-    public void setFidelityProgram(FidelityProgram fidelityProgram) {
-        if (fidelityProgram == null) throw new NullPointerException("Field fidelityProgram can't be null");
+    public boolean setFidelityProgram(FidelityProgram fidelityProgram) {
+        if (!hasOneMember() && fidelityProgram == null) throw new NullPointerException("Field fidelityProgram can't be null if the coalition has more than one member");
         this.fidelityProgram = fidelityProgram;
+        return true;
     }
 
     /**
@@ -157,6 +160,10 @@ public class GenericCoalition implements Coalition, ObjectWithId {
         if (this == o) return true;
         if (!(o instanceof GenericCoalition coalition)) return false;
         return this.id == coalition.id;
+    }
+
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
 }

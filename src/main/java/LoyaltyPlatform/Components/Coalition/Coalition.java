@@ -86,9 +86,9 @@ public interface Coalition {
      * Set the fidelity program of the coalition
      *
      * @param fidelityProgram the new fidelity program
-     * @throws NullPointerException if the given fidelity program is null
+     * @return true if the fidelityProgram has been changed, false otherwise
      */
-    void setFidelityProgram(FidelityProgram fidelityProgram);
+    boolean setFidelityProgram(FidelityProgram fidelityProgram);
 
     /**
      * Tells if the coalition has a fidelity program
